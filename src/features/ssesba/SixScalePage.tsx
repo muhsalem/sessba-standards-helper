@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { ClipboardCheck, Loader2, Scale, ShieldAlert, Wrench } from "lucide-react";
+import {
+  ClipboardCheck,
+  Download,
+  Loader2,
+  Printer,
+  Scale,
+  ShieldAlert,
+  Wrench,
+} from "lucide-react";
 import { SiteShell } from "@/features/ssesba/SiteShell";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -53,6 +61,7 @@ const l10n = {
     loading: "يجري التدقيق…",
     result: "نتيجة التقييم",
     score: "الدرجة المرجّحة",
+    level: "المستوى",
     axes: "درجات المحاور المقترحة",
     justification: "التبرير الشرعي والمالي",
     plan: "خطة المعالجة والتطهير",
@@ -67,6 +76,10 @@ const l10n = {
     manualNote:
       "يعمل هذا المسار دون الذكاء الاصطناعي: أدخل درجة كل محور وفق الأدلة، وتحسب المنصة الدرجة والمستوى والتطهير.",
     aiFallback: "يمكنك المتابعة بالإدخال اليدوي لدرجات المحاور.",
+    downloadTxt: "تنزيل التقرير (نص)",
+    print: "طباعة / PDF",
+    axesNote: "الأوزان المعتمدة 25/25/20/15/10/5؛ الدرجة النهائية مجموع مرجّح محسوب آليًا.",
+    outOf: "من 100",
   },
   en: {
     eyebrow: "Indicative Shariah audit tool",
@@ -105,6 +118,7 @@ const l10n = {
     loading: "Auditing…",
     result: "Assessment result",
     score: "Weighted score",
+    level: "Level",
     axes: "Proposed axis scores",
     justification: "Shariah and financial justification",
     plan: "Remediation and purification plan",
@@ -120,6 +134,10 @@ const l10n = {
     manualNote:
       "This path works without AI: enter each axis score from the evidence, and the platform computes the score, level, and purification.",
     aiFallback: "You can continue with manual axis entry.",
+    downloadTxt: "Download report (text)",
+    print: "Print / PDF",
+    axesNote: "Approved weights 25/25/20/15/10/5; the final score is a computed weighted sum.",
+    outOf: "out of 100",
   },
 } as const;
 
@@ -196,6 +214,54 @@ export function SixScalePage({ lang }: { lang: Lang }) {
     } finally {
       setBusy(false);
     }
+  };
+
+  const downloadReport = () => {
+    if (!result) return;
+    const lines = [
+      `${t.title} — SSESBA`,
+      `${t.company}: ${companyName}`,
+      `${t.sector}: ${t.sectors[sector]}`,
+      `${t.score}: ${result.score} / 100`,
+      `${t.level}: ${result.level}`,
+      ...(result.ineligible ? [t.ineligible] : []),
+      ...(result.referenceCode ? [`${t.reference}: ${result.referenceCode}`] : []),
+      `${t.version}: ${methodologyVersion}`,
+      ...(result.axisScores
+        ? [
+            "",
+            `${t.axes}:`,
+            ...axes.map(
+              (axis) => `- ${axis[lang]} (${axis.weight}%): ${result.axisScores?.[axis.id] ?? "—"}`,
+            ),
+          ]
+        : []),
+      "",
+      `${t.screens}:`,
+      ...result.screens.map(
+        (item) =>
+          `- ${item.screen[lang]} (≤ ${item.screen.max}%): ${item.ratio === null ? "—" : `${item.ratio}%`}`,
+      ),
+      "",
+      `${t.purification}:`,
+      `- ${t.ratio}: ${result.purification.ratio}%`,
+      `- ${t.purificationAmount}: ${result.purification.purificationAmount.toLocaleString(lang)}`,
+      "",
+      `${t.justification}:`,
+      ...result.justification.map((line) => `- ${line}`),
+      ...(result.plan.length > 0
+        ? ["", `${t.plan}:`, ...result.plan.map((line) => `- ${line}`)]
+        : []),
+      "",
+      t.advisory,
+    ];
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `ssesba-six-scale-${result.referenceCode ?? (companyName.trim().replace(/\s+/g, "-") || "report")}.txt`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   const field =
@@ -432,12 +498,38 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                 <div
                   className={`rounded-lg border-2 p-6 ${levelTone(result.score, result.ineligible)}`}
                 >
-                  <div className="text-xs font-semibold uppercase tracking-wide opacity-80">
-                    {t.result}
-                  </div>
-                  <div className="mt-2 font-display-ar text-3xl font-bold">{result.level}</div>
-                  <div className="mt-1 text-sm">
-                    {t.score}: <b>{result.score} / 100</b>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <div className="text-xs font-semibold uppercase tracking-wide opacity-80">
+                        {t.result}
+                      </div>
+                      <div className="mt-2 font-display-ar text-3xl font-bold">{result.level}</div>
+                      <div className="mt-1 text-sm">
+                        {t.score}: <b>{result.score} / 100</b>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2 print:hidden">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={downloadReport}
+                        className="min-h-11 border-current bg-transparent"
+                      >
+                        <Download className="size-4" />
+                        {t.downloadTxt}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.print()}
+                        className="min-h-11 border-current bg-transparent"
+                      >
+                        <Printer className="size-4" />
+                        {t.print}
+                      </Button>
+                    </div>
                   </div>
                   {result.ineligible && (
                     <div className="mt-2 text-xs opacity-80">{t.ineligible}</div>
@@ -451,19 +543,44 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                 </div>
                 {result.axisScores && (
                   <div className="rounded-lg border border-border bg-card p-5">
-                    <h2 className="mb-3 text-sm font-semibold text-brand-navy">{t.axes}</h2>
-                    <dl className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
-                      {axes.map((axis) => (
-                        <div key={axis.id}>
-                          <dt className="text-muted-foreground">
-                            {axis[lang]} · {axis.weight}%
-                          </dt>
-                          <dd className="font-mono font-bold">
-                            {result.axisScores?.[axis.id] ?? "—"}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
+                    <h2 className="text-sm font-semibold text-brand-navy">{t.axes}</h2>
+                    <p className="mt-1 text-xs text-muted-foreground">{t.axesNote}</p>
+                    <ul className="mt-4 grid gap-3">
+                      {axes.map((axis) => {
+                        const value = result.axisScores?.[axis.id];
+                        const pct =
+                          typeof value === "number" ? Math.max(0, Math.min(100, value)) : 0;
+                        return (
+                          <li key={axis.id}>
+                            <div className="flex items-baseline justify-between gap-2 text-sm">
+                              <span className="font-medium text-brand-navy">
+                                {axis[lang]}{" "}
+                                <span className="text-xs text-muted-foreground">
+                                  ({axis.weight}%)
+                                </span>
+                              </span>
+                              <span className="font-mono font-bold text-brand-navy">
+                                {value ?? "—"}
+                                <span className="text-xs font-normal text-muted-foreground">
+                                  {" "}
+                                  / 100
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              className="mt-1 h-2 overflow-hidden rounded-full bg-muted"
+                              role="img"
+                              aria-label={`${axis[lang]}: ${value ?? "—"} ${t.outOf}`}
+                            >
+                              <div
+                                className={`h-full rounded-full ${pct >= 85 ? "bg-brand-emerald" : pct >= 60 ? "bg-brand-gold" : "bg-destructive"}`}
+                                style={{ width: `${pct}%` }}
+                              />
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                 )}
                 <div className="rounded-lg border border-border bg-card p-5">
