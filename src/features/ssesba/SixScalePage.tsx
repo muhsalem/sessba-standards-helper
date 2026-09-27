@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { ClipboardCheck, Loader2, Scale, ShieldAlert, Wrench } from "lucide-react";
+import { ClipboardCheck, Download, Loader2, Printer, Scale, ShieldAlert, Wrench } from "lucide-react";
 import { SiteShell } from "@/features/ssesba/SiteShell";
 import { Button } from "@/components/ui/button";
 import { axes, complianceLevelForScore, complianceLevels, copy, type Lang } from "@/lib/ssesba-data";
@@ -16,6 +16,7 @@ const l10n = {
     submit: "قيّم الشركة", loading: "يجري التدقيق…",
     result: "نتيجة التقييم", level: "المستوى", score: "الدرجة", justification: "التبرير الشرعي والمالي", plan: "خطة المعالجة والتطهير",
     scale: "الهيكل السداسي الموحد", current: "المستوى الحالي", advisory: "نتيجة استرشادية تتطلب مراجعة هيئة شرعية مؤهلة؛ ليست فتوى ولا اعتمادًا نهائيًا.",
+    downloadTxt: "تنزيل التقرير (نص)", print: "طباعة / PDF", axesTitle: "درجات المحاور الستة", axesNote: "الأوزان المعتمدة 25/25/20/15/10/5؛ الدرجة النهائية مجموع مرجّح محسوب آلياً.", outOf: "من 100",
     levels: ["متوافق كلياً", "متوافق جوهرياً", "متوافق بشروط", "يحتاج معالجة هيكلية", "غير متوافق", "محظور شرعاً"],
   },
   en: {
@@ -27,6 +28,7 @@ const l10n = {
     submit: "Assess the company", loading: "Auditing…",
     result: "Assessment result", level: "Level", score: "Score", justification: "Shariah and financial justification", plan: "Remediation and purification plan",
     scale: "Unified six-level structure", current: "Current level", advisory: "An indicative result requiring review by a qualified Shariah board; neither a fatwa nor a final accreditation.",
+    downloadTxt: "Download report (text)", print: "Print / PDF", axesTitle: "Six axis scores", axesNote: "Approved weights 25/25/20/15/10/5; the final score is a computed weighted sum.", outOf: "out of 100",
     levels: ["Fully compliant", "Substantially compliant", "Compliant with conditions", "Requires structural remediation", "Non-compliant", "Prohibited"],
   },
 } as const;
@@ -64,6 +66,37 @@ export function SixScalePage({ lang }: { lang: Lang }) {
       setResult(out);
     } catch (err) { setError(err instanceof Error ? err.message : String(err)); }
     finally { setBusy(false); }
+  };
+
+  const downloadReport = () => {
+    if (!result) return;
+    const level = complianceLevelForScore(result.score)[lang];
+    const lines = [
+      `${t.title} — SSESBA`,
+      `${t.company}: ${companyName}`,
+      `${t.sector}: ${t.sectors[sector]}`,
+      `${t.score}: ${result.score} / 100`,
+      `${t.level}: ${level}`,
+      "",
+      `${t.axesTitle}:`,
+      ...axes.map((a) => `- ${a[lang]} (${a.weight}%): ${result.scores[a.id] ?? "—"}`),
+      "",
+      `${t.ratio}: ${result.financialExposure.ratio}%`,
+      `${t.attributable}: ${result.financialExposure.attributableAmount.toLocaleString(lang)}`,
+      "",
+      `${t.justification}:`,
+      ...result.justification.map((j) => `- ${j}`),
+      ...(result.plan.length > 0 ? ["", `${t.plan}:`, ...result.plan.map((p) => `- ${p}`)] : []),
+      "",
+      t.advisory,
+    ];
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ssesba-six-scale-${companyName.trim().replace(/\s+/g, "-") || "report"}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const field = "w-full rounded-md border border-border bg-background px-3 py-2 text-sm shadow-sm focus:border-brand-gold focus:outline-none";
@@ -105,16 +138,44 @@ export function SixScalePage({ lang }: { lang: Lang }) {
             {result && (
               <div className="grid gap-4">
                 <div className={`rounded-lg border-2 p-6 ${levelTone(result.score)}`}>
-                  <div className="text-xs font-semibold uppercase tracking-wide opacity-80">{t.result}</div>
-                  <div className="mt-2 font-display-ar text-3xl font-bold">{complianceLevelForScore(result.score)[lang]}</div>
-                  <div className="mt-1 text-sm">{t.score}: <b>{result.score} / 100</b></div>
-                  <div className="mt-2 text-xs opacity-80">{t.current}: {complianceLevelForScore(result.score)[lang]}</div>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <div className="text-xs font-semibold uppercase tracking-wide opacity-80">{t.result}</div>
+                      <div className="mt-2 font-display-ar text-3xl font-bold">{complianceLevelForScore(result.score)[lang]}</div>
+                      <div className="mt-1 text-sm">{t.score}: <b>{result.score} / 100</b></div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button type="button" variant="outline" size="sm" onClick={downloadReport} className="min-h-11 border-current bg-transparent"><Download className="size-4" />{t.downloadTxt}</Button>
+                      <Button type="button" variant="outline" size="sm" onClick={() => window.print()} className="min-h-11 border-current bg-transparent"><Printer className="size-4" />{t.print}</Button>
+                    </div>
+                  </div>
                 </div>
                 <div className="rounded-lg border border-border bg-card p-5">
                   <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold text-brand-navy"><ShieldAlert className="size-4 text-brand-gold" />{t.justification}</h2>
                   <ul className="list-disc space-y-1 ps-5 text-sm leading-7">{result.justification.map((line, i) => <li key={i}>{line}</li>)}</ul>
                 </div>
-                <div className="rounded-lg border border-border bg-card p-5"><h2 className="text-sm font-semibold text-brand-navy">{lang === "ar" ? "درجات المحاور (أوزان 25/25/20/15/10/5)" : "Axis scores (weights 25/25/20/15/10/5)"}</h2><dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">{axes.map((a) => <div key={a.id}><dt className="text-muted-foreground">{a[lang]} · {a.weight}%</dt><dd className="font-mono font-bold">{result.scores[a.id] ?? "—"}</dd></div>)}</dl></div>
+                <div className="rounded-lg border border-border bg-card p-5">
+                  <h2 className="text-sm font-semibold text-brand-navy">{t.axesTitle}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground">{t.axesNote}</p>
+                  <ul className="mt-4 grid gap-3">
+                    {axes.map((a) => {
+                      const raw = result.scores[a.id];
+                      const value: number | null = typeof raw === "number" ? raw : null;
+                      const pct = value === null ? 0 : Math.max(0, Math.min(100, value));
+                      return (
+                        <li key={a.id}>
+                          <div className="flex items-baseline justify-between gap-2 text-sm">
+                            <span className="font-medium text-brand-navy">{a[lang]} <span className="text-xs text-muted-foreground">({a.weight}%)</span></span>
+                            <span className="font-mono font-bold text-brand-navy">{value ?? "—"}<span className="text-xs font-normal text-muted-foreground"> / 100</span></span>
+                          </div>
+                          <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label={`${a[lang]}: ${value ?? "—"} ${t.outOf}`}>
+                            <div className={`h-full rounded-full ${pct >= 85 ? "bg-brand-emerald" : pct >= 60 ? "bg-brand-gold" : "bg-destructive"}`} style={{ width: `${pct}%` }} />
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
                 <div className="rounded-lg border border-border bg-card p-5"><h2 className="text-sm font-semibold text-brand-navy">{t.evidence}</h2><dl className="mt-3 grid grid-cols-2 gap-4 text-sm"><div><dt className="text-muted-foreground">{t.ratio}</dt><dd className="mt-1 font-mono font-bold">{result.financialExposure.ratio}%</dd></div><div><dt className="text-muted-foreground">{t.attributable}</dt><dd className="mt-1 font-mono font-bold">{result.financialExposure.attributableAmount.toLocaleString(lang)}</dd></div></dl><p className="mt-3 text-xs text-muted-foreground">{t.purificationNote}</p></div>
                 {result.plan.length > 0 && (
                   <div className="rounded-lg border border-brand-gold/40 bg-card p-5">
