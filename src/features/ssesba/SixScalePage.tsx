@@ -154,7 +154,27 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                   <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold text-brand-navy"><ShieldAlert className="size-4 text-brand-gold" />{t.justification}</h2>
                   <ul className="list-disc space-y-1 ps-5 text-sm leading-7">{result.justification.map((line, i) => <li key={i}>{line}</li>)}</ul>
                 </div>
-                <div className="rounded-lg border border-border bg-card p-5"><h2 className="text-sm font-semibold text-brand-navy">{lang === "ar" ? "درجات المحاور (أوزان 25/25/20/15/10/5)" : "Axis scores (weights 25/25/20/15/10/5)"}</h2><dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">{axes.map((a) => <div key={a.id}><dt className="text-muted-foreground">{a[lang]} · {a.weight}%</dt><dd className="font-mono font-bold">{result.scores[a.id] ?? "—"}</dd></div>)}</dl></div>
+                <div className="rounded-lg border border-border bg-card p-5">
+                  <h2 className="text-sm font-semibold text-brand-navy">{t.axesTitle}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground">{t.axesNote}</p>
+                  <ul className="mt-4 grid gap-3">
+                    {axes.map((a) => {
+                      const value = typeof result.scores[a.id] === "number" ? result.scores[a.id] : null;
+                      const pct = value === null ? 0 : Math.max(0, Math.min(100, value));
+                      return (
+                        <li key={a.id}>
+                          <div className="flex items-baseline justify-between gap-2 text-sm">
+                            <span className="font-medium text-brand-navy">{a[lang]} <span className="text-xs text-muted-foreground">({a.weight}%)</span></span>
+                            <span className="font-mono font-bold text-brand-navy">{value ?? "—"}<span className="text-xs font-normal text-muted-foreground"> / 100</span></span>
+                          </div>
+                          <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label={`${a[lang]}: ${value ?? "—"} ${t.outOf}`}>
+                            <div className={`h-full rounded-full ${pct >= 85 ? "bg-brand-emerald" : pct >= 60 ? "bg-brand-gold" : "bg-destructive"}`} style={{ width: `${pct}%` }} />
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
                 <div className="rounded-lg border border-border bg-card p-5"><h2 className="text-sm font-semibold text-brand-navy">{t.evidence}</h2><dl className="mt-3 grid grid-cols-2 gap-4 text-sm"><div><dt className="text-muted-foreground">{t.ratio}</dt><dd className="mt-1 font-mono font-bold">{result.financialExposure.ratio}%</dd></div><div><dt className="text-muted-foreground">{t.attributable}</dt><dd className="mt-1 font-mono font-bold">{result.financialExposure.attributableAmount.toLocaleString(lang)}</dd></div></dl><p className="mt-3 text-xs text-muted-foreground">{t.purificationNote}</p></div>
                 {result.plan.length > 0 && (
                   <div className="rounded-lg border border-brand-gold/40 bg-card p-5">
