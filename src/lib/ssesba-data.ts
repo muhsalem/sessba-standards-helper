@@ -55,7 +55,8 @@ export const complianceLevels = [
 
 export function complianceLevelForScore(score: number) {
   const normalized = Math.max(0, Math.min(100, score));
-  return complianceLevels.find((level) => normalized >= level.min && normalized <= level.max) ?? complianceLevels[5];
+  // الحدود الدنيا فقط: الدرجات العشرية (مثل 94.5) تبقى ضمن المستوى الأدنى الأقرب دون أن تسقط إلى «محظور».
+  return complianceLevels.find((level) => normalized >= level.min) ?? complianceLevels[5];
 }
 
 export const verdictMatrix = {
