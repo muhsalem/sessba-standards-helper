@@ -1,19 +1,114 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://ssesba.lovable.app/</loc></url>
-<url><loc>https://ssesba.lovable.app/en</loc></url>
-<url><loc>https://ssesba.lovable.app/request</loc></url>
-<url><loc>https://ssesba.lovable.app/en/request</loc></url>
-<url><loc>https://ssesba.lovable.app/assessment</loc></url>
-<url><loc>https://ssesba.lovable.app/en/assessment</loc></url>
-<url><loc>https://ssesba.lovable.app/six</loc></url>
-<url><loc>https://ssesba.lovable.app/en/six</loc></url>
-<url><loc>https://ssesba.lovable.app/assistant</loc></url>
-<url><loc>https://ssesba.lovable.app/en/assistant</loc></url>
-<url><loc>https://ssesba.lovable.app/explorer</loc></url>
-<url><loc>https://ssesba.lovable.app/privacy</loc></url>
-<url><loc>https://ssesba.lovable.app/en/privacy</loc></url>
-<url><loc>https://ssesba.lovable.app/terms</loc></url>
-<url><loc>https://ssesba.lovable.app/en/terms</loc></url>
-<url><loc>https://ssesba.lovable.app/objection</loc></url>
-<url><loc>https://ssesba.lovable.app/en/objection</loc></url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://ssesba.lovable.app/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/assessment</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/assessment"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/assessment"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/assessment"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/assessment</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/assessment"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/assessment"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/assessment"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/six</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/six"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/six"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/six"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/six</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/six"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/six"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/six"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/assistant</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/assistant"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/assistant"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/assistant"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/assistant</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/assistant"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/assistant"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/assistant"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/request</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/request"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/request"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/request"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/request</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/request"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/request"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/request"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/objection</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/objection"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/objection"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/objection"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/objection</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/objection"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/objection"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/objection"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/privacy"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/privacy"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/terms</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/terms"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/terms"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/standards</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/standards"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/standards"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/standards"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/en/standards</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ssesba.lovable.app/standards"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ssesba.lovable.app/en/standards"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ssesba.lovable.app/standards"/>
+  </url>
+  <url>
+    <loc>https://ssesba.lovable.app/explorer</loc>
+  </url>
 </urlset>

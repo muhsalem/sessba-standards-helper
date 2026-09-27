@@ -149,6 +149,48 @@ export type Database = {
         }
         Relationships: []
       }
+      assessment_result_snapshots: {
+        Row: {
+          created_at: string
+          id: string
+          ineligible: boolean
+          inputs: Json
+          level: string
+          methodology_version: string
+          reference_code: string
+          run_id: string | null
+          score: number
+          source: string
+          verdict: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ineligible?: boolean
+          inputs: Json
+          level: string
+          methodology_version: string
+          reference_code?: string
+          run_id?: string | null
+          score: number
+          source: string
+          verdict?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ineligible?: boolean
+          inputs?: Json
+          level?: string
+          methodology_version?: string
+          reference_code?: string
+          run_id?: string | null
+          score?: number
+          source?: string
+          verdict?: string | null
+        }
+        Relationships: []
+      }
       assessment_objections: {
         Row: {
           created_at: string
@@ -329,6 +371,108 @@ export type Database = {
           setting_key?: string
           updated_at?: string
           value?: string
+        }
+        Relationships: []
+      }
+      classification_standard_revisions: {
+        Row: {
+          action: string
+          actor_user_id: string | null
+          created_at: string
+          id: string
+          note: string | null
+          snapshot: Json
+          standard_id: string
+        }
+        Insert: {
+          action: string
+          actor_user_id?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          snapshot: Json
+          standard_id: string
+        }
+        Update: {
+          action?: string
+          actor_user_id?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          snapshot?: Json
+          standard_id?: string
+        }
+        Relationships: []
+      }
+      classification_standards: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          level: string
+          node_key: string
+          published_at: string | null
+          published_snapshot: Json | null
+          published_version: number | null
+          requirements: Json
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sources: Json
+          status: string
+          summary_ar: string
+          summary_en: string | null
+          title_ar: string
+          title_en: string | null
+          updated_at: string
+          updated_by: string | null
+          version: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          level: string
+          node_key: string
+          published_at?: string | null
+          published_snapshot?: Json | null
+          published_version?: number | null
+          requirements?: Json
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sources?: Json
+          status?: string
+          summary_ar: string
+          summary_en?: string | null
+          title_ar: string
+          title_en?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          level?: string
+          node_key?: string
+          published_at?: string | null
+          published_snapshot?: Json | null
+          published_version?: number | null
+          requirements?: Json
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sources?: Json
+          status?: string
+          summary_ar?: string
+          summary_en?: string | null
+          title_ar?: string
+          title_en?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
         }
         Relationships: []
       }
