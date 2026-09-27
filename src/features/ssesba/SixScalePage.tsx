@@ -138,10 +138,17 @@ export function SixScalePage({ lang }: { lang: Lang }) {
             {result && (
               <div className="grid gap-4">
                 <div className={`rounded-lg border-2 p-6 ${levelTone(result.score)}`}>
-                  <div className="text-xs font-semibold uppercase tracking-wide opacity-80">{t.result}</div>
-                  <div className="mt-2 font-display-ar text-3xl font-bold">{complianceLevelForScore(result.score)[lang]}</div>
-                  <div className="mt-1 text-sm">{t.score}: <b>{result.score} / 100</b></div>
-                  <div className="mt-2 text-xs opacity-80">{t.current}: {complianceLevelForScore(result.score)[lang]}</div>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <div className="text-xs font-semibold uppercase tracking-wide opacity-80">{t.result}</div>
+                      <div className="mt-2 font-display-ar text-3xl font-bold">{complianceLevelForScore(result.score)[lang]}</div>
+                      <div className="mt-1 text-sm">{t.score}: <b>{result.score} / 100</b></div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button type="button" variant="outline" size="sm" onClick={downloadReport} className="min-h-11 border-current bg-transparent"><Download className="size-4" />{t.downloadTxt}</Button>
+                      <Button type="button" variant="outline" size="sm" onClick={() => window.print()} className="min-h-11 border-current bg-transparent"><Printer className="size-4" />{t.print}</Button>
+                    </div>
+                  </div>
                 </div>
                 <div className="rounded-lg border border-border bg-card p-5">
                   <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold text-brand-navy"><ShieldAlert className="size-4 text-brand-gold" />{t.justification}</h2>
