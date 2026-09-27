@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { ClipboardCheck, Loader2, Scale, ShieldAlert, Wrench } from "lucide-react";
+import { ClipboardCheck, Download, Loader2, Printer, Scale, ShieldAlert, Wrench } from "lucide-react";
 import { SiteShell } from "@/features/ssesba/SiteShell";
 import { Button } from "@/components/ui/button";
 import { axes, complianceLevelForScore, complianceLevels, copy, type Lang } from "@/lib/ssesba-data";
@@ -16,6 +16,7 @@ const l10n = {
     submit: "قيّم الشركة", loading: "يجري التدقيق…",
     result: "نتيجة التقييم", level: "المستوى", score: "الدرجة", justification: "التبرير الشرعي والمالي", plan: "خطة المعالجة والتطهير",
     scale: "الهيكل السداسي الموحد", current: "المستوى الحالي", advisory: "نتيجة استرشادية تتطلب مراجعة هيئة شرعية مؤهلة؛ ليست فتوى ولا اعتمادًا نهائيًا.",
+    downloadTxt: "تنزيل التقرير (نص)", print: "طباعة / PDF", axesTitle: "درجات المحاور الستة", axesNote: "الأوزان المعتمدة 25/25/20/15/10/5؛ الدرجة النهائية مجموع مرجّح محسوب آلياً.", outOf: "من 100",
     levels: ["متوافق كلياً", "متوافق جوهرياً", "متوافق بشروط", "يحتاج معالجة هيكلية", "غير متوافق", "محظور شرعاً"],
   },
   en: {
@@ -27,6 +28,7 @@ const l10n = {
     submit: "Assess the company", loading: "Auditing…",
     result: "Assessment result", level: "Level", score: "Score", justification: "Shariah and financial justification", plan: "Remediation and purification plan",
     scale: "Unified six-level structure", current: "Current level", advisory: "An indicative result requiring review by a qualified Shariah board; neither a fatwa nor a final accreditation.",
+    downloadTxt: "Download report (text)", print: "Print / PDF", axesTitle: "Six axis scores", axesNote: "Approved weights 25/25/20/15/10/5; the final score is a computed weighted sum.", outOf: "out of 100",
     levels: ["Fully compliant", "Substantially compliant", "Compliant with conditions", "Requires structural remediation", "Non-compliant", "Prohibited"],
   },
 } as const;
