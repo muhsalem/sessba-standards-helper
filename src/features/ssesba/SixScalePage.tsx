@@ -68,6 +68,37 @@ export function SixScalePage({ lang }: { lang: Lang }) {
     finally { setBusy(false); }
   };
 
+  const downloadReport = () => {
+    if (!result) return;
+    const level = complianceLevelForScore(result.score)[lang];
+    const lines = [
+      `${t.title} — SSESBA`,
+      `${t.company}: ${companyName}`,
+      `${t.sector}: ${t.sectors[sector]}`,
+      `${t.score}: ${result.score} / 100`,
+      `${t.level}: ${level}`,
+      "",
+      `${t.axesTitle}:`,
+      ...axes.map((a) => `- ${a[lang]} (${a.weight}%): ${result.scores[a.id] ?? "—"}`),
+      "",
+      `${t.ratio}: ${result.financialExposure.ratio}%`,
+      `${t.attributable}: ${result.financialExposure.attributableAmount.toLocaleString(lang)}`,
+      "",
+      `${t.justification}:`,
+      ...result.justification.map((j) => `- ${j}`),
+      ...(result.plan.length > 0 ? ["", `${t.plan}:`, ...result.plan.map((p) => `- ${p}`)] : []),
+      "",
+      t.advisory,
+    ];
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ssesba-six-scale-${companyName.trim().replace(/\s+/g, "-") || "report"}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const field = "w-full rounded-md border border-border bg-background px-3 py-2 text-sm shadow-sm focus:border-brand-gold focus:outline-none";
   const label = "mb-1 block text-sm font-semibold text-brand-navy";
 
