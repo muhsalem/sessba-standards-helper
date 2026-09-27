@@ -159,7 +159,8 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                   <p className="mt-1 text-xs text-muted-foreground">{t.axesNote}</p>
                   <ul className="mt-4 grid gap-3">
                     {axes.map((a) => {
-                      const value = typeof result.scores[a.id] === "number" ? result.scores[a.id] : null;
+                      const raw = result.scores[a.id];
+                      const value: number | null = typeof raw === "number" ? raw : null;
                       const pct = value === null ? 0 : Math.max(0, Math.min(100, value));
                       return (
                         <li key={a.id}>
