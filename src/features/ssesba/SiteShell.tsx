@@ -126,7 +126,7 @@ export function SiteShell({
               </SheetTrigger>
               <SheetContent
                 side={en ? "left" : "right"}
-                className="border-brand-gold/30 bg-brand-navy text-primary-foreground"
+                className="border-brand-gold/30 bg-brand-navy text-brand-paper"
               >
                 <SheetHeader>
                   <SheetTitle className="text-start text-brand-gold">
@@ -142,7 +142,7 @@ export function SiteShell({
         </div>
       </header>
       <main id="main-content">
-        <section className="relative overflow-hidden border-b border-brand-gold/20 bg-brand-navy text-primary-foreground">
+        <section className="relative overflow-hidden border-b border-brand-gold/20 bg-brand-navy text-brand-paper">
           <div className="absolute inset-x-0 bottom-0 h-px brand-rule" />
           <div className="mx-auto max-w-7xl px-5 py-12 md:py-16">
             <div className="mb-5 flex items-center gap-3 text-xs font-semibold text-brand-gold-soft">
