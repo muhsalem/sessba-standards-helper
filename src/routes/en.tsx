@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
 
 import { LegacyHtmlPage } from "@/components/LegacyHtmlPage";
 import standardEnglishHtml from "@/content/ssesba/standard.en.body.html?raw";
@@ -26,6 +26,8 @@ export const Route = createFileRoute("/en")({
 });
 
 function EnglishStandardPage() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname !== "/en" && pathname !== "/en/") return <Outlet />;
   return (
     <LegacyHtmlPage
       html={standardEnglishHtml}
