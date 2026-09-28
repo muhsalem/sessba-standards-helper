@@ -54,7 +54,7 @@ export function SiteShell({
             key={to}
             to={to}
             aria-current={active ? "page" : undefined}
-            className={`flex min-h-11 items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold ${active ? "bg-brand-gold text-brand-navy" : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground"}`}
+            className={`flex min-h-11 items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold ${active ? "bg-brand-gold text-brand-navy" : "text-brand-paper/80 hover:bg-brand-paper/10 hover:text-brand-paper"}`}
           >
             <Icon className="size-4" />
             {linkLabel}
@@ -74,7 +74,7 @@ export function SiteShell({
       >
         {en ? "Skip to main content" : "تخطَّ إلى المحتوى الرئيسي"}
       </a>
-      <header className="sticky top-0 z-50 border-b border-brand-gold/30 bg-brand-navy text-primary-foreground shadow-sm">
+      <header className="sticky top-0 z-50 border-b border-brand-gold/30 bg-brand-navy text-brand-paper shadow-sm">
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-5">
           <Link
             to={base}
@@ -102,7 +102,7 @@ export function SiteShell({
               asChild
               variant="outline"
               size="sm"
-              className="min-h-11 border-brand-gold/60 bg-transparent text-primary-foreground hover:bg-brand-gold hover:text-brand-navy"
+              className="min-h-11 border-brand-gold/60 bg-transparent text-brand-paper hover:bg-brand-gold hover:text-brand-navy"
             >
               <Link
                 to={languagePath}
@@ -118,7 +118,7 @@ export function SiteShell({
                 <Button
                   variant="outline"
                   size="icon"
-                  className="min-h-11 min-w-11 border-brand-gold/60 bg-transparent text-primary-foreground hover:bg-brand-gold hover:text-brand-navy lg:hidden"
+                  className="min-h-11 min-w-11 border-brand-gold/60 bg-transparent text-brand-paper hover:bg-brand-gold hover:text-brand-navy lg:hidden"
                   aria-label={en ? "Open menu" : "فتح القائمة"}
                 >
                   <Menu />
@@ -126,7 +126,7 @@ export function SiteShell({
               </SheetTrigger>
               <SheetContent
                 side={en ? "left" : "right"}
-                className="border-brand-gold/30 bg-brand-navy text-primary-foreground"
+                className="border-brand-gold/30 bg-brand-navy text-brand-paper"
               >
                 <SheetHeader>
                   <SheetTitle className="text-start text-brand-gold">
@@ -142,7 +142,7 @@ export function SiteShell({
         </div>
       </header>
       <main id="main-content">
-        <section className="relative overflow-hidden border-b border-brand-gold/20 bg-brand-navy text-primary-foreground">
+        <section className="relative overflow-hidden border-b border-brand-gold/20 bg-brand-navy text-brand-paper">
           <div className="absolute inset-x-0 bottom-0 h-px brand-rule" />
           <div className="mx-auto max-w-7xl px-5 py-12 md:py-16">
             <div className="mb-5 flex items-center gap-3 text-xs font-semibold text-brand-gold-soft">
@@ -156,7 +156,7 @@ export function SiteShell({
         </section>
         {children}
       </main>
-      <footer className="mt-16 border-t border-brand-gold/25 bg-brand-navy text-primary-foreground">
+      <footer className="mt-16 border-t border-brand-gold/25 bg-brand-navy text-brand-paper">
         <div className="mx-auto grid max-w-7xl gap-6 px-5 py-9 md:grid-cols-[1fr_auto] md:items-center">
           <div>
             <div className="flex items-center gap-2 font-display-ar text-lg text-brand-gold-soft">
@@ -165,7 +165,7 @@ export function SiteShell({
                 ? brand[lang].short
                 : `${brand[lang].short} · ${brand[lang].acronym}`}
             </div>
-            <p className="mt-2 max-w-2xl text-xs leading-6 text-primary-foreground/75">
+            <p className="mt-2 max-w-2xl text-xs leading-6 text-brand-paper/75">
               {copy[lang].advisory}
             </p>
             <div className="mt-3 flex flex-wrap gap-4 text-xs text-brand-gold-soft">

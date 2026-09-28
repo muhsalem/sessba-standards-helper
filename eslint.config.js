@@ -6,10 +6,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  // الملفات المولّدة آليًا من Lovable تُستثنى حتى لا يتكرر تنسيقها عند كل توليد.
-  {
-    ignores: ["dist", ".output", ".vinxi", "src/routeTree.gen.ts", "src/integrations/supabase/**"],
-  },
+  { ignores: ["dist", ".output", ".vinxi"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
