@@ -54,7 +54,7 @@ export function SiteShell({
             key={to}
             to={to}
             aria-current={active ? "page" : undefined}
-            className={`flex min-h-11 items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold ${active ? "bg-brand-gold text-brand-navy" : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground"}`}
+            className={`flex min-h-11 items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold ${active ? "bg-brand-gold text-brand-navy" : "text-brand-paper/80 hover:bg-brand-paper/10 hover:text-brand-paper"}`}
           >
             <Icon className="size-4" />
             {linkLabel}
@@ -102,7 +102,7 @@ export function SiteShell({
               asChild
               variant="outline"
               size="sm"
-              className="min-h-11 border-brand-gold/60 bg-transparent text-primary-foreground hover:bg-brand-gold hover:text-brand-navy"
+              className="min-h-11 border-brand-gold/60 bg-transparent text-brand-paper hover:bg-brand-gold hover:text-brand-navy"
             >
               <Link
                 to={languagePath}
@@ -118,7 +118,7 @@ export function SiteShell({
                 <Button
                   variant="outline"
                   size="icon"
-                  className="min-h-11 min-w-11 border-brand-gold/60 bg-transparent text-primary-foreground hover:bg-brand-gold hover:text-brand-navy lg:hidden"
+                  className="min-h-11 min-w-11 border-brand-gold/60 bg-transparent text-brand-paper hover:bg-brand-gold hover:text-brand-navy lg:hidden"
                   aria-label={en ? "Open menu" : "فتح القائمة"}
                 >
                   <Menu />
@@ -165,7 +165,7 @@ export function SiteShell({
                 ? brand[lang].short
                 : `${brand[lang].short} · ${brand[lang].acronym}`}
             </div>
-            <p className="mt-2 max-w-2xl text-xs leading-6 text-primary-foreground/75">
+            <p className="mt-2 max-w-2xl text-xs leading-6 text-brand-paper/75">
               {copy[lang].advisory}
             </p>
             <div className="mt-3 flex flex-wrap gap-4 text-xs text-brand-gold-soft">
