@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { LegacyHtmlPage } from "@/components/LegacyHtmlPage";
+import { SiteShell } from "@/features/ssesba/SiteShell";
 import explorerHtml from "@/content/ssesba/explorer.body.html?raw";
 import explorerScript from "@/content/ssesba/explorer.js?raw";
 import "@/content/ssesba/explorer.css";
@@ -26,5 +27,9 @@ export const Route = createFileRoute("/explorer")({
 });
 
 function ExplorerPage() {
-  return <LegacyHtmlPage html={explorerHtml} script={explorerScript} className="explorer-page" lang="ar" dir="rtl" />;
+  return (
+    <SiteShell lang="ar" eyebrow="مستكشف التصنيف · SSESBA" title="مستكشف التصنيف الاقتصادي">
+      <LegacyHtmlPage html={explorerHtml} script={explorerScript} className="explorer-page" lang="ar" dir="rtl" />
+    </SiteShell>
+  );
 }
