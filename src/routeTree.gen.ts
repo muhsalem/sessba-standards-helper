@@ -20,6 +20,7 @@ import { Route as RequestRouteImport } from './routes/request'
 import { Route as SixRouteImport } from './routes/six'
 import { Route as StandardsRouteImport } from './routes/standards'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as WaqfRouteImport } from './routes/waqf'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
 import { Route as EnAssistantRouteImport } from './routes/en.assistant'
 import { Route as EnObjectionRouteImport } from './routes/en.objection'
@@ -28,6 +29,7 @@ import { Route as EnRequestRouteImport } from './routes/en.request'
 import { Route as EnSixRouteImport } from './routes/en.six'
 import { Route as EnStandardsRouteImport } from './routes/en.standards'
 import { Route as EnTermsRouteImport } from './routes/en.terms'
+import { Route as EnWaqfRouteImport } from './routes/en.waqf'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -84,6 +86,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WaqfRoute = WaqfRouteImport.update({
+  id: '/waqf',
+  path: '/waqf',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnAssessmentRoute = EnAssessmentRouteImport.update({
   id: '/assessment',
   path: '/assessment',
@@ -124,6 +131,11 @@ const EnTermsRoute = EnTermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => EnRoute,
 } as any)
+const EnWaqfRoute = EnWaqfRouteImport.update({
+  id: '/waqf',
+  path: '/waqf',
+  getParentRoute: () => EnRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -137,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/six': typeof SixRoute
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
+  '/waqf': typeof WaqfRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
   '/en/objection': typeof EnObjectionRoute
@@ -145,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/en/six': typeof EnSixRoute
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
+  '/en/waqf': typeof EnWaqfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -158,6 +172,7 @@ export interface FileRoutesByTo {
   '/six': typeof SixRoute
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
+  '/waqf': typeof WaqfRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
   '/en/objection': typeof EnObjectionRoute
@@ -166,6 +181,7 @@ export interface FileRoutesByTo {
   '/en/six': typeof EnSixRoute
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
+  '/en/waqf': typeof EnWaqfRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -180,6 +196,7 @@ export interface FileRoutesById {
   '/six': typeof SixRoute
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
+  '/waqf': typeof WaqfRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
   '/en/objection': typeof EnObjectionRoute
@@ -188,6 +205,7 @@ export interface FileRoutesById {
   '/en/six': typeof EnSixRoute
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
+  '/en/waqf': typeof EnWaqfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -203,6 +221,7 @@ export interface FileRouteTypes {
     | '/six'
     | '/standards'
     | '/terms'
+    | '/waqf'
     | '/en/assessment'
     | '/en/assistant'
     | '/en/objection'
@@ -211,6 +230,7 @@ export interface FileRouteTypes {
     | '/en/six'
     | '/en/standards'
     | '/en/terms'
+    | '/en/waqf'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -224,6 +244,7 @@ export interface FileRouteTypes {
     | '/six'
     | '/standards'
     | '/terms'
+    | '/waqf'
     | '/en/assessment'
     | '/en/assistant'
     | '/en/objection'
@@ -232,6 +253,7 @@ export interface FileRouteTypes {
     | '/en/six'
     | '/en/standards'
     | '/en/terms'
+    | '/en/waqf'
   id:
     | '__root__'
     | '/'
@@ -245,6 +267,7 @@ export interface FileRouteTypes {
     | '/six'
     | '/standards'
     | '/terms'
+    | '/waqf'
     | '/en/assessment'
     | '/en/assistant'
     | '/en/objection'
@@ -253,6 +276,7 @@ export interface FileRouteTypes {
     | '/en/six'
     | '/en/standards'
     | '/en/terms'
+    | '/en/waqf'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -267,6 +291,7 @@ export interface RootRouteChildren {
   SixRoute: typeof SixRoute
   StandardsRoute: typeof StandardsRoute
   TermsRoute: typeof TermsRoute
+  WaqfRoute: typeof WaqfRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -348,6 +373,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/waqf': {
+      id: '/waqf'
+      path: '/waqf'
+      fullPath: '/waqf'
+      preLoaderRoute: typeof WaqfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/assessment': {
       id: '/en/assessment'
       path: '/assessment'
@@ -404,6 +436,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnTermsRouteImport
       parentRoute: typeof EnRoute
     }
+    '/en/waqf': {
+      id: '/en/waqf'
+      path: '/waqf'
+      fullPath: '/en/waqf'
+      preLoaderRoute: typeof EnWaqfRouteImport
+      parentRoute: typeof EnRoute
+    }
   }
 }
 
@@ -416,6 +455,7 @@ interface EnRouteChildren {
   EnSixRoute: typeof EnSixRoute
   EnStandardsRoute: typeof EnStandardsRoute
   EnTermsRoute: typeof EnTermsRoute
+  EnWaqfRoute: typeof EnWaqfRoute
 }
 
 const EnRouteChildren: EnRouteChildren = {
@@ -427,6 +467,7 @@ const EnRouteChildren: EnRouteChildren = {
   EnSixRoute: EnSixRoute,
   EnStandardsRoute: EnStandardsRoute,
   EnTermsRoute: EnTermsRoute,
+  EnWaqfRoute: EnWaqfRoute,
 }
 
 const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
@@ -443,6 +484,7 @@ const rootRouteChildren: RootRouteChildren = {
   SixRoute: SixRoute,
   StandardsRoute: StandardsRoute,
   TermsRoute: TermsRoute,
+  WaqfRoute: WaqfRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
