@@ -41,6 +41,7 @@ export function WaqfPage({ lang }: { lang: Lang }) {
     if (!specialty || !area) { setError(en ? "Choose your specialty and contribution area." : "اختر التخصص ومجال المشاركة."); return; }
     setBusy(true); setError("");
     const form = new FormData(event.currentTarget);
+    if (form.get("consent") !== "on") { setError(en ? "Please agree to the privacy policy." : "يرجى الموافقة على سياسة الخصوصية."); setBusy(false); return; }
     try {
       await submit({ data: {
         fullName: String(form.get("fullName")), email: String(form.get("email")),
@@ -49,7 +50,7 @@ export function WaqfPage({ lang }: { lang: Lang }) {
         experience: String(form.get("experience")),
         contributionArea: area as typeof areas[number]["value"],
         proposal: String(form.get("proposal")), preferredLanguage: lang,
-        consent: form.get("consent") === "on" as true,
+        consent: true,
       } });
       setDone(true);
     } catch (err) {
