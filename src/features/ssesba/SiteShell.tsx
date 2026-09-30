@@ -12,6 +12,7 @@ import {
   Search,
   Send,
   ShieldCheck,
+  HandHeart,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -44,6 +45,7 @@ export function SiteShell({
     { to: en ? "/en/six" : "/six", label: t.six, icon: Scale },
     { to: en ? "/en/standards" : "/standards", label: t.sectorStandards, icon: Layers },
     { to: "/explorer", label: t.explorer, icon: Search },
+    { to: en ? "/en/waqf" : "/waqf", label: t.waqf, icon: HandHeart },
   ];
   const renderNav = (label: string) => (
     <nav aria-label={label} className="grid gap-1 lg:flex lg:items-center lg:gap-1">
@@ -168,7 +170,11 @@ export function SiteShell({
             <p className="mt-2 max-w-2xl text-xs leading-6 text-brand-paper/75">
               {copy[lang].advisory}
             </p>
+            <p className="mt-2 max-w-2xl text-xs leading-6 text-brand-paper/75">
+              {en ? "A knowledge endowment for the Muslim ummah; no registered legal waqf deed is claimed." : "وقف معرفي لخدمة الأمة الإسلامية؛ لا يُدّعى به إنشاء صك وقف قانوني مسجل."}
+            </p>
             <div className="mt-3 flex flex-wrap gap-4 text-xs text-brand-gold-soft">
+              <Link to={en ? "/en/waqf" : "/waqf"}>{t.waqf}</Link>
               <Link to={en ? "/en/privacy" : "/privacy"}>{en ? "Privacy" : "الخصوصية"}</Link>
               <Link to={en ? "/en/terms" : "/terms"}>{en ? "Terms" : "الشروط"}</Link>
               <Link to={en ? "/en/objection" : "/objection"}>

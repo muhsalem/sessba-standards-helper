@@ -550,6 +550,54 @@ export type Database = {
         }
         Relationships: []
       }
+      waqf_expert_contributions: {
+        Row: {
+          consent_version: string
+          consented_at: string
+          contribution_area: string
+          created_at: string
+          email: string
+          experience: string
+          full_name: string
+          id: string
+          organization: string
+          preferred_language: string
+          proposal: string
+          specialty: string
+          status: string
+        }
+        Insert: {
+          consent_version?: string
+          consented_at?: string
+          contribution_area: string
+          created_at?: string
+          email: string
+          experience: string
+          full_name: string
+          id?: string
+          organization: string
+          preferred_language?: string
+          proposal: string
+          specialty: string
+          status?: string
+        }
+        Update: {
+          consent_version?: string
+          consented_at?: string
+          contribution_area?: string
+          created_at?: string
+          email?: string
+          experience?: string
+          full_name?: string
+          id?: string
+          organization?: string
+          preferred_language?: string
+          proposal?: string
+          specialty?: string
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

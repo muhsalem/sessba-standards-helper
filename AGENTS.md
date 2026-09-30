@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Store public expert participation proposals in `waqf_expert_contributions` through a rate-limited server function; only verified administrators may read or update them, because contributor identities and proposals are private.

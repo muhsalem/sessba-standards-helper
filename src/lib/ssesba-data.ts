@@ -108,11 +108,11 @@ export function calculateFinancialExposure(totalRevenue: number, nonCompliantRev
 
 export const copy = {
   ar: {
-    brand: "معايير التصنيف الشرعي", standard: "المعيار", request: "طلب تقييم", assessment: "التقييم", admin: "الإدارة", explorer: "مستكشف التصنيف", assistant: "المساعد الشرعي", six: "المقياس السداسي", sectorStandards: "معايير القطاعات",
+    brand: "معايير التصنيف الشرعي", standard: "المعيار", request: "طلب تقييم", assessment: "التقييم", admin: "الإدارة", explorer: "مستكشف التصنيف", assistant: "المساعد الشرعي", six: "المقياس السداسي", sectorStandards: "معايير القطاعات", waqf: "الوقف والخبراء",
     back: "العودة إلى المعيار", language: "English", advisory: "نتيجة استرشادية تحتاج اعتماد مراجع شرعي مختص، وليست فتوى ولا اعتمادًا نهائيًا.",
   },
   en: {
-    brand: "SSESBA", standard: "Standard", request: "Request assessment", assessment: "Assessment", admin: "Admin", explorer: "Classification explorer", assistant: "Standards assistant", six: "Six-level scale", sectorStandards: "Sector standards",
+    brand: "SSESBA", standard: "Standard", request: "Request assessment", assessment: "Assessment", admin: "Admin", explorer: "Classification explorer", assistant: "Standards assistant", six: "Six-level scale", sectorStandards: "Sector standards", waqf: "Waqf & experts",
     back: "Back to the standard", language: "العربية", advisory: "An indicative result requiring approval by a qualified Shariah reviewer; it is neither a fatwa nor a final accreditation.",
   },
 } as const;
