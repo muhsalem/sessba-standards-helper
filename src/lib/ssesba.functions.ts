@@ -231,3 +231,31 @@ export const submitAssessmentObjection = createServerFn({ method: "POST" }).inpu
   const { error } = await supabaseAdmin.from("assessment_objections").insert({ reference_code: data.referenceCode, requester_name: data.requesterName, email: data.email, reason: data.reason, preferred_language: data.preferredLanguage });
   if (error) throw new Error(error.message); return { ok: true };
 });
+
+const expertContributionSchema = z.object({
+  fullName: z.string().trim().min(2).max(120),
+  email: z.string().trim().email().max(255),
+  organization: z.string().trim().min(2).max(160),
+  specialty: z.enum(["shariah", "fiqh", "industry", "business", "finance", "other"]),
+  experience: z.string().trim().min(10).max(1000),
+  contributionArea: z.enum(["drafting", "review", "sector", "research", "translation"]),
+  proposal: z.string().trim().min(20).max(3000),
+  preferredLanguage: z.enum(["ar", "en"]),
+  consent: z.literal(true),
+});
+
+export const submitExpertContribution = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => expertContributionSchema.parse(input))
+  .handler(async ({ data }) => {
+    await assertWithinLimit("expert_ip", await hashIdentifier(clientIdentifier()), 5, 3600);
+    await assertWithinLimit("expert_email", await hashIdentifier(data.email), 3, 3600);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("waqf_expert_contributions").insert({
+      full_name: data.fullName, email: data.email, organization: data.organization,
+      specialty: data.specialty, experience: data.experience, contribution_area: data.contributionArea,
+      proposal: data.proposal, preferred_language: data.preferredLanguage,
+      consent_version: "privacy-2026-09-23", consented_at: new Date().toISOString(),
+    });
+    if (error) throw new Error("Could not save the contribution. Please try again.");
+    return { ok: true };
+  });
