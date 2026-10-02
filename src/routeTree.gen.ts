@@ -16,6 +16,7 @@ import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as ExplorerRouteImport } from './routes/explorer'
+import { Route as MapRouteImport } from './routes/map'
 import { Route as ObjectionRouteImport } from './routes/objection'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RequestRouteImport } from './routes/request'
@@ -26,6 +27,7 @@ import { Route as WaqfRouteImport } from './routes/waqf'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
 import { Route as EnAssistantRouteImport } from './routes/en.assistant'
+import { Route as EnMapRouteImport } from './routes/en.map'
 import { Route as EnObjectionRouteImport } from './routes/en.objection'
 import { Route as EnPrivacyRouteImport } from './routes/en.privacy'
 import { Route as EnRequestRouteImport } from './routes/en.request'
@@ -66,6 +68,11 @@ const EnRoute = EnRouteImport.update({
 const ExplorerRoute = ExplorerRouteImport.update({
   id: '/explorer',
   path: '/explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObjectionRoute = ObjectionRouteImport.update({
@@ -118,6 +125,11 @@ const EnAssistantRoute = EnAssistantRouteImport.update({
   path: '/assistant',
   getParentRoute: () => EnRoute,
 } as any)
+const EnMapRoute = EnMapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => EnRoute,
+} as any)
 const EnObjectionRoute = EnObjectionRouteImport.update({
   id: '/objection',
   path: '/objection',
@@ -161,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
+  '/map': typeof MapRoute
   '/objection': typeof ObjectionRoute
   '/privacy': typeof PrivacyRoute
   '/request': typeof RequestRoute
@@ -171,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/request': typeof EnRequestRoute
@@ -186,6 +200,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
+  '/map': typeof MapRoute
   '/objection': typeof ObjectionRoute
   '/privacy': typeof PrivacyRoute
   '/request': typeof RequestRoute
@@ -196,6 +211,7 @@ export interface FileRoutesByTo {
   '/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/request': typeof EnRequestRoute
@@ -213,6 +229,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
+  '/map': typeof MapRoute
   '/objection': typeof ObjectionRoute
   '/privacy': typeof PrivacyRoute
   '/request': typeof RequestRoute
@@ -223,6 +240,7 @@ export interface FileRoutesById {
   '/_authenticated/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/request': typeof EnRequestRoute
@@ -240,6 +258,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/en'
     | '/explorer'
+    | '/map'
     | '/objection'
     | '/privacy'
     | '/request'
@@ -250,6 +269,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/map'
     | '/en/objection'
     | '/en/privacy'
     | '/en/request'
@@ -265,6 +285,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/en'
     | '/explorer'
+    | '/map'
     | '/objection'
     | '/privacy'
     | '/request'
@@ -275,6 +296,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/map'
     | '/en/objection'
     | '/en/privacy'
     | '/en/request'
@@ -291,6 +313,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/en'
     | '/explorer'
+    | '/map'
     | '/objection'
     | '/privacy'
     | '/request'
@@ -301,6 +324,7 @@ export interface FileRouteTypes {
     | '/_authenticated/review'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/map'
     | '/en/objection'
     | '/en/privacy'
     | '/en/request'
@@ -318,6 +342,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   EnRoute: typeof EnRouteWithChildren
   ExplorerRoute: typeof ExplorerRoute
+  MapRoute: typeof MapRoute
   ObjectionRoute: typeof ObjectionRoute
   PrivacyRoute: typeof PrivacyRoute
   RequestRoute: typeof RequestRoute
@@ -376,6 +401,13 @@ declare module '@tanstack/react-router' {
       path: '/explorer'
       fullPath: '/explorer'
       preLoaderRoute: typeof ExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/objection': {
@@ -448,6 +480,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnAssistantRouteImport
       parentRoute: typeof EnRoute
     }
+    '/en/map': {
+      id: '/en/map'
+      path: '/map'
+      fullPath: '/en/map'
+      preLoaderRoute: typeof EnMapRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/en/objection': {
       id: '/en/objection'
       path: '/objection'
@@ -514,6 +553,7 @@ const AuthenticatedRouteRouteWithChildren =
 interface EnRouteChildren {
   EnAssessmentRoute: typeof EnAssessmentRoute
   EnAssistantRoute: typeof EnAssistantRoute
+  EnMapRoute: typeof EnMapRoute
   EnObjectionRoute: typeof EnObjectionRoute
   EnPrivacyRoute: typeof EnPrivacyRoute
   EnRequestRoute: typeof EnRequestRoute
@@ -526,6 +566,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAssessmentRoute: EnAssessmentRoute,
   EnAssistantRoute: EnAssistantRoute,
+  EnMapRoute: EnMapRoute,
   EnObjectionRoute: EnObjectionRoute,
   EnPrivacyRoute: EnPrivacyRoute,
   EnRequestRoute: EnRequestRoute,
@@ -545,6 +586,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   EnRoute: EnRouteWithChildren,
   ExplorerRoute: ExplorerRoute,
+  MapRoute: MapRoute,
   ObjectionRoute: ObjectionRoute,
   PrivacyRoute: PrivacyRoute,
   RequestRoute: RequestRoute,
