@@ -10,10 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as AssistantRouteImport } from './routes/assistant'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as ExplorerRouteImport } from './routes/explorer'
+import { Route as MapRouteImport } from './routes/map'
 import { Route as ObjectionRouteImport } from './routes/objection'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RequestRouteImport } from './routes/request'
@@ -21,8 +24,10 @@ import { Route as SixRouteImport } from './routes/six'
 import { Route as StandardsRouteImport } from './routes/standards'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WaqfRouteImport } from './routes/waqf'
+import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
 import { Route as EnAssistantRouteImport } from './routes/en.assistant'
+import { Route as EnMapRouteImport } from './routes/en.map'
 import { Route as EnObjectionRouteImport } from './routes/en.objection'
 import { Route as EnPrivacyRouteImport } from './routes/en.privacy'
 import { Route as EnRequestRouteImport } from './routes/en.request'
@@ -36,6 +41,10 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssessmentRoute = AssessmentRouteImport.update({
   id: '/assessment',
   path: '/assessment',
@@ -46,6 +55,11 @@ const AssistantRoute = AssistantRouteImport.update({
   path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnRoute = EnRouteImport.update({
   id: '/en',
   path: '/en',
@@ -54,6 +68,11 @@ const EnRoute = EnRouteImport.update({
 const ExplorerRoute = ExplorerRouteImport.update({
   id: '/explorer',
   path: '/explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObjectionRoute = ObjectionRouteImport.update({
@@ -91,6 +110,11 @@ const WaqfRoute = WaqfRouteImport.update({
   path: '/waqf',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const EnAssessmentRoute = EnAssessmentRouteImport.update({
   id: '/assessment',
   path: '/assessment',
@@ -99,6 +123,11 @@ const EnAssessmentRoute = EnAssessmentRouteImport.update({
 const EnAssistantRoute = EnAssistantRouteImport.update({
   id: '/assistant',
   path: '/assistant',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnMapRoute = EnMapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => EnRoute,
 } as any)
 const EnObjectionRoute = EnObjectionRouteImport.update({
@@ -141,8 +170,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
+  '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
+  '/map': typeof MapRoute
   '/objection': typeof ObjectionRoute
   '/privacy': typeof PrivacyRoute
   '/request': typeof RequestRoute
@@ -150,8 +181,10 @@ export interface FileRoutesByFullPath {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/request': typeof EnRequestRoute
@@ -164,8 +197,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
+  '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
+  '/map': typeof MapRoute
   '/objection': typeof ObjectionRoute
   '/privacy': typeof PrivacyRoute
   '/request': typeof RequestRoute
@@ -173,8 +208,10 @@ export interface FileRoutesByTo {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/request': typeof EnRequestRoute
@@ -186,10 +223,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
+  '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
+  '/map': typeof MapRoute
   '/objection': typeof ObjectionRoute
   '/privacy': typeof PrivacyRoute
   '/request': typeof RequestRoute
@@ -197,8 +237,10 @@ export interface FileRoutesById {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/_authenticated/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/request': typeof EnRequestRoute
@@ -213,8 +255,10 @@ export interface FileRouteTypes {
     | '/'
     | '/assessment'
     | '/assistant'
+    | '/auth'
     | '/en'
     | '/explorer'
+    | '/map'
     | '/objection'
     | '/privacy'
     | '/request'
@@ -222,8 +266,10 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/review'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/map'
     | '/en/objection'
     | '/en/privacy'
     | '/en/request'
@@ -236,8 +282,10 @@ export interface FileRouteTypes {
     | '/'
     | '/assessment'
     | '/assistant'
+    | '/auth'
     | '/en'
     | '/explorer'
+    | '/map'
     | '/objection'
     | '/privacy'
     | '/request'
@@ -245,8 +293,10 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/review'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/map'
     | '/en/objection'
     | '/en/privacy'
     | '/en/request'
@@ -257,10 +307,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/assessment'
     | '/assistant'
+    | '/auth'
     | '/en'
     | '/explorer'
+    | '/map'
     | '/objection'
     | '/privacy'
     | '/request'
@@ -268,8 +321,10 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/_authenticated/review'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/map'
     | '/en/objection'
     | '/en/privacy'
     | '/en/request'
@@ -281,10 +336,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AssessmentRoute: typeof AssessmentRoute
   AssistantRoute: typeof AssistantRoute
+  AuthRoute: typeof AuthRoute
   EnRoute: typeof EnRouteWithChildren
   ExplorerRoute: typeof ExplorerRoute
+  MapRoute: typeof MapRoute
   ObjectionRoute: typeof ObjectionRoute
   PrivacyRoute: typeof PrivacyRoute
   RequestRoute: typeof RequestRoute
@@ -303,6 +361,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assessment': {
       id: '/assessment'
       path: '/assessment'
@@ -317,6 +382,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en': {
       id: '/en'
       path: '/en'
@@ -329,6 +401,13 @@ declare module '@tanstack/react-router' {
       path: '/explorer'
       fullPath: '/explorer'
       preLoaderRoute: typeof ExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/objection': {
@@ -380,6 +459,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WaqfRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/review': {
+      id: '/_authenticated/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof AuthenticatedReviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/en/assessment': {
       id: '/en/assessment'
       path: '/assessment'
@@ -392,6 +478,13 @@ declare module '@tanstack/react-router' {
       path: '/assistant'
       fullPath: '/en/assistant'
       preLoaderRoute: typeof EnAssistantRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/map': {
+      id: '/en/map'
+      path: '/map'
+      fullPath: '/en/map'
+      preLoaderRoute: typeof EnMapRouteImport
       parentRoute: typeof EnRoute
     }
     '/en/objection': {
@@ -446,9 +539,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedReviewRoute: AuthenticatedReviewRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 interface EnRouteChildren {
   EnAssessmentRoute: typeof EnAssessmentRoute
   EnAssistantRoute: typeof EnAssistantRoute
+  EnMapRoute: typeof EnMapRoute
   EnObjectionRoute: typeof EnObjectionRoute
   EnPrivacyRoute: typeof EnPrivacyRoute
   EnRequestRoute: typeof EnRequestRoute
@@ -461,6 +566,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAssessmentRoute: EnAssessmentRoute,
   EnAssistantRoute: EnAssistantRoute,
+  EnMapRoute: EnMapRoute,
   EnObjectionRoute: EnObjectionRoute,
   EnPrivacyRoute: EnPrivacyRoute,
   EnRequestRoute: EnRequestRoute,
@@ -474,10 +580,13 @@ const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AssessmentRoute: AssessmentRoute,
   AssistantRoute: AssistantRoute,
+  AuthRoute: AuthRoute,
   EnRoute: EnRouteWithChildren,
   ExplorerRoute: ExplorerRoute,
+  MapRoute: MapRoute,
   ObjectionRoute: ObjectionRoute,
   PrivacyRoute: PrivacyRoute,
   RequestRoute: RequestRoute,

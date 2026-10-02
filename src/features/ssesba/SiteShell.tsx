@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { AccountLink } from "./AccountLink";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { brand, copy, type Lang } from "@/lib/ssesba-data";
 
@@ -45,6 +46,7 @@ export function SiteShell({
     { to: en ? "/en/six" : "/six", label: t.six, icon: Scale },
     { to: en ? "/en/standards" : "/standards", label: t.sectorStandards, icon: Layers },
     { to: "/explorer", label: t.explorer, icon: Search },
+    { to: en ? "/en/map" : "/map", label: en ? "Evolution map" : "خريطة التطور", icon: Layers },
     { to: en ? "/en/waqf" : "/waqf", label: t.waqf, icon: HandHeart },
   ];
   const renderNav = (label: string) => (
@@ -100,6 +102,7 @@ export function SiteShell({
             {renderNav(en ? "Primary navigation" : "التنقل الرئيسي")}
           </div>
           <div className="flex items-center gap-2">
+            <AccountLink en={en} />
             <Button
               asChild
               variant="outline"
