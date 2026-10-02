@@ -46,6 +46,7 @@ export function SiteShell({
     { to: en ? "/en/six" : "/six", label: t.six, icon: Scale },
     { to: en ? "/en/standards" : "/standards", label: t.sectorStandards, icon: Layers },
     { to: "/explorer", label: t.explorer, icon: Search },
+    { to: en ? "/en/map" : "/map", label: en ? "Evolution map" : "خريطة التطور", icon: Layers },
     { to: en ? "/en/waqf" : "/waqf", label: t.waqf, icon: HandHeart },
   ];
   const renderNav = (label: string) => (
