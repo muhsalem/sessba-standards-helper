@@ -563,8 +563,12 @@ export type Database = {
           organization: string
           preferred_language: string
           proposal: string
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           specialty: string
           status: string
+          updated_at: string
         }
         Insert: {
           consent_version?: string
@@ -578,8 +582,12 @@ export type Database = {
           organization: string
           preferred_language?: string
           proposal: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           specialty: string
           status?: string
+          updated_at?: string
         }
         Update: {
           consent_version?: string
@@ -593,8 +601,12 @@ export type Database = {
           organization?: string
           preferred_language?: string
           proposal?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           specialty?: string
           status?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -610,6 +622,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      my_roles: { Args: never; Returns: string[] }
       register_submission_attempt: {
         Args: {
           _identifier: string
@@ -621,7 +634,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "reviewer" | "user"
+      app_role: "admin" | "reviewer" | "user" | "expert"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -749,7 +762,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "reviewer", "user"],
+      app_role: ["admin", "reviewer", "user", "expert"],
     },
   },
 } as const
