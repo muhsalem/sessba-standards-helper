@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as AssistantRouteImport } from './routes/assistant'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as ObjectionRouteImport } from './routes/objection'
@@ -21,6 +23,7 @@ import { Route as SixRouteImport } from './routes/six'
 import { Route as StandardsRouteImport } from './routes/standards'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WaqfRouteImport } from './routes/waqf'
+import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
 import { Route as EnAssistantRouteImport } from './routes/en.assistant'
 import { Route as EnObjectionRouteImport } from './routes/en.objection'
@@ -36,6 +39,10 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssessmentRoute = AssessmentRouteImport.update({
   id: '/assessment',
   path: '/assessment',
@@ -44,6 +51,11 @@ const AssessmentRoute = AssessmentRouteImport.update({
 const AssistantRoute = AssistantRouteImport.update({
   id: '/assistant',
   path: '/assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnRoute = EnRouteImport.update({
@@ -90,6 +102,11 @@ const WaqfRoute = WaqfRouteImport.update({
   id: '/waqf',
   path: '/waqf',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const EnAssessmentRoute = EnAssessmentRouteImport.update({
   id: '/assessment',
@@ -141,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
+  '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
   '/objection': typeof ObjectionRoute
@@ -150,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
   '/en/objection': typeof EnObjectionRoute
@@ -164,6 +183,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
+  '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
   '/objection': typeof ObjectionRoute
@@ -173,6 +193,7 @@ export interface FileRoutesByTo {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
   '/en/objection': typeof EnObjectionRoute
@@ -186,8 +207,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
+  '/auth': typeof AuthRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
   '/objection': typeof ObjectionRoute
@@ -197,6 +220,7 @@ export interface FileRoutesById {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/_authenticated/review': typeof AuthenticatedReviewRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
   '/en/objection': typeof EnObjectionRoute
@@ -213,6 +237,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assessment'
     | '/assistant'
+    | '/auth'
     | '/en'
     | '/explorer'
     | '/objection'
@@ -222,6 +247,7 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/review'
     | '/en/assessment'
     | '/en/assistant'
     | '/en/objection'
@@ -236,6 +262,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assessment'
     | '/assistant'
+    | '/auth'
     | '/en'
     | '/explorer'
     | '/objection'
@@ -245,6 +272,7 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/review'
     | '/en/assessment'
     | '/en/assistant'
     | '/en/objection'
@@ -257,8 +285,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/assessment'
     | '/assistant'
+    | '/auth'
     | '/en'
     | '/explorer'
     | '/objection'
@@ -268,6 +298,7 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/_authenticated/review'
     | '/en/assessment'
     | '/en/assistant'
     | '/en/objection'
@@ -281,8 +312,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AssessmentRoute: typeof AssessmentRoute
   AssistantRoute: typeof AssistantRoute
+  AuthRoute: typeof AuthRoute
   EnRoute: typeof EnRouteWithChildren
   ExplorerRoute: typeof ExplorerRoute
   ObjectionRoute: typeof ObjectionRoute
@@ -303,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assessment': {
       id: '/assessment'
       path: '/assessment'
@@ -315,6 +355,13 @@ declare module '@tanstack/react-router' {
       path: '/assistant'
       fullPath: '/assistant'
       preLoaderRoute: typeof AssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en': {
@@ -379,6 +426,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/waqf'
       preLoaderRoute: typeof WaqfRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/review': {
+      id: '/_authenticated/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof AuthenticatedReviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/en/assessment': {
       id: '/en/assessment'
@@ -446,6 +500,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedReviewRoute: AuthenticatedReviewRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 interface EnRouteChildren {
   EnAssessmentRoute: typeof EnAssessmentRoute
   EnAssistantRoute: typeof EnAssistantRoute
@@ -474,8 +539,10 @@ const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AssessmentRoute: AssessmentRoute,
   AssistantRoute: AssistantRoute,
+  AuthRoute: AuthRoute,
   EnRoute: EnRouteWithChildren,
   ExplorerRoute: ExplorerRoute,
   ObjectionRoute: ObjectionRoute,
