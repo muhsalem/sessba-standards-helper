@@ -100,6 +100,7 @@ export function SiteShell({
             {renderNav(en ? "Primary navigation" : "التنقل الرئيسي")}
           </div>
           <div className="flex items-center gap-2">
+            <AccountLink en={en} />
             <Button
               asChild
               variant="outline"
