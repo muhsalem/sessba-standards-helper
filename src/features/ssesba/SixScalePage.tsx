@@ -34,7 +34,7 @@ const l10n = {
 } as const;
 
 type Sector = keyof (typeof l10n)["ar"]["sectors"];
-type SixResult = { score: number; level: string; justification: string[]; plan: string[]; scores: Record<string, number>; financialExposure: { ratio: number; attributableAmount: number } };
+type SixResult = { score: number; level: string; justification: string[]; plan: string[]; scores: Record<string, number>; financialExposure: { ratio: number; attributableAmount: number }; appliedRules?: { code: string; title: string; axis: string; breached: boolean; deduction: number }[] };
 
 function levelTone(score: number): string {
   const idx = complianceLevels.findIndex((level) => level.id === complianceLevelForScore(score).id);
@@ -84,6 +84,7 @@ export function SixScalePage({ lang }: { lang: Lang }) {
       `${t.ratio}: ${result.financialExposure.ratio}%`,
       `${t.attributable}: ${result.financialExposure.attributableAmount.toLocaleString(lang)}`,
       "",
+      ...(result.appliedRules?.length ? [lang === "ar" ? "القواعد القطاعية المعتمدة:" : "Approved sector rules:", ...result.appliedRules.map((r) => `- ${r.code} ${r.title}: ${r.breached ? `-${r.deduction}` : "OK"}`)] : []),
       `${t.justification}:`,
       ...result.justification.map((j) => `- ${j}`),
       ...(result.plan.length > 0 ? ["", `${t.plan}:`, ...result.plan.map((p) => `- ${p}`)] : []),
@@ -176,6 +177,7 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                     })}
                   </ul>
                 </div>
+                {result.appliedRules && result.appliedRules.length > 0 && <div className="rounded-lg border border-border bg-card p-5"><h2 className="text-sm font-semibold text-brand-navy">{lang === "ar" ? "القواعد القطاعية المعتمدة من الخبراء" : "Expert-approved sector rules"}</h2><ul className="mt-3 grid gap-2 text-sm">{result.appliedRules.map((r) => <li key={r.code} className="flex items-start justify-between gap-3 border-b pb-2 last:border-0"><span><span className="font-mono text-xs text-muted-foreground">{r.code}</span> {r.title}</span><span className={r.breached ? "font-semibold text-destructive" : "text-brand-emerald"}>{r.breached ? (lang === "ar" ? `مخالفة: −${r.deduction}` : `Breach: −${r.deduction}`) : (lang === "ar" ? "مستوفاة" : "Met")}</span></li>)}</ul><p className="mt-3 text-xs text-muted-foreground">{lang === "ar" ? "يُخصم أثر كل مخالفة آليًا من درجة المحور المعني قبل حساب الدرجة النهائية." : "Each breach is deducted automatically from its axis before the final score is computed."}</p></div>}
                 <div className="rounded-lg border border-border bg-card p-5"><h2 className="text-sm font-semibold text-brand-navy">{t.evidence}</h2><dl className="mt-3 grid grid-cols-2 gap-4 text-sm"><div><dt className="text-muted-foreground">{t.ratio}</dt><dd className="mt-1 font-mono font-bold">{result.financialExposure.ratio}%</dd></div><div><dt className="text-muted-foreground">{t.attributable}</dt><dd className="mt-1 font-mono font-bold">{result.financialExposure.attributableAmount.toLocaleString(lang)}</dd></div></dl><p className="mt-3 text-xs text-muted-foreground">{t.purificationNote}</p></div>
                 {result.plan.length > 0 && (
                   <div className="rounded-lg border border-brand-gold/40 bg-card p-5">

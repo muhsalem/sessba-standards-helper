@@ -196,10 +196,13 @@ export const evaluateCompanySixScale = createServerFn({ method: "POST" }).inputV
   const gateway = createLovableResponsesProvider(aiKey());
   const arabic = data.lang === "ar";
   const sectorLabel = { primary: arabic ? "أولي (استخراجي/زراعي/رعوي/تعدين)" : "Primary (extractive/agriculture/livestock/mining)", secondary: arabic ? "ثانوي (صناعي/تحويلي/بناء/تطوير عقاري)" : "Secondary (manufacturing/construction/real estate)", services: arabic ? "خدمي (مالي/تقني/تجاري/تعليمي/استشاري)" : "Services (financial/tech/commercial/education/consulting)" }[data.sector];
+  const { data: ruleRows } = await publicClient().from("sector_rules").select("code, axis, title, rule_text, max_deduction").eq("status", "approved").eq("sector", data.sector).limit(40);
+  const rules = ruleRows ?? [];
+  const rulesBlock = rules.length ? "\nExpert-approved open sector rules (check each one against the company):\n" + rules.map((r) => `${r.code} [${r.axis}] ${r.title}: ${r.rule_text}`).join("\n") + "\nAlso return a line BREACHED: comma-separated codes of the rules above the company breaches, or '-' if none." : "";
   try {
     const result = streamText({
       model: gateway.model, maxRetries: 0,
-      system: SIX_SCALE_RULES + "\n" + (arabic ? "Reply in formal Arabic." : "Reply in formal English.") + "\nReturn exactly this plain-text shape, no markdown:\nAXES: six integers 0-100 in this exact order: contracts,revenues,financing,operations,governance,disclosure\nJUSTIFICATION: up to six lines, each starting with '- ', each citing the sector standard applied.\nPLAN: remediation or purification steps if the score is between 45 and 84, each starting with '- ', or '-' if not applicable.",
+      system: SIX_SCALE_RULES + rulesBlock + "\n" + (arabic ? "Reply in formal Arabic." : "Reply in formal English.") + "\nReturn exactly this plain-text shape, no markdown:\nAXES: six integers 0-100 in this exact order: contracts,revenues,financing,operations,governance,disclosure\nJUSTIFICATION: up to six lines, each starting with '- ', each citing the sector standard applied.\nPLAN: remediation or purification steps if the score is between 45 and 84, each starting with '- ', or '-' if not applicable.",
       prompt: `${arabic ? "اسم الشركة" : "Company"}: ${data.companyName}\n${arabic ? "القطاع" : "Sector"}: ${sectorLabel}\n${arabic ? "وصف النشاط" : "Activity"}: ${data.activity}\n${arabic ? "الهيكل التمويلي والإيرادات" : "Financing and revenue"}: ${data.financing}\n${data.notes ? `${arabic ? "ملاحظات استثنائية" : "Notes"}: ${data.notes}` : ""}`,
       providerOptions: { openai: { store: false, forceReasoning: true, reasoningEffort: "medium", reasoningSummary: "auto", include: ["reasoning.encrypted_content"] } },
     });
@@ -207,9 +210,13 @@ export const evaluateCompanySixScale = createServerFn({ method: "POST" }).inputV
     const values = text.match(/AXES:\s*([0-9,\s]+)/i)?.[1]?.split(",").map((v) => Math.max(0, Math.min(100, Number.parseInt(v.trim(), 10))));
     const splitLines = (block: RegExpMatchArray | null) => (block?.[1] ?? "").split("\n").map((l) => l.replace(/^[-•\s]+/, "").trim()).filter((l) => l && l !== "-").slice(0, 8);
     const justification = splitLines(text.match(/JUSTIFICATION:\s*([\s\S]*?)(?=\nPLAN:|$)/i));
-    const aiPlan = splitLines(text.match(/PLAN:\s*([\s\S]*?)$/i));
+    const aiPlan = splitLines(text.match(/PLAN:\s*([\s\S]*?)(?=\nBREACHED:|$)/i));
     if (!values || values.length !== 6 || values.some(Number.isNaN) || justification.length === 0) throw new Error("The six-scale assessment response was incomplete.");
     const scores = Object.fromEntries(axes.map((a, idx) => [a.id, values[idx]!])) as Record<string, number>;
+    const breachedCodes = new Set((text.match(/BREACHED:\s*(.+)/i)?.[1] ?? "").split(",").map((v) => v.trim().toUpperCase()).filter(Boolean));
+    // القواعد القطاعية المعتمدة: الخصم يُطبق آليًا على المحور المعني، والذكاء الاصطناعي يحدد المخالفة فقط.
+    const appliedRules = rules.map((r) => ({ code: r.code, title: r.title, axis: r.axis, breached: breachedCodes.has(r.code.toUpperCase()), deduction: breachedCodes.has(r.code.toUpperCase()) ? r.max_deduction : 0 }));
+    for (const r of appliedRules) if (r.deduction && r.axis in scores) scores[r.axis] = Math.max(0, scores[r.axis]! - r.deduction);
     const gatePassed = !data.gate || gateChecks.every((c) => data.gate?.[c.id as keyof typeof data.gate] === true);
     // الحساب الحتمي: الأوزان المعتمدة 25/25/20/15/10/5، والذكاء الاصطناعي يقترح درجات المحاور فقط.
     const weighted = Math.round(axes.reduce((t, a) => t + scores[a.id]! * a.weight / 100, 0) * 10) / 10;
@@ -218,7 +225,7 @@ export const evaluateCompanySixScale = createServerFn({ method: "POST" }).inputV
     const financialExposure = calculateFinancialExposure(data.totalRevenue ?? 0, data.nonCompliantRevenue ?? 0, data.investmentAmount ?? 0);
     const plan = score >= 45 && score < 85 ? aiPlan : [];
     await log("success", gateway.getRunId());
-    return { score, level, justification, plan, scores, financialExposure, gatePassed, runId: gateway.getRunId() };
+    return { score, level, justification, plan, scores, financialExposure, gatePassed, appliedRules, runId: gateway.getRunId() };
   } catch (err) { await log("error", gateway.getRunId()); throw new Error(gatewayMessage(err, data.lang)); }
 });
 
