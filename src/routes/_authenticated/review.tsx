@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { SiteShell } from "@/features/ssesba/SiteShell";
+import { SectorRulesPanel } from "@/features/ssesba/SectorRulesPanel";
 import { contributionStatuses, getMyRoles, grantReviewerRole, listContributions, updateContribution } from "@/lib/waqf-review.functions";
 
 const title = "لوحة مراجعة مساهمات الوقف | معايير التصنيف الشرعي";
@@ -50,6 +51,7 @@ function ReviewPage() {
           {list.data?.length === 0 && <p className="text-muted-foreground">لا توجد مساهمات بعد.</p>}
           {list.data?.map((row) => <ContributionCard key={row.id} row={row} />)}
         </div>}
+        {canReview && <SectorRulesPanel canApprove={roles.data?.some((r) => r === "admin" || r === "reviewer") ?? false} />}
       </section>
     </SiteShell>
   );
