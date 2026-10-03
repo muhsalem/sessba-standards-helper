@@ -445,6 +445,57 @@ export type Database = {
         }
         Relationships: []
       }
+      sector_rules: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          axis: string
+          code: string
+          created_at: string
+          evidence: string | null
+          id: string
+          max_deduction: number
+          proposed_by: string
+          rule_text: string
+          sector: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          axis: string
+          code?: string
+          created_at?: string
+          evidence?: string | null
+          id?: string
+          max_deduction?: number
+          proposed_by: string
+          rule_text: string
+          sector: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          axis?: string
+          code?: string
+          created_at?: string
+          evidence?: string | null
+          id?: string
+          max_deduction?: number
+          proposed_by?: string
+          rule_text?: string
+          sector?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       standard_sections: {
         Row: {
           body_ar: string
