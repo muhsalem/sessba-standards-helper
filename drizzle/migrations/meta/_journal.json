@@ -36,6 +36,13 @@
       "when": 1790931302464,
       "tag": "0004_waqf_reviewer_access",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791020288040,
+      "tag": "0005_open_sector_rules",
+      "breakpoints": true
     }
   ]
 }

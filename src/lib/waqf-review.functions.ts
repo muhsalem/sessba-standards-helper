@@ -69,3 +69,40 @@ export const grantReviewerRole = createServerFn({ method: "POST" })
     await supabaseAdmin.from("admin_audit_log").insert({ actor_user_id: context.userId, action: "grant_role", target_type: "user", target_id: userId, details: { role: data.role } });
     return { ok: true };
   });
+
+const ruleInput = z.object({
+  sector: z.enum(["primary", "secondary", "services"]),
+  axis: z.enum(["contracts", "revenues", "financing", "operations", "governance", "disclosure"]),
+  title: z.string().trim().min(3).max(200),
+  ruleText: z.string().trim().min(20).max(2000),
+  evidence: z.string().trim().max(2000).optional(),
+  maxDeduction: z.number().int().min(0).max(40),
+});
+
+export const listSectorRules = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase.from("sector_rules").select("id, code, sector, axis, title, rule_text, evidence, max_deduction, status, proposed_by, created_at").order("created_at", { ascending: false }).limit(200);
+    if (error) throw new Error("Unable to load rules.");
+    return data ?? [];
+  });
+
+export const proposeSectorRule = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => ruleInput.parse(input))
+  .handler(async ({ data, context }) => {
+    const { error } = await context.supabase.from("sector_rules").insert({ sector: data.sector, axis: data.axis, title: data.title, rule_text: data.ruleText, evidence: data.evidence || null, max_deduction: data.maxDeduction, proposed_by: context.userId });
+    if (error) throw new Error("Forbidden or invalid rule: reviewer or expert role required.");
+    return { ok: true };
+  });
+
+export const decideSectorRule = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => z.object({ id: z.string().uuid(), status: z.enum(["approved", "rejected", "proposed"]) }).parse(input))
+  .handler(async ({ data, context }) => {
+    const approved = data.status === "approved";
+    const { data: rows, error } = await context.supabase.from("sector_rules").update({ status: data.status, approved_by: approved ? context.userId : null, approved_at: approved ? new Date().toISOString() : null }).eq("id", data.id).select("id");
+    if (error || !rows?.length) throw new Error("Forbidden: Shariah reviewer or admin role required.");
+    await context.supabase.from("admin_audit_log").insert({ actor_user_id: context.userId, action: `rule_${data.status}`, target_type: "sector_rule", target_id: data.id, details: {} });
+    return { ok: true };
+  });
