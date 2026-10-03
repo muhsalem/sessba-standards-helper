@@ -2,14 +2,235 @@ import { useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { CheckCircle2, FileCheck2, Sparkles, UserRoundCheck } from "lucide-react";
 import { SiteShell } from "./SiteShell";
-import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Label } from "@/components/ui/label"; import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { submitAssessmentRequest } from "@/lib/ssesba.functions"; import type { AssessmentMode, Lang } from "@/lib/ssesba-data";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { submitAssessmentRequest } from "@/lib/ssesba.functions";
+import type { AssessmentMode, Lang } from "@/lib/ssesba-data";
 
-export function RequestPage({ lang }: { lang: Lang }) { const en = lang === "en"; const submit = useServerFn(submitAssessmentRequest); const [type,setType]=useState<AssessmentMode>("expert"); const [loading,setLoading]=useState(false); const [reference,setReference]=useState(""); const [error,setError]=useState("");
- const modes=[{id:"expert",icon:UserRoundCheck,ar:"تقييم بواسطة خبير",en:"Expert-led assessment"},{id:"self",icon:FileCheck2,ar:"تقييم ذاتي إرشادي",en:"Guided self-assessment"},{id:"ai_review",icon:Sparkles,ar:"تحليل أولي بالذكاء الاصطناعي",en:"AI-assisted initial review"}] as const;
- async function onSubmit(e:FormEvent<HTMLFormElement>){e.preventDefault();setLoading(true);setError("");const f=new FormData(e.currentTarget);try{const r=await submit({data:{clientName:String(f.get("clientName")),organizationName:String(f.get("organizationName")),email:String(f.get("email")),phone:String(f.get("phone")||""),country:String(f.get("country")||""),sector:String(f.get("sector")),activity:String(f.get("activity")),assessmentType:type,notes:String(f.get("notes")||""),preferredLanguage:lang,consent:true as const}});setReference(r.reference_code)}catch(x){setError(x instanceof Error?x.message:(en?"Submission failed":"تعذر إرسال الطلب"))}finally{setLoading(false)}}
- return <SiteShell lang={lang} eyebrow={en?"Assessment intake":"بدء التقييم"} title={en?"Request an SSESBA assessment":"اطلب تقييمًا وفق معايير التصنيف الشرعي (م.ش.ت.ق.أ · SSESBA)"}><div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:grid-cols-[.8fr_1.2fr]">
- <aside className="lg:sticky lg:top-28 lg:self-start"><h2 className="font-display-ar text-2xl font-semibold">{en?"Choose the review that fits your case":"اختر مسار التقييم المناسب لحالتك"}</h2><p className="mt-3 leading-7 text-muted-foreground">{en?"Submit organization-level information only. Do not include patient records or medical personal data.":"أرسل معلومات الجهة فقط. لا تُدخل سجلات مرضى أو أي بيانات طبية شخصية."}</p><div role="radiogroup" aria-label={en?"Assessment type":"نوع التقييم"} className="mt-7 grid grid-cols-3 gap-2 lg:grid-cols-1 lg:gap-3">{modes.map(m=><Button type="button" variant="outline" key={m.id} role="radio" aria-checked={type===m.id} onClick={()=>setType(m.id)} className={`h-auto w-full flex-col items-center gap-2 whitespace-normal p-3 text-center text-xs transition lg:flex-row lg:items-center lg:justify-start lg:gap-3 lg:p-4 lg:text-start lg:text-sm ${type===m.id?"border-brand-gold bg-brand-parchment text-brand-navy":"bg-card hover:border-brand-gold/60"}`}><m.icon className="size-5 shrink-0 text-brand-gold"/><span className="font-medium">{m[lang]}</span></Button>)}</div></aside>
- <section className="rounded-md border bg-card p-6 shadow-sm md:p-8">{reference?<div className="grid min-h-96 place-content-center text-center"><CheckCircle2 className="mx-auto size-14 text-brand-gold"/><h2 className="mt-5 font-serif text-3xl font-semibold">{en?"Request received":"تم استلام الطلب"}</h2><p className="mt-3 text-muted-foreground">{en?"Your reference number":"رقمك المرجعي"}</p><p className="mt-2 font-mono text-2xl font-bold text-brand-navy">{reference}</p></div>:<form onSubmit={onSubmit} className="grid gap-5"><div className="grid gap-5 md:grid-cols-2"><Field label={en?"Full name":"الاسم الكامل"} name="clientName"/><Field label={en?"Organization":"اسم الجهة"} name="organizationName"/><Field label={en?"Email":"البريد الإلكتروني"} name="email" type="email"/><Field label={en?"Phone":"رقم الهاتف"} name="phone" required={false}/><Field label={en?"Country":"الدولة"} name="country" required={false}/><div><Label>{en?"Sector":"القطاع"}</Label><Select name="sector" required><SelectTrigger className="mt-2 h-11"><SelectValue placeholder={en?"Select sector":"اختر القطاع"}/></SelectTrigger><SelectContent><SelectItem value="healthcare">{en?"Healthcare":"الرعاية الصحية"}</SelectItem><SelectItem value="finance">{en?"Financial services":"الخدمات المالية"}</SelectItem><SelectItem value="trade">{en?"Trade":"التجارة"}</SelectItem><SelectItem value="other">{en?"Other":"أخرى"}</SelectItem></SelectContent></Select></div></div><Field label={en?"Economic activity":"النشاط الاقتصادي"} name="activity" placeholder={en?"Example: General hospital operation":"مثال: تشغيل مستشفى عام"}/><div><Label htmlFor="notes">{en?"Additional context":"تفاصيل إضافية"}</Label><Textarea id="notes" name="notes" maxLength={2000} className="mt-2 min-h-28"/></div><label className="flex items-start gap-3 text-sm leading-6"><input type="checkbox" name="consent" required className="mt-1 size-4 accent-brand-navy"/><span>{en?<>I agree to the processing of this data under the <a href="/en/privacy" className="font-medium text-brand-navy underline">privacy policy</a> and <a href="/en/terms" className="font-medium text-brand-navy underline">terms of use</a>.</>:<>أوافق على معالجة هذه البيانات وفق <a href="/privacy" className="font-medium text-brand-navy underline">سياسة الخصوصية</a> و<a href="/terms" className="font-medium text-brand-navy underline">شروط الاستخدام</a>.</>}</span></label>{error&&<p role="alert" className="text-sm text-destructive">{error}</p>}<Button disabled={loading} size="lg" className="bg-brand-navy text-primary-foreground hover:bg-brand-navy-soft">{loading?(en?"Submitting…":"جارٍ الإرسال…"):(en?"Submit request":"إرسال الطلب")}</Button></form>}</section></div></SiteShell> }
-function Field({label,name,type="text",required=true,placeholder}:{label:string;name:string;type?:string;required?:boolean;placeholder?:string}){return <div><Label htmlFor={name}>{label}</Label><Input id={name} name={name} type={type} required={required} maxLength={type==="email"?255:160} placeholder={placeholder} className="mt-2 h-11"/></div>}
+export function RequestPage({ lang }: { lang: Lang }) {
+  const en = lang === "en";
+  const submit = useServerFn(submitAssessmentRequest);
+  const [type, setType] = useState<AssessmentMode>("expert");
+  const [loading, setLoading] = useState(false);
+  const [reference, setReference] = useState("");
+  const [error, setError] = useState("");
+  const modes = [
+    { id: "expert", icon: UserRoundCheck, ar: "تقييم بواسطة خبير", en: "Expert-led assessment" },
+    { id: "self", icon: FileCheck2, ar: "تقييم ذاتي إرشادي", en: "Guided self-assessment" },
+    {
+      id: "ai_review",
+      icon: Sparkles,
+      ar: "تحليل أولي بالذكاء الاصطناعي",
+      en: "AI-assisted initial review",
+    },
+  ] as const;
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    const f = new FormData(e.currentTarget);
+    if (f.get("consent") !== "on") {
+      setError(
+        en
+          ? "Please agree to the privacy policy to continue."
+          : "يلزم الموافقة على سياسة الخصوصية للمتابعة.",
+      );
+      setLoading(false);
+      return;
+    }
+    try {
+      const r = await submit({
+        data: {
+          clientName: String(f.get("clientName")),
+          organizationName: String(f.get("organizationName")),
+          email: String(f.get("email")),
+          phone: String(f.get("phone") || ""),
+          country: String(f.get("country") || ""),
+          sector: String(f.get("sector")),
+          activity: String(f.get("activity")),
+          assessmentType: type,
+          notes: String(f.get("notes") || ""),
+          preferredLanguage: lang,
+          consent: true,
+        },
+      });
+      setReference(r.reference_code);
+    } catch (x) {
+      setError(x instanceof Error ? x.message : en ? "Submission failed" : "تعذر إرسال الطلب");
+    } finally {
+      setLoading(false);
+    }
+  }
+  return (
+    <SiteShell
+      lang={lang}
+      eyebrow={en ? "Assessment intake" : "بدء التقييم"}
+      title={
+        en
+          ? "Request an SSESBA assessment"
+          : "اطلب تقييمًا وفق معايير التصنيف الشرعي (مَشْتَق · SSESBA)"
+      }
+    >
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:grid-cols-[.8fr_1.2fr]">
+        <aside className="lg:sticky lg:top-28 lg:self-start">
+          <h2 className="font-display-ar text-2xl font-semibold">
+            {en ? "Choose the review that fits your case" : "اختر مسار التقييم المناسب لحالتك"}
+          </h2>
+          <p className="mt-3 leading-7 text-muted-foreground">
+            {en
+              ? "Submit organization-level information only. Do not include patient records or medical personal data."
+              : "أرسل معلومات الجهة فقط. لا تُدخل سجلات مرضى أو أي بيانات طبية شخصية."}
+          </p>
+          <div
+            role="group"
+            aria-label={en ? "Assessment type" : "نوع التقييم"}
+            className="mt-7 grid grid-cols-3 gap-2 lg:grid-cols-1 lg:gap-3"
+          >
+            {modes.map((m) => (
+              <Button
+                type="button"
+                variant="outline"
+                key={m.id}
+                aria-pressed={type === m.id}
+                onClick={() => setType(m.id)}
+                className={`h-auto w-full flex-col items-center gap-2 whitespace-normal p-3 text-center text-xs transition lg:flex-row lg:items-center lg:justify-start lg:gap-3 lg:p-4 lg:text-start lg:text-sm ${type === m.id ? "border-brand-gold bg-brand-parchment text-brand-navy" : "bg-card hover:border-brand-gold/60"}`}
+              >
+                <m.icon className="size-5 shrink-0 text-brand-gold" />
+                <span className="font-medium">{m[lang]}</span>
+              </Button>
+            ))}
+          </div>
+        </aside>
+        <section className="rounded-md border bg-card p-6 shadow-sm md:p-8">
+          {reference ? (
+            <div className="grid min-h-96 place-content-center text-center">
+              <CheckCircle2 className="mx-auto size-14 text-brand-gold" />
+              <h2 className="mt-5 font-serif text-3xl font-semibold">
+                {en ? "Request received" : "تم استلام الطلب"}
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                {en ? "Your reference number" : "رقمك المرجعي"}
+              </p>
+              <p className="mt-2 font-mono text-2xl font-bold text-brand-navy">{reference}</p>
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="grid gap-5">
+              <div className="grid gap-5 md:grid-cols-2">
+                <Field label={en ? "Full name" : "الاسم الكامل"} name="clientName" />
+                <Field label={en ? "Organization" : "اسم الجهة"} name="organizationName" />
+                <Field label={en ? "Email" : "البريد الإلكتروني"} name="email" type="email" />
+                <Field label={en ? "Phone" : "رقم الهاتف"} name="phone" required={false} />
+                <Field label={en ? "Country" : "الدولة"} name="country" required={false} />
+                <div>
+                  <Label htmlFor="sector">{en ? "Sector" : "القطاع"}</Label>
+                  <Select name="sector" required>
+                    <SelectTrigger id="sector" className="mt-2 h-11">
+                      <SelectValue placeholder={en ? "Select sector" : "اختر القطاع"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="healthcare">
+                        {en ? "Healthcare" : "الرعاية الصحية"}
+                      </SelectItem>
+                      <SelectItem value="finance">
+                        {en ? "Financial services" : "الخدمات المالية"}
+                      </SelectItem>
+                      <SelectItem value="trade">{en ? "Trade" : "التجارة"}</SelectItem>
+                      <SelectItem value="other">{en ? "Other" : "أخرى"}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <Field
+                label={en ? "Economic activity" : "النشاط الاقتصادي"}
+                name="activity"
+                placeholder={en ? "Example: General hospital operation" : "مثال: تشغيل مستشفى عام"}
+              />
+              <div>
+                <Label htmlFor="notes">{en ? "Additional context" : "تفاصيل إضافية"}</Label>
+                <Textarea id="notes" name="notes" maxLength={2000} className="mt-2 min-h-28" />
+              </div>
+              <label className="flex items-start gap-3 text-sm leading-6">
+                <input type="checkbox" name="consent" required className="mt-1 size-4 shrink-0" />
+                <span>
+                  {en ? (
+                    <>
+                      I agree to the processing of the data above to handle my assessment request,
+                      as described in the{" "}
+                      <a href="/en/privacy" className="font-semibold text-brand-navy underline">
+                        privacy policy
+                      </a>
+                      .
+                    </>
+                  ) : (
+                    <>
+                      أوافق على معالجة البيانات أعلاه لغرض دراسة طلب التقييم، وفق{" "}
+                      <a href="/privacy" className="font-semibold text-brand-navy underline">
+                        سياسة الخصوصية
+                      </a>
+                      .
+                    </>
+                  )}
+                </span>
+              </label>
+              {error && (
+                <p role="alert" className="text-sm text-destructive">
+                  {error}
+                </p>
+              )}
+              <Button
+                disabled={loading}
+                size="lg"
+                className="bg-brand-navy text-primary-foreground hover:bg-brand-navy-soft"
+              >
+                {loading
+                  ? en
+                    ? "Submitting…"
+                    : "جارٍ الإرسال…"
+                  : en
+                    ? "Submit request"
+                    : "إرسال الطلب"}
+              </Button>
+            </form>
+          )}
+        </section>
+      </div>
+    </SiteShell>
+  );
+}
+function Field({
+  label,
+  name,
+  type = "text",
+  required = true,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+}) {
+  return (
+    <div>
+      <Label htmlFor={name}>{label}</Label>
+      <Input
+        id={name}
+        name={name}
+        type={type}
+        required={required}
+        maxLength={type === "email" ? 255 : 160}
+        placeholder={placeholder}
+        className="mt-2 h-11"
+      />
+    </div>
+  );
+}

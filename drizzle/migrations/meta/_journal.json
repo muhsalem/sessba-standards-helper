@@ -43,6 +43,41 @@
       "when": 1791020288040,
       "tag": "0005_open_sector_rules",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791020388040,
+      "tag": "0006_results_screens_and_scale_alignment",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791020488040,
+      "tag": "0007_brand_name",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791020588040,
+      "tag": "0008_classification_standards",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791020688040,
+      "tag": "0009_industry_standard_drafts",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791020788040,
+      "tag": "0010_activity_standard_drafts",
+      "breakpoints": true
     }
   ]
 }

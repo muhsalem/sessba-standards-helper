@@ -30,50 +30,161 @@ const stages: Stage[] = [
   {
     number: "01",
     icon: BookOpenCheck,
-    ar: { title: "المبدأ الشرعي والدليل", summary: "تحديد الأصل الشرعي الحاكم من القرآن والسنة والإجماع والقرارات والمعايير المعتبرة، مع بيان قوة الاستدلال ونطاقه.", input: "النصوص والأدلة والقرارات", output: "مبدأ موثّق قابل للتطبيق", owner: "البحث والفقه" },
-    en: { title: "Shariah principle and evidence", summary: "Identify the governing principle from the Qur’an, Sunnah, consensus, resolutions and recognized standards, with evidence strength and scope.", input: "Texts, evidence and resolutions", output: "A documented, applicable principle", owner: "Research and fiqh" },
+    ar: {
+      title: "المبدأ الشرعي والدليل",
+      summary:
+        "تحديد الأصل الشرعي الحاكم من القرآن والسنة والإجماع والقرارات والمعايير المعتبرة، مع بيان قوة الاستدلال ونطاقه.",
+      input: "النصوص والأدلة والقرارات",
+      output: "مبدأ موثّق قابل للتطبيق",
+      owner: "البحث والفقه",
+    },
+    en: {
+      title: "Shariah principle and evidence",
+      summary:
+        "Identify the governing principle from the Qur’an, Sunnah, consensus, resolutions and recognized standards, with evidence strength and scope.",
+      input: "Texts, evidence and resolutions",
+      output: "A documented, applicable principle",
+      owner: "Research and fiqh",
+    },
   },
   {
     number: "02",
     icon: Scale,
-    ar: { title: "القاعدة والضابط العام", summary: "تحويل المبدأ إلى قاعدة منضبطة تحدد مناط الحكم وحدوده والاستثناءات التي يلزم فحصها.", input: "المبدأ وسياقه الفقهي", output: "ضابط شرعي عام", owner: "الصياغة الشرعية" },
-    en: { title: "General rule and control", summary: "Translate the principle into a controlled rule defining the effective cause, boundaries and exceptions requiring examination.", input: "Principle and fiqh context", output: "A general Shariah control", owner: "Shariah drafting" },
+    ar: {
+      title: "القاعدة والضابط العام",
+      summary: "تحويل المبدأ إلى قاعدة منضبطة تحدد مناط الحكم وحدوده والاستثناءات التي يلزم فحصها.",
+      input: "المبدأ وسياقه الفقهي",
+      output: "ضابط شرعي عام",
+      owner: "الصياغة الشرعية",
+    },
+    en: {
+      title: "General rule and control",
+      summary:
+        "Translate the principle into a controlled rule defining the effective cause, boundaries and exceptions requiring examination.",
+      input: "Principle and fiqh context",
+      output: "A general Shariah control",
+      owner: "Shariah drafting",
+    },
   },
   {
     number: "03",
     icon: Building2,
-    ar: { title: "توصيف القطاع الاقتصادي", summary: "فهم سلسلة القيمة والمنتجات والخدمات ونماذج الأعمال والجهات الفاعلة والمخاطر الخاصة بكل قطاع.", input: "بيانات القطاع وممارساته", output: "ملف قطاعي موصوف", owner: "خبراء القطاع" },
-    en: { title: "Economic-sector characterization", summary: "Map the value chain, products, services, business models, actors and sector-specific risks.", input: "Sector data and practice", output: "A characterized sector profile", owner: "Sector experts" },
+    ar: {
+      title: "توصيف القطاع الاقتصادي",
+      summary:
+        "فهم سلسلة القيمة والمنتجات والخدمات ونماذج الأعمال والجهات الفاعلة والمخاطر الخاصة بكل قطاع.",
+      input: "بيانات القطاع وممارساته",
+      output: "ملف قطاعي موصوف",
+      owner: "خبراء القطاع",
+    },
+    en: {
+      title: "Economic-sector characterization",
+      summary:
+        "Map the value chain, products, services, business models, actors and sector-specific risks.",
+      input: "Sector data and practice",
+      output: "A characterized sector profile",
+      owner: "Sector experts",
+    },
   },
   {
     number: "04",
     icon: Layers3,
-    ar: { title: "المعيار القطاعي", summary: "مواءمة الضوابط العامة مع واقع القطاع لتحديد المتطلبات الجوهرية والمؤشرات والأدلة المطلوبة بصورة قابلة للمقارنة.", input: "الضوابط + الملف القطاعي", output: "معيار قطاعي منظم", owner: "فريق شرعي وقطاعي" },
-    en: { title: "Sector standard", summary: "Align general controls with sector reality to define material requirements, indicators and evidence in a comparable form.", input: "Controls + sector profile", output: "A structured sector standard", owner: "Shariah and sector team" },
+    ar: {
+      title: "المعيار القطاعي",
+      summary:
+        "مواءمة الضوابط العامة مع واقع القطاع لتحديد المتطلبات الجوهرية والمؤشرات والأدلة المطلوبة بصورة قابلة للمقارنة.",
+      input: "الضوابط + الملف القطاعي",
+      output: "معيار قطاعي منظم",
+      owner: "فريق شرعي وقطاعي",
+    },
+    en: {
+      title: "Sector standard",
+      summary:
+        "Align general controls with sector reality to define material requirements, indicators and evidence in a comparable form.",
+      input: "Controls + sector profile",
+      output: "A structured sector standard",
+      owner: "Shariah and sector team",
+    },
   },
   {
     number: "05",
     icon: GitBranch,
-    ar: { title: "ضوابط النشاط والعقود", summary: "تفصيل المعيار إلى ضوابط تخص النشاط الفرعي والعقود والإيرادات والتمويل والعمليات والحوكمة والإفصاح.", input: "المعيار ونموذج النشاط", output: "اختبارات نشاط قابلة للتحقق", owner: "خبراء النشاط والتدقيق" },
-    en: { title: "Activity and contract controls", summary: "Break the standard into controls for the sub-activity, contracts, revenue, financing, operations, governance and disclosure.", input: "Standard + activity model", output: "Verifiable activity tests", owner: "Activity and audit experts" },
+    ar: {
+      title: "ضوابط النشاط والعقود",
+      summary:
+        "تفصيل المعيار إلى ضوابط تخص النشاط الفرعي والعقود والإيرادات والتمويل والعمليات والحوكمة والإفصاح.",
+      input: "المعيار ونموذج النشاط",
+      output: "اختبارات نشاط قابلة للتحقق",
+      owner: "خبراء النشاط والتدقيق",
+    },
+    en: {
+      title: "Activity and contract controls",
+      summary:
+        "Break the standard into controls for the sub-activity, contracts, revenue, financing, operations, governance and disclosure.",
+      input: "Standard + activity model",
+      output: "Verifiable activity tests",
+      owner: "Activity and audit experts",
+    },
   },
   {
     number: "06",
     icon: SlidersHorizontal,
-    ar: { title: "القياس والتصنيف", summary: "تطبيق بوابة الأهلية، ثم المحاور الستة الموزونة، ثم مستوى المخاطر الشرعية S1–S4 لإنتاج حكم استرشادي متسق.", input: "الأدلة والبيانات المالية والتشغيلية", output: "درجة ومستوى ومخاطر", owner: "المراجع الشرعي والمالي" },
-    en: { title: "Measurement and classification", summary: "Apply the eligibility gate, six weighted axes and Shariah-risk tier S1–S4 to produce a consistent indicative outcome.", input: "Evidence, financial and operating data", output: "Score, level and risk tier", owner: "Shariah and financial reviewer" },
+    ar: {
+      title: "القياس والتصنيف",
+      summary:
+        "تطبيق بوابة الأهلية، ثم المحاور الستة الموزونة، ثم مستوى المخاطر الشرعية S1–S4 لإنتاج حكم استرشادي متسق.",
+      input: "الأدلة والبيانات المالية والتشغيلية",
+      output: "درجة ومستوى ومخاطر",
+      owner: "المراجع الشرعي والمالي",
+    },
+    en: {
+      title: "Measurement and classification",
+      summary:
+        "Apply the eligibility gate, six weighted axes and Shariah-risk tier S1–S4 to produce a consistent indicative outcome.",
+      input: "Evidence, financial and operating data",
+      output: "Score, level and risk tier",
+      owner: "Shariah and financial reviewer",
+    },
   },
   {
     number: "07",
     icon: ShieldCheck,
-    ar: { title: "المراجعة وحوكمة الإصدار", summary: "فحص سلامة الاستدلال واتساق التطبيق وتعارض المصالح، وتوثيق الاعتماد العلمي ورقم الإصدار والتغييرات.", input: "المعيار والنتائج والملاحظات", output: "إصدار محكوم قابل للتتبع", owner: "اللجنة الشرعية والحوكمة" },
-    en: { title: "Review and version governance", summary: "Examine evidence, consistency and conflicts of interest, then document scholarly approval, version number and changes.", input: "Standard, results and observations", output: "A governed, traceable edition", owner: "Shariah and governance committee" },
+    ar: {
+      title: "المراجعة وحوكمة الإصدار",
+      summary:
+        "فحص سلامة الاستدلال واتساق التطبيق وتعارض المصالح، وتوثيق الاعتماد العلمي ورقم الإصدار والتغييرات.",
+      input: "المعيار والنتائج والملاحظات",
+      output: "إصدار محكوم قابل للتتبع",
+      owner: "اللجنة الشرعية والحوكمة",
+    },
+    en: {
+      title: "Review and version governance",
+      summary:
+        "Examine evidence, consistency and conflicts of interest, then document scholarly approval, version number and changes.",
+      input: "Standard, results and observations",
+      output: "A governed, traceable edition",
+      owner: "Shariah and governance committee",
+    },
   },
   {
     number: "08",
     icon: RefreshCw,
-    ar: { title: "النتيجة والتطوير الدوري", summary: "نشر نتيجة مفسّرة قابلة للاعتراض والمراجعة، ثم إعادة تغذية المعيار بالتغيرات الفقهية والتنظيمية والقطاعية.", input: "المراجعات والاعتراضات والتغيرات", output: "نتيجة مفسرة ومعيار مُحدّث", owner: "الحوكمة وأصحاب المصلحة" },
-    en: { title: "Outcome and continuous development", summary: "Publish an explainable, reviewable outcome, then feed jurisprudential, regulatory and sector changes into the next edition.", input: "Reviews, objections and changes", output: "Explained outcome and updated standard", owner: "Governance and stakeholders" },
+    ar: {
+      title: "النتيجة والتطوير الدوري",
+      summary:
+        "نشر نتيجة مفسّرة قابلة للاعتراض والمراجعة، ثم إعادة تغذية المعيار بالتغيرات الفقهية والتنظيمية والقطاعية.",
+      input: "المراجعات والاعتراضات والتغيرات",
+      output: "نتيجة مفسرة ومعيار مُحدّث",
+      owner: "الحوكمة وأصحاب المصلحة",
+    },
+    en: {
+      title: "Outcome and continuous development",
+      summary:
+        "Publish an explainable, reviewable outcome, then feed jurisprudential, regulatory and sector changes into the next edition.",
+      input: "Reviews, objections and changes",
+      output: "Explained outcome and updated standard",
+      owner: "Governance and stakeholders",
+    },
   },
 ];
 
@@ -84,9 +195,21 @@ const phases = {
     { title: "القياس والحوكمة", range: "06—08", description: "من الأدلة إلى نتيجة وإصدار متجدد" },
   ],
   en: [
-    { title: "Foundation", range: "01—02", description: "From evidence to a controlled Shariah rule" },
-    { title: "Sector application", range: "03—05", description: "From sector reality to activity tests" },
-    { title: "Measurement and governance", range: "06—08", description: "From evidence to an evolving governed result" },
+    {
+      title: "Foundation",
+      range: "01—02",
+      description: "From evidence to a controlled Shariah rule",
+    },
+    {
+      title: "Sector application",
+      range: "03—05",
+      description: "From sector reality to activity tests",
+    },
+    {
+      title: "Measurement and governance",
+      range: "06—08",
+      description: "From evidence to an evolving governed result",
+    },
   ],
 };
 
@@ -129,34 +252,70 @@ export function MethodologyMapPage({ lang }: { lang: Lang }) {
           ))}
         </div>
 
-        <h2 id="map-heading" className="sr-only">{en ? "Standards development map" : "خريطة تطور المعايير"}</h2>
+        <h2 id="map-heading" className="sr-only">
+          {en ? "Standards development map" : "خريطة تطور المعايير"}
+        </h2>
         <ol className="relative mx-auto mt-12 max-w-5xl">
-          <div aria-hidden="true" className="absolute inset-y-8 start-[1.45rem] w-px bg-brand-gold/50 md:start-1/2" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-8 start-[1.45rem] w-px bg-brand-gold/50 md:start-1/2"
+          />
           {stages.map((stage, index) => {
             const text = stage[lang];
             const Icon = stage.icon;
             const alignStart = index % 2 === 0;
             return (
-              <li key={stage.number} className="relative grid pb-10 md:grid-cols-[1fr_5rem_1fr] md:items-center md:pb-12">
-                <div className={`ms-16 border-s-4 bg-card p-5 shadow-sm md:ms-0 md:p-6 ${alignStart ? "border-brand-gold md:col-start-1 md:text-end" : "border-brand-emerald md:col-start-3 md:text-start"}`}>
-                  <div className={`flex items-center gap-3 ${alignStart ? "md:flex-row-reverse" : ""}`}>
+              <li
+                key={stage.number}
+                className="relative grid pb-10 md:grid-cols-[1fr_5rem_1fr] md:items-center md:pb-12"
+              >
+                <div
+                  className={`ms-16 border-s-4 bg-card p-5 shadow-sm md:ms-0 md:p-6 ${alignStart ? "border-brand-gold md:col-start-1 md:text-end" : "border-brand-emerald md:col-start-3 md:text-start"}`}
+                >
+                  <div
+                    className={`flex items-center gap-3 ${alignStart ? "md:flex-row-reverse" : ""}`}
+                  >
                     <Icon className="size-6 shrink-0 text-brand-emerald" aria-hidden="true" />
                     <div>
-                      <span className="font-mono text-xs font-semibold text-brand-gold">{en ? `STAGE ${stage.number}` : `المرحلة ${stage.number}`}</span>
-                      <h3 className="mt-1 text-xl font-semibold text-brand-navy md:text-2xl">{text.title}</h3>
+                      <span className="font-mono text-xs font-semibold text-brand-gold">
+                        {en ? `STAGE ${stage.number}` : `المرحلة ${stage.number}`}
+                      </span>
+                      <h3 className="mt-1 text-xl font-semibold text-brand-navy md:text-2xl">
+                        {text.title}
+                      </h3>
                     </div>
                   </div>
                   <p className="mt-4 text-sm leading-7 text-muted-foreground">{text.summary}</p>
                   <dl className="mt-5 grid gap-3 border-t pt-4 text-sm sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
-                    <div><dt className="text-xs font-semibold text-brand-emerald">{en ? "Input" : "المدخل"}</dt><dd className="mt-1 leading-6 text-muted-foreground">{text.input}</dd></div>
-                    <div><dt className="text-xs font-semibold text-brand-emerald">{en ? "Output" : "المخرج"}</dt><dd className="mt-1 leading-6 text-muted-foreground">{text.output}</dd></div>
-                    <div><dt className="text-xs font-semibold text-brand-emerald">{en ? "Expertise" : "الخبرة"}</dt><dd className="mt-1 leading-6 text-muted-foreground">{text.owner}</dd></div>
+                    <div>
+                      <dt className="text-xs font-semibold text-brand-emerald">
+                        {en ? "Input" : "المدخل"}
+                      </dt>
+                      <dd className="mt-1 leading-6 text-muted-foreground">{text.input}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold text-brand-emerald">
+                        {en ? "Output" : "المخرج"}
+                      </dt>
+                      <dd className="mt-1 leading-6 text-muted-foreground">{text.output}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold text-brand-emerald">
+                        {en ? "Expertise" : "الخبرة"}
+                      </dt>
+                      <dd className="mt-1 leading-6 text-muted-foreground">{text.owner}</dd>
+                    </div>
                   </dl>
                 </div>
                 <div className="absolute start-0 top-6 z-10 grid size-12 place-items-center rounded-full border-2 border-brand-gold bg-brand-navy font-mono text-sm font-bold text-brand-gold md:static md:col-start-2 md:row-start-1 md:mx-auto">
                   {stage.number}
                 </div>
-                {index < stages.length - 1 && <ArrowDown aria-hidden="true" className="absolute -bottom-1 start-[1.05rem] z-10 size-5 text-brand-gold md:start-1/2 md:-translate-x-1/2" />}
+                {index < stages.length - 1 && (
+                  <ArrowDown
+                    aria-hidden="true"
+                    className="absolute -bottom-1 start-[1.05rem] z-10 size-5 text-brand-gold md:start-1/2 md:-translate-x-1/2"
+                  />
+                )}
               </li>
             );
           })}
@@ -166,27 +325,82 @@ export function MethodologyMapPage({ lang }: { lang: Lang }) {
       <section className="border-y border-brand-gold/25 bg-brand-navy text-brand-paper">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
-            <div className="flex items-center gap-3 text-brand-gold-soft"><BadgeCheck className="size-6" /><h2 className="text-2xl font-semibold">{en ? "A traceable result, not an isolated score" : "نتيجة قابلة للتتبع، لا درجة منفصلة"}</h2></div>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-brand-paper/75">{en ? "The map is an indicative methodological explanation. It does not constitute a fatwa or final accreditation; every applied result requires qualified Shariah review and sufficient evidence." : "الخريطة شرحٌ منهجي استرشادي، وليست فتوى أو اعتمادًا نهائيًا؛ وكل نتيجة تطبيقية تحتاج مراجعة شرعية مؤهلة وأدلة كافية."}</p>
+            <div className="flex items-center gap-3 text-brand-gold-soft">
+              <BadgeCheck className="size-6" />
+              <h2 className="text-2xl font-semibold">
+                {en
+                  ? "A traceable result, not an isolated score"
+                  : "نتيجة قابلة للتتبع، لا درجة منفصلة"}
+              </h2>
+            </div>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-brand-paper/75">
+              {en
+                ? "The map is an indicative methodological explanation. It does not constitute a fatwa or final accreditation; every applied result requires qualified Shariah review and sufficient evidence."
+                : "الخريطة شرحٌ منهجي استرشادي، وليست فتوى أو اعتمادًا نهائيًا؛ وكل نتيجة تطبيقية تحتاج مراجعة شرعية مؤهلة وأدلة كافية."}
+            </p>
           </div>
-          <Button asChild className="min-h-11 bg-brand-gold text-brand-navy hover:bg-brand-gold-soft">
-            <Link to={route("/six", "/en/six")}>{en ? "Try the six-level assessment" : "جرّب التقييم السداسي"}<Arrow className="size-4" /></Link>
+          <Button
+            asChild
+            className="min-h-11 bg-brand-gold text-brand-navy hover:bg-brand-gold-soft"
+          >
+            <Link to={route("/six", "/en/six")}>
+              {en ? "Try the six-level assessment" : "جرّب التقييم السداسي"}
+              <Arrow className="size-4" />
+            </Link>
           </Button>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-12">
-        <div className="mb-7 flex items-center gap-3"><FileSearch className="size-6 text-brand-emerald" /><h2 className="text-2xl font-semibold text-brand-navy">{en ? "Continue through the methodology" : "تابع المنهجية عمليًا"}</h2></div>
+        <div className="mb-7 flex items-center gap-3">
+          <FileSearch className="size-6 text-brand-emerald" />
+          <h2 className="text-2xl font-semibold text-brand-navy">
+            {en ? "Continue through the methodology" : "تابع المنهجية عمليًا"}
+          </h2>
+        </div>
         <div className="grid gap-px overflow-hidden border bg-border md:grid-cols-2 lg:grid-cols-4">
           {[
-            { to: route("/standards", "/en/standards"), ar: "اقرأ معايير القطاعات", en: "Read sector standards", detailAr: "النصوص المرجعية المنظمة", detailEn: "Structured reference texts" },
-            { to: "/explorer", ar: "استكشف القطاعات والأنشطة", en: "Explore sectors and activities", detailAr: "العمود التصنيفي والترميز", detailEn: "Classification and coding" },
-            { to: route("/six", "/en/six"), ar: "طبّق المقياس السداسي", en: "Apply the six-level scale", detailAr: "الأهلية والمحاور والنتيجة", detailEn: "Eligibility, axes and outcome" },
-            { to: route("/waqf", "/en/waqf"), ar: "شارك في صياغة المعايير", en: "Contribute to the standards", detailAr: "دعوة الفقهاء وخبراء القطاعات", detailEn: "An invitation to scholars and experts" },
+            {
+              to: route("/standards", "/en/standards"),
+              ar: "اقرأ معايير القطاعات",
+              en: "Read sector standards",
+              detailAr: "النصوص المرجعية المنظمة",
+              detailEn: "Structured reference texts",
+            },
+            {
+              to: "/explorer",
+              ar: "استكشف القطاعات والأنشطة",
+              en: "Explore sectors and activities",
+              detailAr: "العمود التصنيفي والترميز",
+              detailEn: "Classification and coding",
+            },
+            {
+              to: route("/six", "/en/six"),
+              ar: "طبّق المقياس السداسي",
+              en: "Apply the six-level scale",
+              detailAr: "الأهلية والمحاور والنتيجة",
+              detailEn: "Eligibility, axes and outcome",
+            },
+            {
+              to: route("/waqf", "/en/waqf"),
+              ar: "شارك في صياغة المعايير",
+              en: "Contribute to the standards",
+              detailAr: "دعوة الفقهاء وخبراء القطاعات",
+              detailEn: "An invitation to scholars and experts",
+            },
           ].map((item) => (
-            <Link key={item.to} to={item.to} className="group flex min-h-36 flex-col justify-between bg-card p-5 transition-colors hover:bg-brand-emerald-soft">
-              <span className="text-sm text-muted-foreground">{en ? item.detailEn : item.detailAr}</span>
-              <span className="mt-6 flex items-center justify-between gap-3 font-semibold text-brand-navy">{en ? item.en : item.ar}<Arrow className="size-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" /></span>
+            <Link
+              key={item.to}
+              to={item.to}
+              className="group flex min-h-36 flex-col justify-between bg-card p-5 transition-colors hover:bg-brand-emerald-soft"
+            >
+              <span className="text-sm text-muted-foreground">
+                {en ? item.detailEn : item.detailAr}
+              </span>
+              <span className="mt-6 flex items-center justify-between gap-3 font-semibold text-brand-navy">
+                {en ? item.en : item.ar}
+                <Arrow className="size-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+              </span>
             </Link>
           ))}
         </div>

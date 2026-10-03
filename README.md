@@ -4,7 +4,7 @@
 
 This project was built with [Lovable](https://lovable.dev).
 
-**Live app**: https://essba-standards-helper.lovable.app
+**Live app**: https://ssesba.lovable.app
 
 ## Build with Lovable
 
