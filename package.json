@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "bun run src/lib/ssesba-data.check.ts"
+    "typecheck": "tsc --noEmit",
+    "test": "bun run src/lib/ssesba-data.check.ts && bun run src/lib/classification-standards.check.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"

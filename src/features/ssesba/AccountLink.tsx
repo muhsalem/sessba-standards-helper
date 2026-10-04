@@ -17,7 +17,13 @@ export function AccountLink({ en }: { en: boolean }) {
       className="hidden min-h-11 items-center gap-2 rounded-md px-3 text-sm text-brand-paper/85 hover:bg-brand-paper/10 sm:flex"
     >
       <UserRound className="size-4" />
-      {signedIn ? (en ? "Review desk" : "لوحة المراجعة") : en ? "Reviewer sign in" : "دخول المراجعين"}
+      {signedIn
+        ? en
+          ? "Review desk"
+          : "لوحة المراجعة"
+        : en
+          ? "Reviewer sign in"
+          : "دخول المراجعين"}
     </Link>
   );
 }

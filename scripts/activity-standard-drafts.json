@@ -1,0 +1,294 @@
+[
+  {"key":"K:المصرفية للأفراد والشركات","titleAr":"معيار نشاط المصرفية للأفراد والشركات","titleEn":"Standard for retail and corporate banking","summaryAr":"يضبط الإقراض والإيداع وصيغ التمويل في المصارف، زائدًا على معيار صناعة المالية والاستثمار.","summaryEn":"Governs lending, deposits and financing structures in banks, in addition to the finance and investment industry standard.","requirements":[
+    {"kind":"prohibition","ar":"الإقراض والإيداع بفائدة؛ فالقرض عقد إرفاق لا معاوضة، وكل قرضٍ جرّ نفعًا مشروطًا فهو ربا.","en":"Lending or taking deposits at interest; a loan is an act of benevolence, not exchange, and any loan that brings a stipulated benefit is riba.","ref":"AAOIFI المعيار الشرعي 19 (القرض)"},
+    {"kind":"mandatory","ar":"التمويل بالصيغ المشروعة: المرابحة للآمر بالشراء، والإجارة المنتهية بالتمليك، والمشاركة المتناقصة، والاستصناع.","en":"Finance through lawful structures: murabahah to the purchase orderer, ijarah ending in ownership, diminishing musharakah, and istisna'.","ref":"AAOIFI المعايير الشرعية 8 و9 و11 و12"},
+    {"kind":"mandatory","ar":"تملّك المصرف للسلعة وقبضها قبضًا حقيقيًّا أو حكميًّا معتبرًا قبل بيعها مرابحة.","en":"The bank must own the goods and take real or valid constructive possession before selling them by murabahah.","ref":"AAOIFI المعيار الشرعي 18 (القبض)"},
+    {"kind":"prohibition","ar":"بيع العِينة، والتورّق المنظّم الذي لا حقيقة للسلعة فيه، وغرامات التأخير التي تعود للمصرف ربحًا.","en":"'Inah sales, organised tawarruq with no real commodity, and late-payment charges retained by the bank as profit.","ref":"AAOIFI المعياران الشرعيان 3 و30"},
+    {"kind":"mandatory","ar":"هيئة رقابة شرعية مستقلة، وتدقيق شرعي دوري، وتطهير الإيراد غير المباح وصرفه في وجوه الخير دون أن ينتفع به المصرف.","en":"An independent Shariah board, periodic Shariah audit, and purification of non-permissible income given to charity without benefit to the bank.","ref":"معايير الحوكمة لأيوفي"}
+  ],"sources":["AAOIFI المعايير الشرعية 3 و8 و9 و11 و12 و18 و19 و30"]},
+  {"key":"K:الصكوك","titleAr":"معيار نشاط الصكوك","titleEn":"Standard for sukuk","summaryAr":"يضبط هيكلة الصكوك وإصدارها وتداولها.","summaryEn":"Governs the structuring, issuance and trading of sukuk.","requirements":[
+    {"kind":"mandatory","ar":"أن يمثّل الصك حصة شائعة في أعيان أو منافع أو خدمات أو موجودات مشروع، لا دينًا في ذمة المُصدِر.","en":"A sukuk certificate must represent an undivided share in assets, usufruct, services or project assets, not a debt owed by the issuer.","ref":"AAOIFI المعيار الشرعي 17 (صكوك الاستثمار)"},
+    {"kind":"prohibition","ar":"ضمان المُصدِر أو المدير لرأس المال أو لعائد ثابت؛ فحملة الصكوك يتحملون الغنم والغرم بحسب ملكيتهم.","en":"The issuer or manager guaranteeing capital or a fixed return; holders share profit and loss according to ownership.","ref":"AAOIFI المعيار الشرعي 17"},
+    {"kind":"condition","ar":"تداول صكوك المرابحة والسلم بعد التنضيض أو صيرورة موجوداتها ديونًا لا يجوز إلا بضوابط تداول الدين والصرف.","en":"Murabahah and salam sukuk whose assets have become debts may only be traded under the rules on debt and currency exchange.","ref":"AAOIFI المعيار الشرعي 17"},
+    {"kind":"condition","ar":"يجوز تعهّد المدير بالشراء بالقيمة السوقية أو بثمن يُتفق عليه عند الشراء، لا بالقيمة الاسمية.","en":"A manager's purchase undertaking is permitted at market value or a price agreed at the time of purchase, not at par.","ref":"AAOIFI المعيار الشرعي 17"},
+    {"kind":"mandatory","ar":"الإفصاح في نشرة الإصدار عن الهيكل والموجودات والمخاطر ورأي الهيئة الشرعية.","en":"Disclose the structure, assets, risks and the Shariah board's opinion in the prospectus.","ref":"مبدأ الشفافية"}
+  ],"sources":["AAOIFI المعيار الشرعي 17 (صكوك الاستثمار)"]},
+  {"key":"K:التمويل الأصغر","titleAr":"معيار نشاط التمويل الأصغر","titleEn":"Standard for microfinance","summaryAr":"يضبط التمويل الأصغر والتنموي بما يحقق التمكين ويمنع استغلال الحاجة.","summaryEn":"Governs micro and development finance to empower borrowers and prevent exploiting need.","requirements":[
+    {"kind":"prohibition","ar":"الزيادة على القرض الحسن بأي اسم، ولو سُمّيت رسمًا أو عمولة مرتبطة بمبلغ القرض أو مدته.","en":"Any increase on a benevolent loan under any name, even if called a fee or commission linked to the loan amount or term.","ref":"AAOIFI المعيار الشرعي 19 (القرض)"},
+    {"kind":"condition","ar":"تجوز أجرة الخدمة الفعلية المقطوعة بقدر التكلفة، دون ربطها بمقدار القرض.","en":"A flat fee for actual service at cost is permitted, not linked to the loan amount.","ref":"قرار مجمع الفقه الإسلامي في أجور خدمات القروض"},
+    {"kind":"condition","ar":"التمويل الإنتاجي بالمشاركة والمضاربة والمرابحة والسلم بحسب طبيعة المشروع.","en":"Productive finance through musharakah, mudarabah, murabahah or salam according to the project.","ref":"AAOIFI المعايير الشرعية 8 و10 و12 و13"},
+    {"kind":"mandatory","ar":"مراعاة مقصد التمكين: تقييم القدرة على السداد، وإنظار المعسر، ومنع أساليب التحصيل المهينة.","en":"Serve empowerment: assess repayment capacity, grant respite to those in hardship, and avoid humiliating collection.","ref":"قوله تعالى: ﴿وإن كان ذو عسرةٍ فنظرةٌ إلى ميسرة﴾"},
+    {"kind":"condition","ar":"ما يُلتزم به عند المماطلة من تبرّع يُصرف في الخير ولا يعود للمموّل.","en":"Any charitable undertaking on default goes to charity, not to the financier.","ref":"AAOIFI المعيار الشرعي 3"}
+  ],"sources":["AAOIFI المعايير الشرعية 3 و8 و10 و12 و13 و19"]},
+  {"key":"K:إدارة الأصول والصناديق","titleAr":"معيار نشاط إدارة الأصول والصناديق","titleEn":"Standard for asset and fund management","summaryAr":"يضبط إدارة الصناديق والمحافظ الاستثمارية.","summaryEn":"Governs investment funds and portfolio management.","requirements":[
+    {"kind":"mandatory","ar":"حصر الاستثمار في الأنشطة المباحة، وتطبيق الفرز الشرعي على الأسهم.","en":"Invest only in permissible activities and apply Shariah screening to equities.","ref":"AAOIFI المعيار الشرعي 21"},
+    {"kind":"mandatory","ar":"فصل أموال الصندوق عن أموال المدير، والتصرف بعقد وكالة بأجر أو مضاربة.","en":"Segregate fund assets from the manager's, acting under paid agency or mudarabah.","ref":"AAOIFI المعياران الشرعيان 13 و23"},
+    {"kind":"prohibition","ar":"ضمان المدير لرأس المال أو الربح إلا عند التعدي أو التقصير أو مخالفة الشروط.","en":"The manager guaranteeing capital or profit, except for transgression, negligence or breach of terms.","ref":"أحكام الأمانة"},
+    {"kind":"mandatory","ar":"تطهير الإيراد غير المباح دوريًّا والإفصاح عن نسبته للمستثمرين.","en":"Purify non-permissible income periodically and disclose its ratio to investors.","ref":"AAOIFI المعيار الشرعي 21"},
+    {"kind":"condition","ar":"الإفصاح عن الرسوم وهيكلها، وشروط الاكتتاب والاسترداد بما ينفي الغرر.","en":"Disclose fees and their structure, and subscription and redemption terms, so as to remove gharar.","ref":"النهي عن الغرر"}
+  ],"sources":["AAOIFI المعايير الشرعية 13 و21 و23"]},
+  {"key":"K:البورصات","titleAr":"معيار نشاط البورصات والتداول","titleEn":"Standard for stock exchanges and trading","summaryAr":"يضبط تداول الأوراق المالية في الأسواق المنظمة.","summaryEn":"Governs trading of securities on organised markets.","requirements":[
+    {"kind":"condition","ar":"يجوز تداول أسهم الشركات المباحة؛ فالسهم حصة شائعة في موجودات الشركة، مع تطبيق حدود الفرز والتطهير.","en":"Trading shares of permissible companies is allowed, as a share is an undivided interest in company assets, subject to screens and purification.","ref":"AAOIFI المعيار الشرعي 21"},
+    {"kind":"prohibition","ar":"البيع على المكشوف، والتداول بالهامش القائم على قرض ربوي، وإقراض الأسهم بعوض.","en":"Short selling, margin trading funded by interest-bearing loans, and lending shares for a fee.","ref":"AAOIFI المعيار الشرعي 21"},
+    {"kind":"prohibition","ar":"المشتقات القائمة على الغرر والمراهنة كالخيارات والمستقبليات المجرّدة.","en":"Derivatives built on gharar and wagering, such as conventional options and futures.","ref":"AAOIFI المعيار الشرعي 20"},
+    {"kind":"prohibition","ar":"النجش، والتلاعب بالأسعار، والتداول بناءً على معلومات داخلية.","en":"Price manipulation (najsh) and insider trading.","ref":"النهي عن النجش والغش"},
+    {"kind":"condition","ar":"المؤشرات الإسلامية: بناؤها على معايير فرز معلنة ومراجعة دورية.","en":"Islamic indices must use published screening criteria with periodic review.","ref":"AAOIFI المعيار الشرعي 27 (المؤشرات)"}
+  ],"sources":["AAOIFI المعايير الشرعية 20 و21 و27"]},
+  {"key":"K:المدفوعات الرقمية","titleAr":"معيار نشاط المدفوعات الرقمية","titleEn":"Standard for digital payments","summaryAr":"يضبط المحافظ الرقمية والتحويلات وبوابات الدفع.","summaryEn":"Governs digital wallets, transfers and payment gateways.","requirements":[
+    {"kind":"condition","ar":"تجوز الأجرة على خدمة التحويل والتحصيل (إجارة أو جعالة) دون ربطها بمبلغٍ على وجه القرض.","en":"Fees for transfer and collection services (hire or ju'alah) are permitted, not tied to an amount as a loan charge.","ref":"أحكام الإجارة والجعالة"},
+    {"kind":"mandatory","ar":"أحكام الصرف عند تبادل العملات: التقابض ولو حكميًّا بالقيد الفوري، والتماثل عند اتحاد الجنس.","en":"Currency exchange rules: hand-to-hand exchange, including constructive possession by instant booking, and equality when currencies are the same.","ref":"AAOIFI المعيار الشرعي 1 (المتاجرة في العملات)"},
+    {"kind":"condition","ar":"أرصدة المحافظ الرقمية قروض مضمونة للعميل؛ فلا يُمنح عليها عائد مشروط، ويُستثمر المصدر ما يأذن به النظام في المباح.","en":"Wallet balances are guaranteed loans to the provider; no stipulated return may be paid on them, and any permitted investment must be in lawful assets.","ref":"AAOIFI المعيار الشرعي 19 (القرض)"},
+    {"kind":"prohibition","ar":"تمكين المدفوعات لمواقع القمار والإباحية والإقراض الربوي.","en":"Processing payments for gambling, pornography or interest-based lending.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"mandatory","ar":"أمن البيانات وخصوصية المستخدم وحفظ الأمانة.","en":"Data security, user privacy and safeguarding trust.","ref":"أحكام الأمانة"}
+  ],"sources":["AAOIFI المعيار الشرعي 1","AAOIFI المعيار الشرعي 19"]},
+  {"key":"K:التمويل الجماعي","titleAr":"معيار نشاط التمويل الجماعي","titleEn":"Standard for crowdfunding","summaryAr":"يضبط منصات التمويل الجماعي بالمشاركة والتبرع والمكافأة.","summaryEn":"Governs equity, donation and reward crowdfunding platforms.","requirements":[
+    {"kind":"condition","ar":"التمويل بالمشاركة والمضاربة: تحديد الحصص، وقسمة الربح نسبةً شائعة، وتحمّل الخسارة بقدر رأس المال.","en":"Musharakah and mudarabah crowdfunding: defined shares, profit split as a proportion, and losses borne by capital.","ref":"AAOIFI المعياران الشرعيان 12 و13"},
+    {"kind":"prohibition","ar":"التمويل الإقراضي بفائدة ولو صغرت النسبة أو سُمّيت رسمًا.","en":"Interest-bearing lending, however small the rate or whatever it is called.","ref":"تحريم الربا"},
+    {"kind":"condition","ar":"نموذجا التبرع والمكافأة جائزان بشرط الشفافية، وانتفاء الغرر الفاحش في المكافأة، والصرف في المُعلَن.","en":"Donation and reward models are permitted with transparency, no gross gharar in rewards, and spending as announced.","ref":"أحكام الهبة والوعد"},
+    {"kind":"mandatory","ar":"فحص المنصة لمشروعية المشروعات المعروضة، والإفصاح عن المخاطر وعمولتها.","en":"The platform vets projects for permissibility and discloses risks and its commission.","ref":"AAOIFI المعيار الشرعي 23 (الوكالة)"}
+  ],"sources":["AAOIFI المعايير الشرعية 12 و13 و23"]},
+  {"key":"K:العملات والأصول المشفّرة","titleAr":"معيار نشاط العملات والأصول المشفّرة","titleEn":"Standard for cryptocurrencies and crypto-assets","summaryAr":"نشاطٌ في وضع «قيد الدراسة / إحالة» بمخاطر شرعية مرتفعة، إلى أن تصدر الهيئة قرارًا.","summaryEn":"An activity \"under study / referral\" with high Shariah risk until the board rules.","requirements":[
+    {"kind":"condition","ar":"وضع إحالة بمخاطر S3 فأعلى: قرار مجمع الفقه الإسلامي الدولي 237 (8/24) أوصى بمزيد الدراسة ولم يصدر حكمًا قاطعًا.","en":"Referral status at S3 risk or higher: International Islamic Fiqh Academy resolution 237 (8/24) called for further study without a final ruling.","ref":"قرار مجمع الفقه 237 (8/24)"},
+    {"kind":"prohibition","ar":"ما فيه قمارٌ أو مراهنة أو جهالة فاحشة، كالمشتقات بالرافعة والتداول بالهامش الربوي.","en":"Anything involving gambling, wagering or gross uncertainty, such as leveraged derivatives and interest-funded margin trading.","ref":"تحريم الميسر والغرر"},
+    {"kind":"condition","ar":"ترميز أصلٍ حقيقي مملوك أقرب إلى الجواز، والعبرة بالأصل المرمَّز لا بالتقنية.","en":"Tokenising a real, owned asset is closer to permissibility; what matters is the underlying asset, not the technology.","ref":"قاعدة «العبرة بالمقاصد والمعاني»"},
+    {"kind":"mandatory","ar":"عرض كل منتج أو خدمة على هيئة شرعية مؤهلة قبل الإطلاق، وتصنيفها «قيد الدراسة» حتى يصدر القرار.","en":"Submit every product or service to a qualified Shariah board before launch, classified \"under study\" until it rules.","ref":"الحالات الخاصة في المعيار"}
+  ],"sources":["قرار مجمع الفقه الإسلامي الدولي 237"]},
+  {"key":"K:التكافل","titleAr":"معيار نشاط التكافل","titleEn":"Standard for takaful","summaryAr":"يضبط التأمين التكافلي القائم على التبرع.","summaryEn":"Governs donation-based takaful insurance.","requirements":[
+    {"kind":"mandatory","ar":"قيام العقد على التبرع أو الالتزام بالتبرع، لا على المعاوضة الاحتمالية.","en":"The contract rests on donation or a commitment to donate, not an aleatory exchange.","ref":"AAOIFI المعيار الشرعي 26 (التأمين الإسلامي)"},
+    {"kind":"mandatory","ar":"فصل صندوق المشتركين عن أموال الشركة المديرة، وأجرة المدير وكالةً أو حصة مضاربة معلومة.","en":"Separate the participants' fund from the operator's assets; the operator earns a known agency fee or mudarabah share.","ref":"AAOIFI المعيار الشرعي 26"},
+    {"kind":"mandatory","ar":"استثمار أموال التكافل في المباح فقط.","en":"Invest takaful funds only in permissible assets.","ref":"AAOIFI المعيار الشرعي 21"},
+    {"kind":"condition","ar":"توزيع الفائض التأميني على المشتركين وفق اللائحة، ويقدّم المدير قرضًا حسنًا عند العجز.","en":"Distribute underwriting surplus to participants per the rules; the operator provides a benevolent loan in deficit.","ref":"AAOIFI المعيار الشرعي 26"},
+    {"kind":"condition","ar":"إعادة التكافل مع جهات متوافقة، وتُقبل إعادة التأمين التقليدي للحاجة بضوابط الهيئة.","en":"Retakaful with compliant providers; conventional reinsurance is accepted only of need under board rules.","ref":"AAOIFI المعيار الشرعي 41 (إعادة التأمين)"}
+  ],"sources":["AAOIFI المعيار الشرعي 21","AAOIFI المعيار الشرعي 26"]},
+  {"key":"A:زراعة الحبوب","titleAr":"معيار نشاط زراعة الحبوب","titleEn":"Standard for cereal farming","summaryAr":"يضبط زراعة الحبوب وبيعها وزكاتها.","summaryEn":"Governs growing, selling and paying zakat on cereals.","requirements":[
+    {"kind":"mandatory","ar":"زكاة الحبوب: نصابها خمسة أوسق، والعشر فيما سُقي بلا مؤونة ونصفه فيما سُقي بمؤونة.","en":"Zakat on grain: nisab of five awsuq; a tenth when rain-fed and a twentieth when irrigated at cost.","ref":"AAOIFI المعيار الشرعي 35"},
+    {"kind":"condition","ar":"السلم في الحبوب موصوفةً في الذمة جائز بشروطه.","en":"Salam in grain described as a liability is permitted on its conditions.","ref":"AAOIFI المعيار الشرعي 10"},
+    {"kind":"prohibition","ar":"بيع الحب قبل اشتداده على التبقية.","en":"Selling grain before it hardens on condition that it stays in the field.","ref":"النهي عن بيع الحب حتى يشتد"},
+    {"kind":"mandatory","ar":"الصدق في الكيل والجودة، ومنع الاحتكار في أقوات الناس.","en":"Honest measures and quality, and no hoarding of staple food.","ref":"حديث «لا يحتكر إلا خاطئ»"}
+  ],"sources":["AAOIFI المعيار الشرعي 10","AAOIFI المعيار الشرعي 35"]},
+  {"key":"A:زراعة الفاكهة","titleAr":"معيار نشاط زراعة الفاكهة","titleEn":"Standard for fruit farming","summaryAr":"يضبط بيع الثمار والمساقاة وزكاة الثمار.","summaryEn":"Governs fruit sales, musaqah and zakat on fruit.","requirements":[
+    {"kind":"prohibition","ar":"بيع الثمار قبل بدوّ صلاحها إلا بشرط القطع.","en":"Selling fruit before it ripens, unless on condition of immediate picking.","ref":"النهي عن بيع الثمار حتى يبدو صلاحها"},
+    {"kind":"condition","ar":"بدوّ الصلاح ظهور النضج وأمن العاهة، ويختلف باختلاف الثمر.","en":"Ripening means signs of maturity and safety from blight, varying by fruit.","ref":"كتب الفقه في بيع الثمار"},
+    {"kind":"mandatory","ar":"زكاة الثمار الزكوية كالتمر والزبيب: العشر أو نصفه بعد بلوغ النصاب، ويُحال غيرها إلى منهجية الهيئة لاختلاف المذاهب.","en":"Zakat on zakatable fruit such as dates and raisins: a tenth or a twentieth above nisab; other fruit follows the board's methodology given differences among schools.","ref":"AAOIFI المعيار الشرعي 35"},
+    {"kind":"condition","ar":"المساقاة بجزء شائع معلوم من الثمر.","en":"Musaqah for a known undivided share of the fruit.","ref":"معاملة خيبر"},
+    {"kind":"mandatory","ar":"منع الغش في الوزن والجودة وكتمان العيب.","en":"No fraud in weight or quality, and no concealment of defects.","ref":"حديث «من غشّنا فليس منّا»"}
+  ],"sources":["AAOIFI المعيار الشرعي 35"]},
+  {"key":"A:تربية الأبقار","titleAr":"معيار نشاط تربية الأبقار","titleEn":"Standard for cattle farming","summaryAr":"يضبط تربية الأبقار وزكاتها وذبحها.","summaryEn":"Governs rearing, zakat and slaughter of cattle.","requirements":[
+    {"kind":"condition","ar":"زكاة السائمة: تجب في البقر السائمة الحول إذا بلغت النصاب (في كل ثلاثين تبيع). والمعلوفة المعدّة للتجارة تُزكّى زكاة عروض التجارة، وتُحال التفاصيل إلى منهجية الهيئة.","en":"Zakat on grazing cattle: due on cattle grazing for a year at nisab (a yearling per thirty). Fodder-fed cattle held for trade pay trade-goods zakat; details follow the board's methodology.","ref":"AAOIFI المعيار الشرعي 35"},
+    {"kind":"mandatory","ar":"الرفق بالحيوان وحسن الملكة، وتحريم تعذيبه أو تجويعه.","en":"Kindness and good care of animals; no torture or starvation.","ref":"حديث «إن الله كتب الإحسان على كل شيء»"},
+    {"kind":"mandatory","ar":"طيب العلف وخلوّه من المحرّم والنجس، وحبس الجلّالة حتى يطيب لحمها.","en":"Wholesome feed free of prohibited and impure matter; jallalah animals are confined until their meat is wholesome.","ref":"أحكام الجلّالة"},
+    {"kind":"mandatory","ar":"الذكاة الشرعية: أهلية الذابح، والتسمية، وإنهار الدم بقطع الحلقوم والمريء.","en":"Shariah slaughter: a qualified slaughterer, invoking God's name, and letting blood by cutting the windpipe and oesophagus.","ref":"OIC/SMIIC 1"}
+  ],"sources":["AAOIFI المعيار الشرعي 35","OIC/SMIIC 1"]},
+  {"key":"A:مزارع الدواجن","titleAr":"معيار نشاط مزارع الدواجن","titleEn":"Standard for poultry farming","summaryAr":"يضبط إنتاج الدواجن وذبحها وتسويقها.","summaryEn":"Governs poultry production, slaughter and marketing.","requirements":[
+    {"kind":"mandatory","ar":"طيب العلف وخلوّه من الميتة والنجاسات.","en":"Wholesome feed free of carrion and impurities.","ref":"أحكام الجلّالة"},
+    {"kind":"mandatory","ar":"الذكاة الشرعية شرطٌ لحلّ اللحم، مع التسمية وإحسان الذبح.","en":"Shariah slaughter is required for the meat to be lawful, with God's name invoked and humane slaughter.","ref":"OIC/SMIIC 1"},
+    {"kind":"condition","ar":"الصعق قبل الذبح: يُقبل فقط بما لا يُميت الطير قبل الذبح، وفق ضوابط الهيئة ومعيار الحلال المعتمد.","en":"Pre-slaughter stunning is accepted only if it does not kill the bird before slaughter, per board rules and the adopted halal standard.","ref":"OIC/SMIIC 1"},
+    {"kind":"mandatory","ar":"الصدق في الوصف والتاريخ والوزن، وضمان السلامة الصحية للمستهلك.","en":"Truthful description, dates and weights, and consumer health safety.","ref":"مقصد حفظ النفس"}
+  ],"sources":["OIC/SMIIC 1"]},
+  {"key":"A:الاستزراع السمكي","titleAr":"معيار نشاط الاستزراع السمكي","titleEn":"Standard for aquaculture","summaryAr":"يضبط استزراع الأسماك وتغذيتها وبيعها.","summaryEn":"Governs fish farming, feeding and sale.","requirements":[
+    {"kind":"condition","ar":"السمك حلال بأصل الشرع وميتته حلال، ولا تشترط له ذكاة.","en":"Fish are lawful in principle, including when found dead, and need no slaughter.","ref":"حديث «هو الطهور ماؤه الحلّ ميتته»"},
+    {"kind":"mandatory","ar":"طيب العلف، وما أُطعم النجاسة يُحبس حتى يطيب.","en":"Wholesome feed; fish fed on impurities are held until wholesome.","ref":"أحكام الجلّالة"},
+    {"kind":"mandatory","ar":"عدم الإضرار بالبيئة المائية والجوار بالمخلّفات والأمراض.","en":"No harm to the aquatic environment or neighbours through waste or disease.","ref":"قاعدة «لا ضرر ولا ضرار»"},
+    {"kind":"condition","ar":"السلم في الأسماك موصوفةً في الذمة إلى أجل معلوم جائز.","en":"Salam in fish described as a liability to a known date is permitted.","ref":"AAOIFI المعيار الشرعي 10"}
+  ],"sources":["AAOIFI المعيار الشرعي 10"]},
+  {"key":"A:إنتاج العسل","titleAr":"معيار نشاط إنتاج العسل","titleEn":"Standard for honey production","summaryAr":"يضبط إنتاج العسل وتسويقه وزكاته.","summaryEn":"Governs honey production, marketing and zakat.","requirements":[
+    {"kind":"condition","ar":"زكاة العسل محل خلاف: أوجبها الحنفية والحنابلة إذا بلغ النصاب، ولم يوجبها المالكية والشافعية. تُحال إلى منهجية الهيئة.","en":"Zakat on honey is disputed: Hanafis and Hanbalis require it above nisab, Malikis and Shafi'is do not. Referred to the board's methodology.","ref":"AAOIFI المعيار الشرعي 35"},
+    {"kind":"prohibition","ar":"غش العسل بخلطه بالسكر أو المحليات مع كتمان ذلك.","en":"Adulterating honey with sugar or sweeteners while concealing it.","ref":"حديث «من غشّنا فليس منّا»"},
+    {"kind":"mandatory","ar":"الصدق في وصف المصدر والنوع، والرفق بالنحل وعدم إتلافه بلا حاجة.","en":"Truthful description of source and type, and care for bees without needless destruction.","ref":"النهي عن الغش والإفساد"}
+  ],"sources":["AAOIFI المعيار الشرعي 35"]},
+  {"key":"A:الصيد البحري","titleAr":"معيار نشاط الصيد البحري","titleEn":"Standard for marine fishing","summaryAr":"يضبط الصيد البحري والمحافظة على الثروة السمكية.","summaryEn":"Governs marine fishing and conservation of fish stocks.","requirements":[
+    {"kind":"condition","ar":"صيد البحر حلال ولا يحتاج إلى ذكاة.","en":"Seafood is lawful and needs no slaughter.","ref":"قوله تعالى: ﴿أُحلّ لكم صيد البحر وطعامه﴾"},
+    {"kind":"prohibition","ar":"الصيد في المناطق والمواسم المحظورة نظامًا للحماية، والصيد الجائر المدمّر للمخزون.","en":"Fishing in areas or seasons closed for protection, and destructive overfishing.","ref":"قاعدة «لا ضرر ولا ضرار»"},
+    {"kind":"mandatory","ar":"الصدق في وصف الصيد ونوعه وتاريخ صيده.","en":"Truthful description of the catch, species and catch date.","ref":"النهي عن الغش"}
+  ],"sources":["أحكام الصيد في كتب الفقه"]},
+  {"key":"A:قطع الأخشاب","titleAr":"معيار نشاط قطع الأخشاب","titleEn":"Standard for logging","summaryAr":"يضبط قطع الأشجار والانتفاع بالغابات.","summaryEn":"Governs tree felling and forest use.","requirements":[
+    {"kind":"mandatory","ar":"أن يكون القطع من شجر مملوك أو مأذون فيه، دون اعتداء على الملك العام أو المحميات.","en":"Fell only owned or licensed trees, without encroaching on public land or reserves.","ref":"أحكام الملك العام"},
+    {"kind":"prohibition","ar":"قطع الشجر المثمر أو ما فيه نفع عام لغير حاجة.","en":"Felling fruit-bearing trees or trees of public benefit without need.","ref":"النهي عن الإفساد في الأرض"},
+    {"kind":"recommended","ar":"إعادة التشجير والاستدامة حفظًا للمال والنفس.","en":"Reforestation and sustainability to preserve wealth and life.","ref":"حديث «إن قامت الساعة وفي يد أحدكم فسيلة فليغرسها»"},
+    {"kind":"mandatory","ar":"الوفاء بعقود التوريد ومواصفاتها.","en":"Honour supply contracts and their specifications.","ref":"قوله تعالى: ﴿أوفوا بالعقود﴾"}
+  ],"sources":["أحكام الملك العام والإحياء"]},
+  {"key":"C:تصنيع اللحوم والأسماك","titleAr":"معيار نشاط تصنيع اللحوم والأسماك","titleEn":"Standard for meat and fish processing","summaryAr":"يضبط الذبح والتصنيع والتغليف للحوم والأسماك.","summaryEn":"Governs slaughter, processing and packaging of meat and fish.","requirements":[
+    {"kind":"mandatory","ar":"الذكاة الشرعية: أهلية الذابح (مسلم أو كتابي)، والتسمية، وقطع الحلقوم والمريء وإنهار الدم.","en":"Shariah slaughter: a qualified slaughterer (Muslim or of the People of the Book), invoking God's name, and cutting the windpipe and oesophagus to let blood.","ref":"OIC/SMIIC 1"},
+    {"kind":"prohibition","ar":"ما ذُبح على غير اسم الله أو مات خنقًا أو صعقًا قبل الذبح فهو ميتة.","en":"Anything slaughtered in other than God's name, or killed by strangling or stunning before slaughter, is carrion.","ref":"قوله تعالى: ﴿حُرّمت عليكم الميتة…﴾"},
+    {"kind":"mandatory","ar":"فصل خطوط الإنتاج الحلال ومنع التلوث المتبادل، وخلو المضافات والأغلفة من المحرّم.","en":"Separate halal lines and prevent cross-contamination, with additives and casings free of prohibited matter.","ref":"OIC/SMIIC 1"},
+    {"kind":"condition","ar":"اللحوم المستزرعة مخبريًا: تُقبل بالشروط التي قررها مجمع الفقه في قراره 265، وتحال تفاصيلها إلى الهيئة.","en":"Cultivated meat is accepted on the conditions set by fiqh academy resolution 265, with details referred to the board.","ref":"قرار مجمع الفقه 265"},
+    {"kind":"mandatory","ar":"الصدق في الوسم والتاريخ وبلد المنشأ وشهادة الحلال.","en":"Truthful labelling, dates, origin and halal certification.","ref":"OIC/SMIIC 1"}
+  ],"sources":["OIC/SMIIC 1","قرار مجمع الفقه الإسلامي الدولي 265"]},
+  {"key":"C:تصنيع الأدوية","titleAr":"معيار نشاط تصنيع الأدوية","titleEn":"Standard for pharmaceutical manufacturing","summaryAr":"يضبط مكوّنات الأدوية وجودتها وتسعيرها.","summaryEn":"Governs pharmaceutical ingredients, quality and pricing.","requirements":[
+    {"kind":"condition","ar":"الأصل التداوي بالمباح، ولا يُستعمل المحرّم إلا لضرورة مع انتفاء البديل.","en":"Treatment with lawful substances is the rule; prohibited ones are used only of necessity without alternatives.","ref":"قاعدة «الضرورات تبيح المحظورات»"},
+    {"kind":"condition","ar":"الاستحالة: ما تغيّرت حقيقته فالجمهور على طهارته وحِلّه، ويضيّقها الشافعية. تعتمد الهيئة المذهب المعمول به.","en":"Transformation: most jurists deem a fully transformed substance pure and lawful, while Shafi'is restrict this. The board sets the approach followed.","ref":"قرارات مجمع الفقه في الاستحالة"},
+    {"kind":"mandatory","ar":"الإفصاح عن المكوّنات ذات الأصل المحرّم (كالكحول والجيلاتين) ونسبتها.","en":"Disclose ingredients of prohibited origin (such as alcohol and gelatin) and their proportion.","ref":"معايير SMIIC للدواء الحلال"},
+    {"kind":"prohibition","ar":"الغش في الجودة، واحتكار الأدوية الضرورية أو المغالاة فيها.","en":"Quality fraud, and hoarding or overpricing essential medicines.","ref":"حديث «لا يحتكر إلا خاطئ»"}
+  ],"sources":["معايير SMIIC للدواء الحلال","قرارات مجمع الفقه الإسلامي الدولي"]},
+  {"key":"C:مستحضرات التجميل","titleAr":"معيار نشاط مستحضرات التجميل","titleEn":"Standard for cosmetics","summaryAr":"يضبط مكوّنات مستحضرات التجميل وتسويقها.","summaryEn":"Governs cosmetic ingredients and marketing.","requirements":[
+    {"kind":"condition","ar":"الأصل إباحة الزينة المباحة، ويحرم ما فيه تغيير لخلق الله كالوشم.","en":"Lawful adornment is permitted; altering God's creation, such as tattooing, is not.","ref":"حديث لعن الواشمة"},
+    {"kind":"mandatory","ar":"خلوّ المكوّنات من النجس والمحرّم كالشحوم غير المذكّاة والكحول المسكر.","en":"Ingredients free of impure or prohibited matter, such as fats from unslaughtered animals and intoxicating alcohol.","ref":"OIC/SMIIC 4"},
+    {"kind":"mandatory","ar":"السلامة وعدم الإضرار بالبدن، فحفظ النفس مقدّم على الزينة.","en":"Safety and no bodily harm, since preserving life precedes adornment.","ref":"مقصد حفظ النفس"},
+    {"kind":"mandatory","ar":"الصدق في الوصف والدعاية.","en":"Truthful descriptions and advertising.","ref":"النهي عن الغش"}
+  ],"sources":["OIC/SMIIC 4 (مستحضرات التجميل الحلال)"]},
+  {"key":"C:صناعة الملابس","titleAr":"معيار نشاط صناعة الملابس","titleEn":"Standard for apparel manufacturing","summaryAr":"يضبط تصنيع الملابس وخاماتها وحقوق العاملين فيها.","summaryEn":"Governs apparel production, materials and workers' rights.","requirements":[
+    {"kind":"condition","ar":"الأصل الإباحة. وتصنيع الحرير الطبيعي والذهب جائز لإباحتهما للنساء، ويُمنع ما يُصمَّم أصالةً للبس المحرّم.","en":"Permissible in principle. Natural silk and gold may be produced since they are lawful for women; items designed mainly for prohibited wear are not.","ref":"حديث «أُحلّ الذهب والحرير لإناث أمتي»"},
+    {"kind":"prohibition","ar":"الشعارات المحرّمة أو الداعية إلى المحرّم على الملابس.","en":"Prohibited slogans or symbols promoting the prohibited on garments.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"mandatory","ar":"حقوق العاملين: أجر عادل وسلامة مهنية ومنع عمل الأطفال الضار.","en":"Workers' rights: fair pay, occupational safety, and no harmful child labour.","ref":"حديث «أعطوا الأجير أجره»"},
+    {"kind":"mandatory","ar":"الصدق في الخامات والمقاسات وبلد المنشأ.","en":"Truthful materials, sizes and country of origin.","ref":"النهي عن الغش"}
+  ],"sources":["أحكام اللباس في كتب الفقه"]},
+  {"key":"C:المخابز","titleAr":"معيار نشاط المخابز","titleEn":"Standard for bakeries","summaryAr":"يضبط صناعة الخبز والمعجنات وتسعيرها.","summaryEn":"Governs bread and pastry production and pricing.","requirements":[
+    {"kind":"mandatory","ar":"طيب المدخلات وخلوّها من المحرّم كدهن الخنزير والكحول والجيلاتين غير المذكّى.","en":"Wholesome inputs free of prohibited ingredients such as lard, alcohol and non-halal gelatin.","ref":"OIC/SMIIC 1"},
+    {"kind":"prohibition","ar":"الغش في الوزن والجودة، واحتكار أقوات الناس.","en":"Fraud in weight or quality, and hoarding staple food.","ref":"حديث «لا يحتكر إلا خاطئ»"},
+    {"kind":"condition","ar":"الالتزام بالتسعير الذي يفرضه وليّ الأمر للمصلحة العامة ما لم يكن فيه ظلم.","en":"Comply with price controls set for the public interest unless unjust.","ref":"أحكام التسعير"},
+    {"kind":"mandatory","ar":"النظافة والسلامة الصحية.","en":"Hygiene and food safety.","ref":"مقصد حفظ النفس"}
+  ],"sources":["OIC/SMIIC 1"]},
+  {"key":"G:المتاجر الإلكترونية","titleAr":"معيار نشاط المتاجر الإلكترونية","titleEn":"Standard for online stores","summaryAr":"يضبط البيع عبر المتاجر والمنصات الإلكترونية.","summaryEn":"Governs selling through online stores and marketplaces.","requirements":[
+    {"kind":"prohibition","ar":"بيع ما لا يملك البائع. ويجوز السلم والاستصناع بشروطهما، والبيع بعد التملك في نموذج الشحن المباشر.","en":"Selling what the seller does not own. Salam and istisna' are permitted on their conditions, and dropshipping only after acquiring ownership.","ref":"حديث «لا تبع ما ليس عندك»"},
+    {"kind":"mandatory","ar":"رفع الغرر بوصف دقيق وصور صادقة وبيان الثمن والرسوم والأجل.","en":"Remove uncertainty with accurate descriptions, truthful images, and clear price, fees and delivery time.","ref":"النهي عن بيع الغرر"},
+    {"kind":"mandatory","ar":"خيار الرؤية والعيب، والوفاء بسياسات الإرجاع المعلنة.","en":"Options for inspection and defects, and honouring published return policies.","ref":"أحكام الخيارات"},
+    {"kind":"prohibition","ar":"عرض المحرّمات، والسحوبات والنقاط المجهولة المقابل.","en":"Listing prohibited goods, and prize draws or points of unknown value.","ref":"تحريم الميسر"}
+  ],"sources":["أحكام البيوع في كتب الفقه"]},
+  {"key":"G:الصيدليات","titleAr":"معيار نشاط الصيدليات","titleEn":"Standard for pharmacies","summaryAr":"يضبط صرف الأدوية وبيعها.","summaryEn":"Governs dispensing and selling medicines.","requirements":[
+    {"kind":"condition","ar":"التداوي بالمباح أصلًا، ولا يُصرف المحرّم إلا لضرورة بوصفة معتبرة.","en":"Treatment with lawful medicines is the rule; prohibited ones are dispensed only of necessity with a valid prescription.","ref":"قاعدة الضرورة"},
+    {"kind":"prohibition","ar":"صرف الأدوية المقيّدة دون وصفة نظامية.","en":"Dispensing restricted medicines without a valid prescription.","ref":"قاعدة «لا ضرر ولا ضرار»"},
+    {"kind":"prohibition","ar":"بيع المنتهي أو المغشوش، والاحتكار والمغالاة في الأدوية الضرورية.","en":"Selling expired or counterfeit products, and hoarding or overpricing essential medicines.","ref":"النهي عن الغش والاحتكار"},
+    {"kind":"mandatory","ar":"الأمانة في اقتراح البدائل، وحفظ خصوصية المريض.","en":"Honest advice on alternatives and patient privacy.","ref":"أحكام الأمانة"}
+  ],"sources":["أحكام التداوي في كتب الفقه"]},
+  {"key":"H:نقل البضائع","titleAr":"معيار نشاط نقل البضائع","titleEn":"Standard for freight transport","summaryAr":"يضبط عقود نقل البضائع وضمانها.","summaryEn":"Governs freight contracts and liability.","requirements":[
+    {"kind":"condition","ar":"عقد النقل إجارة على عمل معلوم بأجرة معلومة.","en":"Carriage is a hire of known work for a known fee.","ref":"AAOIFI المعيار الشرعي 34"},
+    {"kind":"condition","ar":"يد الناقل يد أمانة، فلا يضمن إلا بالتعدي أو التقصير أو مخالفة الشرط. ويُحال تضمين الأجير المشترك إلى الهيئة لاختلاف المذاهب.","en":"The carrier holds goods on trust and is liable only for transgression, negligence or breach; the common-hire liability question is referred to the board given differing schools.","ref":"أحكام ضمان الأجير المشترك"},
+    {"kind":"prohibition","ar":"نقل المحرّمات كالخمر والمخدرات.","en":"Carrying prohibited goods such as alcohol and drugs.","ref":"حديث لعن حامل الخمر"},
+    {"kind":"condition","ar":"التأمين على الشحنات بالتكافل حيث يتاح.","en":"Insure cargo through takaful where available.","ref":"AAOIFI المعيار الشرعي 26"}
+  ],"sources":["AAOIFI المعيار الشرعي 26","AAOIFI المعيار الشرعي 34"]},
+  {"key":"F:التطوير السكني والتجاري","titleAr":"معيار نشاط التطوير السكني والتجاري","titleEn":"Standard for residential and commercial development","summaryAr":"يضبط التطوير العقاري والبيع على الخارطة وتمويله.","summaryEn":"Governs property development, off-plan sales and their financing.","requirements":[
+    {"kind":"condition","ar":"البيع على الخارطة استصناعٌ بوصف منضبط وأجل تسليم محدد.","en":"Off-plan sales are istisna' with precise specifications and a set delivery date.","ref":"AAOIFI المعيار الشرعي 11"},
+    {"kind":"condition","ar":"تمويل التطوير والشراء بالمرابحة أو الإجارة المنتهية بالتمليك أو المشاركة المتناقصة، لا بالقرض الربوي.","en":"Finance development and purchase through murabahah, ijarah ending in ownership or diminishing musharakah, not interest-bearing loans.","ref":"AAOIFI المعايير الشرعية 8 و9 و12"},
+    {"kind":"mandatory","ar":"حفظ حقوق الجوار، وحق الشفعة للشريك.","en":"Respect neighbours' rights and a co-owner's right of pre-emption (shuf'ah).","ref":"أحكام الشفعة"},
+    {"kind":"mandatory","ar":"الوفاء بالمواصفات والمواعيد، ومنع الغرر في الإعلان.","en":"Meet specifications and deadlines, with no misleading advertising.","ref":"قوله تعالى: ﴿أوفوا بالعقود﴾"}
+  ],"sources":["AAOIFI المعايير الشرعية 8 و9 و11 و12"]},
+  {"key":"F:الوساطة العقارية","titleAr":"معيار نشاط الوساطة العقارية","titleEn":"Standard for real estate brokerage","summaryAr":"يضبط السمسرة العقارية وأجرها.","summaryEn":"Governs real estate brokerage and its fees.","requirements":[
+    {"kind":"condition","ar":"السمسرة جائزة بأجرة معلومة أو نسبة متفق عليها، ولا يستحق السمسار الأجر إلا بتمام العمل المتفق عليه.","en":"Brokerage is permitted for a known fee or agreed percentage; the broker earns it only on completing the agreed work.","ref":"أحكام الجعالة"},
+    {"kind":"prohibition","ar":"النجش، وتزيين العقار بالكذب، وكتمان العيب.","en":"Bid rigging, falsely embellishing a property, and concealing defects.","ref":"النهي عن النجش"},
+    {"kind":"prohibition","ar":"الجمع بين عمولتين دون علم الطرفين، والتوسط في عقود محرّمة كالرهن الربوي.","en":"Taking two commissions without both parties' knowledge, or brokering prohibited contracts such as interest-bearing mortgages.","ref":"أحكام الأمانة"}
+  ],"sources":["أحكام السمسرة والجعالة"]},
+  {"key":"Q:المستشفيات","titleAr":"معيار نشاط المستشفيات","titleEn":"Standard for hospitals","summaryAr":"يضبط الخدمات الاستشفائية.","summaryEn":"Governs hospital services.","requirements":[
+    {"kind":"mandatory","ar":"حفظ النفس: تقديم العلاج الإسعافي دون اشتراط الدفع المسبق.","en":"Preserving life: provide emergency treatment without requiring advance payment.","ref":"مقصد حفظ النفس"},
+    {"kind":"mandatory","ar":"الطهارة والستر، وفصل الجنسين حيث أمكن.","en":"Cleanliness and modesty, with gender separation where possible.","ref":"أحكام العورة"},
+    {"kind":"prohibition","ar":"الإجهاض لغير عذر شرعي معتبر، وإفشاء أسرار المرضى.","en":"Abortion without a recognised Shariah justification, and disclosing patient secrets.","ref":"قرارات مجمع الفقه الإسلامي"},
+    {"kind":"condition","ar":"التأمين الصحي عبر التكافل حيث يتاح.","en":"Health insurance through takaful where available.","ref":"AAOIFI المعيار الشرعي 26"}
+  ],"sources":["AAOIFI المعيار الشرعي 26","قرارات مجمع الفقه الإسلامي الدولي"]},
+  {"key":"Q:العيادات","titleAr":"معيار نشاط العيادات","titleEn":"Standard for clinics","summaryAr":"يضبط الممارسة الطبية في العيادات.","summaryEn":"Governs medical practice in clinics.","requirements":[
+    {"kind":"mandatory","ar":"الستر، وتقديم الطبيبة للمرأة عند التيسر.","en":"Modesty, with a female doctor for women where feasible.","ref":"أحكام العورة"},
+    {"kind":"mandatory","ar":"الإذن المستنير قبل التدخل، والصدق في التشخيص.","en":"Informed consent before intervention, and honest diagnosis.","ref":"أحكام الإذن الطبي"},
+    {"kind":"prohibition","ar":"التطبيب بغير أهلية؛ فالمتطبّب الجاهل ضامن.","en":"Practising without qualification; an unqualified practitioner is liable.","ref":"حديث «من تطبّب ولم يُعلم منه طبٌّ فهو ضامن»"},
+    {"kind":"mandatory","ar":"حفظ سرّ المريض إلا لمسوّغ شرعي أو نظامي.","en":"Keep patient confidentiality except for a lawful or regulatory reason.","ref":"أحكام حفظ السرّ"}
+  ],"sources":["أحكام الطب في كتب الفقه"]},
+  {"key":"Q:الهندسة الوراثية","titleAr":"معيار نشاط الهندسة الوراثية","titleEn":"Standard for genetic engineering","summaryAr":"يضبط التطبيقات الوراثية في الطب والغذاء.","summaryEn":"Governs genetic applications in medicine and food.","requirements":[
+    {"kind":"condition","ar":"الأصل الإباحة فيما فيه نفع ولا محذور، مع النظر في المآلات.","en":"Permissible where beneficial and free of harm, with regard to outcomes.","ref":"قاعدة اعتبار المآلات"},
+    {"kind":"prohibition","ar":"الاستنساخ البشري، وما يفضي إلى اختلاط الأنساب، وتغيير الخلقة لغير علاج.","en":"Human cloning, anything leading to confused lineage, and altering creation beyond treatment.","ref":"قرارات مجمع الفقه الإسلامي في الاستنساخ"},
+    {"kind":"condition","ar":"اللحوم المستزرعة وفق شروط قرار مجمع الفقه 265.","en":"Cultivated meat per the conditions of fiqh academy resolution 265.","ref":"قرار مجمع الفقه 265"},
+    {"kind":"mandatory","ar":"الإفصاح عن التعديل الوراثي في المنتجات الغذائية.","en":"Disclose genetic modification in food products.","ref":"النهي عن الغش"}
+  ],"sources":["قرارات مجمع الفقه الإسلامي الدولي"]},
+  {"key":"P:العالي والجامعي","titleAr":"معيار نشاط التعليم العالي والجامعي","titleEn":"Standard for higher education","summaryAr":"يضبط الجامعات والكليات.","summaryEn":"Governs universities and colleges.","requirements":[
+    {"kind":"mandatory","ar":"خلو المناهج مما يخالف الشريعة أو يشكك في ثوابتها.","en":"Curricula free of content contrary to Shariah or undermining core beliefs.","ref":"مقصد حفظ الدين والعقل"},
+    {"kind":"prohibition","ar":"السرقة العلمية، والغش في الاختبارات، وبيع الشهادات.","en":"Plagiarism, cheating in exams, and selling degrees.","ref":"النهي عن الغش"},
+    {"kind":"prohibition","ar":"التمويل الربوي للطلاب؛ وتُقدَّم البدائل كالقرض الحسن والمنح والوقف.","en":"Interest-bearing student finance; offer alternatives such as benevolent loans, grants and endowments.","ref":"تحريم الربا"},
+    {"kind":"condition","ar":"العدل في الرسوم، ووضوح العقود التعليمية.","en":"Fair fees and clear education contracts.","ref":"النهي عن الغرر"}
+  ],"sources":["AAOIFI المعيار الشرعي 33 (الوقف)"]},
+  {"key":"P:التعلّم الإلكتروني","titleAr":"معيار نشاط التعلّم الإلكتروني","titleEn":"Standard for e-learning","summaryAr":"يضبط منصات التعلم الإلكتروني.","summaryEn":"Governs e-learning platforms.","requirements":[
+    {"kind":"condition","ar":"عقد التعليم إجارة على منفعة معلومة: انضباط المحتوى والمدة والأجرة.","en":"Education is a lease of known usufruct: defined content, duration and fee.","ref":"AAOIFI المعيار الشرعي 9"},
+    {"kind":"prohibition","ar":"المحتوى المخالف للشريعة أو المعين على المحرّم.","en":"Content contrary to Shariah or promoting the prohibited.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"mandatory","ar":"احترام حقوق الملكية الفكرية، والصدق في وصف البرنامج والشهادة، وحفظ بيانات المتعلمين.","en":"Respect intellectual property, describe programmes and certificates truthfully, and protect learners' data.","ref":"قرار مجمع الفقه بشأن الحقوق المعنوية"}
+  ],"sources":["AAOIFI المعيار الشرعي 9"]},
+  {"key":"J2:التسويق الرقمي والمؤثّرون","titleAr":"معيار نشاط التسويق الرقمي والمؤثرين","titleEn":"Standard for digital marketing and influencers","summaryAr":"يضبط التسويق عبر المنصات والمؤثرين.","summaryEn":"Governs platform and influencer marketing.","requirements":[
+    {"kind":"mandatory","ar":"الإفصاح عن الإعلان المدفوع، فكتمانه تغرير بالمتابع.","en":"Disclose paid promotion; hiding it deceives followers.","ref":"النهي عن الغش والتغرير"},
+    {"kind":"prohibition","ar":"الترويج للمحرّم أو الإعانة عليه، والكذب والتدليس.","en":"Promoting the prohibited, and lying or misrepresentation.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"condition","ar":"عقود الإعلان: معلومية المقابل والمدة والمخرجات، واجتناب ربط الأجر بنتيجة مجهولة مطلقًا.","en":"Advertising contracts: known fee, term and deliverables, avoiding pay tied to wholly unknown results.","ref":"أحكام الإجارة والجعالة"},
+    {"kind":"prohibition","ar":"التصوير المخلّ، وكشف العورات، وانتهاك خصوصية الغير.","en":"Indecent imagery, immodesty, and violating others' privacy.","ref":"أحكام العورة وحرمة التجسّس"}
+  ],"sources":["أحكام الإجارة والجعالة"]},
+  {"key":"J2:الإعلان","titleAr":"معيار نشاط الإعلان","titleEn":"Standard for advertising","summaryAr":"يضبط صناعة الإعلان ووكالاته.","summaryEn":"Governs advertising and agencies.","requirements":[
+    {"kind":"mandatory","ar":"الصدق في الوصف، وتحريم المبالغة الكاذبة، والوفاء بما وُعد به المستهلك.","en":"Truthful description, no false exaggeration, and keeping promises made to consumers.","ref":"النهي عن الغش"},
+    {"kind":"prohibition","ar":"الإعلان عن الربا والخمر والميسر أو تزيينها، واستغلال الجهل أو إثارة الشهوات المحرّمة.","en":"Advertising or glamorising riba, alcohol or gambling, or exploiting ignorance or illicit desires.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"condition","ar":"عقد الإعلان إجارة أو جعالة منضبطة المحل والأجرة.","en":"An advertising contract is a hire or ju'alah with a defined subject and fee.","ref":"أحكام الإجارة والجعالة"}
+  ],"sources":["أحكام الإجارة والجعالة"]},
+  {"key":"I:الفنادق","titleAr":"معيار نشاط الفنادق","titleEn":"Standard for hotels","summaryAr":"يضبط خدمات الإقامة الفندقية.","summaryEn":"Governs hotel accommodation services.","requirements":[
+    {"kind":"condition","ar":"عقد الإقامة إجارة على منفعة معلومة.","en":"A stay is a lease of known usufruct.","ref":"AAOIFI المعيار الشرعي 9"},
+    {"kind":"prohibition","ar":"تقديم الخمور، وتشغيل الميسر، والتمكين من الفاحشة.","en":"Serving alcohol, running gambling, or facilitating immorality.","ref":"تحريم الخمر والميسر"},
+    {"kind":"mandatory","ar":"الطعام الحلال، وتهيئة مصلى وبيان القبلة.","en":"Halal food, a prayer room and qibla direction.","ref":"معايير SMIIC للسياحة الحلال"},
+    {"kind":"mandatory","ar":"حفظ خصوصية النزيل وأمانة ما يُستودع.","en":"Guest privacy and safekeeping of deposited items.","ref":"أحكام الوديعة"}
+  ],"sources":["AAOIFI المعيار الشرعي 9","معايير SMIIC للسياحة الحلال"]},
+  {"key":"I:المطاعم","titleAr":"معيار نشاط المطاعم","titleEn":"Standard for restaurants","summaryAr":"يضبط تقديم الطعام والشراب.","summaryEn":"Governs serving food and drink.","requirements":[
+    {"kind":"mandatory","ar":"حلّ الطعام والذكاة الشرعية للحوم.","en":"Lawful food and Shariah slaughter for meat.","ref":"OIC/SMIIC 1"},
+    {"kind":"prohibition","ar":"تقديم الخمر أو استعمالها في الطهي، أو بيعها.","en":"Serving alcohol, cooking with it, or selling it.","ref":"تحريم الخمر"},
+    {"kind":"mandatory","ar":"فصل الأواني وأدوات الطهي عن المحرّم والنجس، والصدق في المكوّنات وشهادة الحلال.","en":"Separate utensils from prohibited and impure matter, with truthful ingredients and halal certification.","ref":"OIC/SMIIC 1"},
+    {"kind":"mandatory","ar":"النظافة والسلامة الصحية.","en":"Hygiene and food safety.","ref":"مقصد حفظ النفس"}
+  ],"sources":["OIC/SMIIC 1"]},
+  {"key":"I:الدينية","titleAr":"معيار نشاط السياحة الدينية","titleEn":"Standard for religious tourism","summaryAr":"يضبط برامج الزيارة والسياحة الدينية.","summaryEn":"Governs visitation and religious tourism programmes.","requirements":[
+    {"kind":"condition","ar":"تُراعى أحكام السفر للزيارة؛ فشدّ الرحال إلى المساجد الثلاثة مشروع، ويُحال ما فيه خلاف من برامج الزيارة إلى الهيئة.","en":"Observe the rulings on travel for visitation: journeys to the three mosques are prescribed, and contested itineraries are referred to the board.","ref":"حديث «لا تُشدّ الرحال إلا إلى ثلاثة مساجد»"},
+    {"kind":"mandatory","ar":"الأمانة في وصف البرامج والخدمات، وعدم الغرر في العقود.","en":"Honest description of programmes and services, and no gharar in contracts.","ref":"النهي عن الغرر"},
+    {"kind":"prohibition","ar":"استغلال حاجة الناس بالمغالاة في المواسم، وتضمين البرامج ممارساتٍ مخالفة للشريعة.","en":"Exploiting need through seasonal overpricing, or including practices contrary to Shariah in programmes.","ref":"النهي عن الظلم والبدع"},
+    {"kind":"mandatory","ar":"الالتزام بالأنظمة والتصاريح المنظِّمة.","en":"Comply with applicable regulations and permits.","ref":"طاعة وليّ الأمر في المعروف"}
+  ],"sources":["أحكام السفر والزيارة"]},
+  {"key":"M:المحاماة","titleAr":"معيار نشاط المحاماة","titleEn":"Standard for legal practice","summaryAr":"يضبط الوكالة بالخصومة والاستشارات القانونية.","summaryEn":"Governs litigation agency and legal advice.","requirements":[
+    {"kind":"condition","ar":"الوكالة بالخصومة جائزة بأجرة معلومة.","en":"Agency in litigation is permitted for a known fee.","ref":"AAOIFI المعيار الشرعي 23 (الوكالة)"},
+    {"kind":"prohibition","ar":"الدفاع عن باطلٍ يعلمه المحامي، أو الإعانة على الظلم.","en":"Defending what the lawyer knows to be false, or assisting injustice.","ref":"قوله تعالى: ﴿ولا تكن للخائنين خصيمًا﴾"},
+    {"kind":"condition","ar":"أتعاب النتيجة (نسبة من المحكوم به) محل خلاف؛ تُقبل بانضباط العمل ورفع الجهالة وفق ضوابط الهيئة.","en":"Contingency fees (a share of the award) are disputed; accepted with defined work and no uncertainty under board rules.","ref":"أحكام الجعالة"},
+    {"kind":"mandatory","ar":"الأمانة، وحفظ أسرار الموكّل، والنصح ولو خالف مصلحة المحامي.","en":"Integrity, client confidentiality, and sincere advice even against the lawyer's interest.","ref":"أحكام الأمانة"}
+  ],"sources":["AAOIFI المعيار الشرعي 23"]},
+  {"key":"M:المحاسبة والتدقيق","titleAr":"معيار نشاط المحاسبة والتدقيق","titleEn":"Standard for accounting and audit","summaryAr":"يضبط إعداد التقارير المالية وتدقيقها.","summaryEn":"Governs preparing and auditing financial reports.","requirements":[
+    {"kind":"mandatory","ar":"الصدق في التقارير؛ فالشهادة بالزور من الكبائر.","en":"Truthful reporting; false testimony is a major sin.","ref":"حديث «ألا وقول الزور»"},
+    {"kind":"mandatory","ar":"الاستقلال ومنع تعارض المصالح، وحفظ أسرار العميل.","en":"Independence, no conflicts of interest, and client confidentiality.","ref":"أحكام الأمانة"},
+    {"kind":"prohibition","ar":"الإعانة على التهرب أو تزوير القوائم.","en":"Assisting evasion or falsifying statements.","ref":"النهي عن الغش"},
+    {"kind":"condition","ar":"احتساب الزكاة وفق الأصول الشرعية ومنهجية الهيئة، وتطبيق معايير أيوفي المحاسبية للمؤسسات الإسلامية.","en":"Compute zakat per Shariah principles and the board's methodology, applying AAOIFI accounting standards for Islamic institutions.","ref":"AAOIFI المعيار الشرعي 35"}
+  ],"sources":["AAOIFI المعيار الشرعي 35","معايير المحاسبة لأيوفي"]},
+  {"key":"S2:الأوقاف الخيرية والذرّية","titleAr":"معيار نشاط الأوقاف الخيرية والذرية","titleEn":"Standard for charitable and family awqaf","summaryAr":"يضبط إنشاء الأوقاف ونظارتها واستثمارها.","summaryEn":"Governs establishing, managing and investing awqaf.","requirements":[
+    {"kind":"mandatory","ar":"الوقف حبس الأصل وتسبيل المنفعة؛ فلا يُباع ولا يُوهب ولا يُورث.","en":"Waqf holds the asset and dedicates its benefit; it may not be sold, gifted or inherited.","ref":"AAOIFI المعيار الشرعي 33"},
+    {"kind":"mandatory","ar":"شرط الواقف كنص الشارع في الفهم والدلالة ما لم يخالف الشرع.","en":"The endower's conditions are binding as text unless contrary to Shariah.","ref":"قاعدة «شرط الواقف كنصّ الشارع»"},
+    {"kind":"prohibition","ar":"الوقف على جهة معصية.","en":"Endowing for a sinful purpose.","ref":"AAOIFI المعيار الشرعي 33"},
+    {"kind":"condition","ar":"الاستبدال عند تعطّل المنفعة بضوابطه، وبإذن القاضي أو الجهة المختصة.","en":"Substitution when the benefit fails, under its rules and with the court's or authority's approval.","ref":"AAOIFI المعيار الشرعي 33"},
+    {"kind":"mandatory","ar":"أمانة الناظر ومحاسبته، والإفصاح عن الغلّة ومصارفها.","en":"The administrator is a trustee, accountable, with disclosure of income and spending.","ref":"AAOIFI المعيار الشرعي 33"}
+  ],"sources":["AAOIFI المعيار الشرعي 33 (الوقف)"]},
+  {"key":"S2:الوقف النقدي","titleAr":"معيار نشاط الوقف النقدي","titleEn":"Standard for cash waqf","summaryAr":"يضبط وقف النقود واستثمارها.","summaryEn":"Governs endowing and investing cash.","requirements":[
+    {"kind":"condition","ar":"وقف النقود جائز على ما قرره مجمع الفقه الإسلامي الدولي وقال به المالكية وقولٌ عند الحنفية.","en":"Cash waqf is permitted, as resolved by the International Islamic Fiqh Academy and held by the Malikis and some Hanafis.","ref":"قرار مجمع الفقه الإسلامي في وقف النقود"},
+    {"kind":"mandatory","ar":"استثمار النقد الموقوف في المباح مع حفظ الأصل، وصرف الغلة في الجهة الموقوف عليها.","en":"Invest endowed cash lawfully while preserving the principal, spending income on the designated purpose.","ref":"AAOIFI المعيار الشرعي 33"},
+    {"kind":"prohibition","ar":"إقراض الوقف النقدي بفائدة أو استثماره في محرّم.","en":"Lending cash waqf at interest or investing it in prohibited assets.","ref":"تحريم الربا"},
+    {"kind":"mandatory","ar":"ضمان الناظر عند التعدي أو التقصير، والإفصاح الدوري.","en":"The administrator's liability for transgression or negligence, and periodic disclosure.","ref":"أحكام الأمانة"}
+  ],"sources":["AAOIFI المعيار الشرعي 33"]},
+  {"key":"S2:منظمات الإغاثة","titleAr":"معيار نشاط منظمات الإغاثة","titleEn":"Standard for relief organisations","summaryAr":"يضبط العمل الإغاثي وإدارة التبرعات.","summaryEn":"Governs relief work and donation management.","requirements":[
+    {"kind":"mandatory","ar":"أموال التبرعات أمانة تُصرف فيما أُعلن عنه، وتغيير المصرف يحتاج إذن المتبرع.","en":"Donations are a trust spent as announced; changing their use requires donor permission.","ref":"أحكام الوكالة"},
+    {"kind":"mandatory","ar":"مصارف الزكاة ثمانية لا تتعداها، وتُفصل حساباتها.","en":"Zakat goes only to its eight channels, with separate accounts.","ref":"AAOIFI المعيار الشرعي 35"},
+    {"kind":"mandatory","ar":"العدل في التوزيع وتقديم الأشد حاجة، والشفافية.","en":"Fair distribution prioritising the neediest, with transparency.","ref":"مقصد حفظ النفس"}
+  ],"sources":["AAOIFI المعيار الشرعي 35"]},
+  {"key":"S2:المنصّات الخيرية الرقمية","titleAr":"معيار نشاط المنصات الخيرية الرقمية","titleEn":"Standard for digital charity platforms","summaryAr":"يضبط جمع التبرعات عبر المنصات الرقمية.","summaryEn":"Governs fundraising through digital platforms.","requirements":[
+    {"kind":"mandatory","ar":"أموال التبرع أمانة لا تُخلط بمال المنصة.","en":"Donations are a trust, not mixed with the platform's funds.","ref":"أحكام الأمانة"},
+    {"kind":"prohibition","ar":"الكذب في وصف الحالات والتغرير العاطفي.","en":"Misrepresenting cases or emotional manipulation.","ref":"النهي عن الغش"},
+    {"kind":"condition","ar":"تجوز أجرة معلومة على الخدمة مع الإفصاح للمتبرع. ولا تؤخذ من الزكاة إلا في حدود سهم العاملين عليها وفق ضوابط الهيئة.","en":"A known service fee is permitted with disclosure; it may be taken from zakat only within the administrators' share under board rules.","ref":"مصرف «العاملين عليها»"},
+    {"kind":"mandatory","ar":"الإفصاح عن نسب التحصيل ومآل الأموال.","en":"Disclose collection ratios and where funds go.","ref":"مبدأ الشفافية"}
+  ],"sources":["AAOIFI المعيار الشرعي 35"]},
+  {"key":"S2:الحج والعمرة","titleAr":"معيار نشاط خدمات الحج والعمرة","titleEn":"Standard for Hajj and Umrah services","summaryAr":"يضبط تنظيم رحلات الحج والعمرة.","summaryEn":"Governs organising Hajj and Umrah trips.","requirements":[
+    {"kind":"mandatory","ar":"الالتزام بالتصاريح والأنظمة المنظِّمة درءًا للزحام والضرر.","en":"Comply with permits and regulations to prevent crowding and harm.","ref":"طاعة وليّ الأمر في المعروف"},
+    {"kind":"mandatory","ar":"الأمانة في وصف السكن والإعاشة والنقل، والضمان عند التقصير.","en":"Honest description of lodging, catering and transport, with liability for shortfalls.","ref":"أحكام الإجارة والضمان"},
+    {"kind":"prohibition","ar":"استغلال الحاجة بالمغالاة في المواسم.","en":"Exploiting need through seasonal overpricing.","ref":"النهي عن الظلم"},
+    {"kind":"mandatory","ar":"إعانة الحاج على أداء نسكه وعدم تفويت واجباته بسوء التنظيم، مع مرشدين مؤهلين.","en":"Help pilgrims complete their rites without missing obligations through poor organisation, with qualified guides.","ref":"أحكام المناسك"}
+  ],"sources":["أحكام الحج والعمرة"]},
+  {"key":"S2:إدارة المساجد","titleAr":"معيار نشاط إدارة المساجد","titleEn":"Standard for mosque management","summaryAr":"يضبط إدارة المساجد وأوقافها.","summaryEn":"Governs managing mosques and their endowments.","requirements":[
+    {"kind":"mandatory","ar":"المسجد وقف لله لا يُصرف عن جهته.","en":"A mosque is an endowment to God and may not be diverted from its purpose.","ref":"AAOIFI المعيار الشرعي 33"},
+    {"kind":"prohibition","ar":"البيع والشراء وإنشاد الضالة داخل المسجد.","en":"Buying, selling or announcing lost property inside the mosque.","ref":"حديث النهي عن البيع في المسجد"},
+    {"kind":"mandatory","ar":"تقديم الأهلية في الإمامة، وأمانة الناظر في التبرعات والأوقاف.","en":"Appoint qualified imams, with the administrator a trustee of donations and endowments.","ref":"حديث «يؤمّ القوم أقرؤهم لكتاب الله»"}
+  ],"sources":["AAOIFI المعيار الشرعي 33"]},
+  {"key":"J:الذكاء الاصطناعي","titleAr":"معيار نشاط الذكاء الاصطناعي","titleEn":"Standard for artificial intelligence","summaryAr":"يضبط تطوير أنظمة الذكاء الاصطناعي وتشغيلها.","summaryEn":"Governs developing and operating AI systems.","requirements":[
+    {"kind":"prohibition","ar":"استعماله في التزوير والغش وانتهاك الخصوصية والمحتوى الفاحش.","en":"Using it for forgery, fraud, privacy violations or indecent content.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"mandatory","ar":"الأتمتة تُعين ولا تُفتي؛ فالاجتهاد للهيئات الشرعية البشرية ولا يُفوَّض للآلة.","en":"Automation assists but never issues fatwas; ijtihad belongs to human Shariah boards and is not delegated to machines.","ref":"ضوابط الفتوى"},
+    {"kind":"mandatory","ar":"الأمانة في البيانات ومصادرها وحقوق الملكية الفكرية.","en":"Integrity of data and its sources, and respect for intellectual property.","ref":"قرار مجمع الفقه بشأن الحقوق المعنوية"},
+    {"kind":"mandatory","ar":"الإفصاح عن كون المحتوى مولّدًا آليًّا؛ فكتمانه تغرير.","en":"Disclose that content is machine-generated; concealing it is deception.","ref":"النهي عن التغرير"},
+    {"kind":"condition","ar":"ضمان الضرر يرجع إلى المشغّل والمطوّر بحسب التعدي والتقصير.","en":"Liability for harm rests with the operator and developer according to transgression and negligence.","ref":"أحكام الضمان"}
+  ],"sources":["قرارات مجمع الفقه الإسلامي الدولي"]},
+  {"key":"J:الأمن السيبراني","titleAr":"معيار نشاط الأمن السيبراني","titleEn":"Standard for cybersecurity","summaryAr":"يضبط خدمات الحماية واختبار الاختراق.","summaryEn":"Governs protection services and penetration testing.","requirements":[
+    {"kind":"condition","ar":"اختبار الاختراق الأخلاقي جائز بإذن صريح من المالك وفي حدود المتفق عليه.","en":"Ethical penetration testing is permitted with the owner's explicit consent and within the agreed scope.","ref":"أحكام الإذن"},
+    {"kind":"prohibition","ar":"الاختراق والتجسس وكشف الخصوصيات دون إذن.","en":"Hacking, spying or exposing private data without permission.","ref":"قوله تعالى: ﴿ولا تجسّسوا﴾"},
+    {"kind":"prohibition","ar":"استغلال الثغرات المكتشفة أو بيعها لمن يضر.","en":"Exploiting discovered vulnerabilities or selling them to those who would cause harm.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"mandatory","ar":"الوفاء بعقود السرية وحفظ الأسرار.","en":"Honour confidentiality agreements and keep secrets.","ref":"أحكام الأمانة"}
+  ],"sources":["أحكام الأمانة والإذن"]},
+  {"key":"J:تطوير الألعاب الإلكترونية","titleAr":"معيار نشاط تطوير الألعاب الإلكترونية","titleEn":"Standard for video game development","summaryAr":"يضبط تصميم الألعاب ونماذج إيرادها.","summaryEn":"Governs game design and revenue models.","requirements":[
+    {"kind":"condition","ar":"الأصل إباحة اللهو المباح ما لم يشغل عن واجب.","en":"Lawful entertainment is permitted unless it distracts from obligations.","ref":"أحكام اللهو المباح"},
+    {"kind":"prohibition","ar":"الميسر والمراهنة على المال، ومنها صناديق الغنائم المدفوعة.","en":"Gambling and wagering money, including paid loot boxes.","ref":"تحريم الميسر"},
+    {"kind":"prohibition","ar":"الصور الفاحشة، والمحتوى المخالف للعقيدة أو المحرّض على المحرّم.","en":"Indecent imagery, and content contrary to creed or inciting the prohibited.","ref":"النهي عن الإعانة على الإثم"},
+    {"kind":"mandatory","ar":"الإفصاح عن المشتريات داخل اللعبة، وحماية الأطفال من الاستغلال.","en":"Disclose in-game purchases and protect children from exploitation.","ref":"مقصد حفظ العقل والمال"}
+  ],"sources":["أحكام الميسر واللهو في كتب الفقه"]}
+]

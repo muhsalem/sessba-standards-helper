@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ClassificationStandardsRouteImport } from './routes/classification-standards'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as MapRouteImport } from './routes/map'
@@ -25,8 +26,10 @@ import { Route as StandardsRouteImport } from './routes/standards'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WaqfRouteImport } from './routes/waqf'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
+import { Route as AdminStandardsRouteImport } from './routes/admin.standards'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
 import { Route as EnAssistantRouteImport } from './routes/en.assistant'
+import { Route as EnClassificationStandardsRouteImport } from './routes/en.classification-standards'
 import { Route as EnMapRouteImport } from './routes/en.map'
 import { Route as EnObjectionRouteImport } from './routes/en.objection'
 import { Route as EnPrivacyRouteImport } from './routes/en.privacy'
@@ -58,6 +61,11 @@ const AssistantRoute = AssistantRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClassificationStandardsRoute = ClassificationStandardsRouteImport.update({
+  id: '/classification-standards',
+  path: '/classification-standards',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnRoute = EnRouteImport.update({
@@ -115,6 +123,11 @@ const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
   path: '/review',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AdminStandardsRoute = AdminStandardsRouteImport.update({
+  id: '/admin/standards',
+  path: '/admin/standards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnAssessmentRoute = EnAssessmentRouteImport.update({
   id: '/assessment',
   path: '/assessment',
@@ -125,6 +138,12 @@ const EnAssistantRoute = EnAssistantRouteImport.update({
   path: '/assistant',
   getParentRoute: () => EnRoute,
 } as any)
+const EnClassificationStandardsRoute =
+  EnClassificationStandardsRouteImport.update({
+    id: '/classification-standards',
+    path: '/classification-standards',
+    getParentRoute: () => EnRoute,
+  } as any)
 const EnMapRoute = EnMapRouteImport.update({
   id: '/map',
   path: '/map',
@@ -171,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
   '/auth': typeof AuthRoute
+  '/classification-standards': typeof ClassificationStandardsRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
   '/map': typeof MapRoute
@@ -182,8 +202,10 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
   '/review': typeof AuthenticatedReviewRoute
+  '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
@@ -198,6 +220,7 @@ export interface FileRoutesByTo {
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
   '/auth': typeof AuthRoute
+  '/classification-standards': typeof ClassificationStandardsRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
   '/map': typeof MapRoute
@@ -209,8 +232,10 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
   '/review': typeof AuthenticatedReviewRoute
+  '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
@@ -227,6 +252,7 @@ export interface FileRoutesById {
   '/assessment': typeof AssessmentRoute
   '/assistant': typeof AssistantRoute
   '/auth': typeof AuthRoute
+  '/classification-standards': typeof ClassificationStandardsRoute
   '/en': typeof EnRouteWithChildren
   '/explorer': typeof ExplorerRoute
   '/map': typeof MapRoute
@@ -238,8 +264,10 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
   '/_authenticated/review': typeof AuthenticatedReviewRoute
+  '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
   '/en/privacy': typeof EnPrivacyRoute
@@ -256,6 +284,7 @@ export interface FileRouteTypes {
     | '/assessment'
     | '/assistant'
     | '/auth'
+    | '/classification-standards'
     | '/en'
     | '/explorer'
     | '/map'
@@ -267,8 +296,10 @@ export interface FileRouteTypes {
     | '/terms'
     | '/waqf'
     | '/review'
+    | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
     | '/en/privacy'
@@ -283,6 +314,7 @@ export interface FileRouteTypes {
     | '/assessment'
     | '/assistant'
     | '/auth'
+    | '/classification-standards'
     | '/en'
     | '/explorer'
     | '/map'
@@ -294,8 +326,10 @@ export interface FileRouteTypes {
     | '/terms'
     | '/waqf'
     | '/review'
+    | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
     | '/en/privacy'
@@ -311,6 +345,7 @@ export interface FileRouteTypes {
     | '/assessment'
     | '/assistant'
     | '/auth'
+    | '/classification-standards'
     | '/en'
     | '/explorer'
     | '/map'
@@ -322,8 +357,10 @@ export interface FileRouteTypes {
     | '/terms'
     | '/waqf'
     | '/_authenticated/review'
+    | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
     | '/en/privacy'
@@ -340,6 +377,7 @@ export interface RootRouteChildren {
   AssessmentRoute: typeof AssessmentRoute
   AssistantRoute: typeof AssistantRoute
   AuthRoute: typeof AuthRoute
+  ClassificationStandardsRoute: typeof ClassificationStandardsRoute
   EnRoute: typeof EnRouteWithChildren
   ExplorerRoute: typeof ExplorerRoute
   MapRoute: typeof MapRoute
@@ -350,6 +388,7 @@ export interface RootRouteChildren {
   StandardsRoute: typeof StandardsRoute
   TermsRoute: typeof TermsRoute
   WaqfRoute: typeof WaqfRoute
+  AdminStandardsRoute: typeof AdminStandardsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -387,6 +426,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/classification-standards': {
+      id: '/classification-standards'
+      path: '/classification-standards'
+      fullPath: '/classification-standards'
+      preLoaderRoute: typeof ClassificationStandardsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en': {
@@ -466,6 +512,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedReviewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/admin/standards': {
+      id: '/admin/standards'
+      path: '/admin/standards'
+      fullPath: '/admin/standards'
+      preLoaderRoute: typeof AdminStandardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/assessment': {
       id: '/en/assessment'
       path: '/assessment'
@@ -478,6 +531,13 @@ declare module '@tanstack/react-router' {
       path: '/assistant'
       fullPath: '/en/assistant'
       preLoaderRoute: typeof EnAssistantRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/classification-standards': {
+      id: '/en/classification-standards'
+      path: '/classification-standards'
+      fullPath: '/en/classification-standards'
+      preLoaderRoute: typeof EnClassificationStandardsRouteImport
       parentRoute: typeof EnRoute
     }
     '/en/map': {
@@ -553,6 +613,7 @@ const AuthenticatedRouteRouteWithChildren =
 interface EnRouteChildren {
   EnAssessmentRoute: typeof EnAssessmentRoute
   EnAssistantRoute: typeof EnAssistantRoute
+  EnClassificationStandardsRoute: typeof EnClassificationStandardsRoute
   EnMapRoute: typeof EnMapRoute
   EnObjectionRoute: typeof EnObjectionRoute
   EnPrivacyRoute: typeof EnPrivacyRoute
@@ -566,6 +627,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAssessmentRoute: EnAssessmentRoute,
   EnAssistantRoute: EnAssistantRoute,
+  EnClassificationStandardsRoute: EnClassificationStandardsRoute,
   EnMapRoute: EnMapRoute,
   EnObjectionRoute: EnObjectionRoute,
   EnPrivacyRoute: EnPrivacyRoute,
@@ -584,6 +646,7 @@ const rootRouteChildren: RootRouteChildren = {
   AssessmentRoute: AssessmentRoute,
   AssistantRoute: AssistantRoute,
   AuthRoute: AuthRoute,
+  ClassificationStandardsRoute: ClassificationStandardsRoute,
   EnRoute: EnRouteWithChildren,
   ExplorerRoute: ExplorerRoute,
   MapRoute: MapRoute,
@@ -594,6 +657,7 @@ const rootRouteChildren: RootRouteChildren = {
   StandardsRoute: StandardsRoute,
   TermsRoute: TermsRoute,
   WaqfRoute: WaqfRoute,
+  AdminStandardsRoute: AdminStandardsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

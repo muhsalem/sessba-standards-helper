@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: oven-sh/setup-bun@v2
+      # bun.lock resolves some packages through Lovable's private cache, so CI installs from the public npm registry.
+      - run: npm install --no-audit --no-fund --no-package-lock
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Methodology checks
+        run: bun run test
+      - name: Build
+        run: npm run build

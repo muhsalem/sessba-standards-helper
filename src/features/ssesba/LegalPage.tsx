@@ -3,16 +3,126 @@ import { methodologyVersion, type Lang } from "@/lib/ssesba-data";
 
 const content = {
   privacy: {
-    ar: { eyebrow: "حماية البيانات", title: "سياسة الخصوصية", intro: "توضح هذه السياسة البيانات التي تجمعها المنصة عند طلب التقييم وكيفية استخدامها وحمايتها.", sections: [["البيانات والغرض", "نجمع الاسم وبيانات التواصل والجهة ووصف النشاط لتنفيذ طلب التقييم والتواصل بشأنه فقط. لا تُدخل سجلات مرضى أو بيانات صحية أو مالية شخصية أو أسرارًا غير لازمة."], ["الذكاء الاصطناعي", "قد تُرسل أوصاف الأنشطة التي يختار المستخدم تحليلها إلى Lovable AI لإنتاج شرح استرشادي. لا تُستخدم هذه المخرجات كفتوى أو اعتماد نهائي."], ["الاحتفاظ والأمان", "تُحفظ الطلبات للمدة اللازمة للمعالجة والمراجعة النظامية، مع تقييد الوصول على المختصين. تُراجع مدة الاحتفاظ مؤسسيًا، ويمكن طلب التصحيح أو الحذف ما لم يمنع التزام نظامي ذلك."], ["حقوقك", "يمكنك طلب نسخة من بياناتك أو تصحيحها أو حذفها أو الاعتراض على المعالجة عبر طلب يحمل رقمك المرجعي."]]},
-    en: { eyebrow: "Data protection", title: "Privacy policy", intro: "This policy explains what data is collected for an assessment request and how it is used and protected.", sections: [["Data and purpose", "We collect identity, contact, organization, and activity information only to process and communicate about an assessment request. Do not submit patient records, health data, personal financial data, or unnecessary secrets."], ["Artificial intelligence", "Activity descriptions submitted for analysis may be processed by Lovable AI to produce indicative explanations. Outputs are neither a fatwa nor final accreditation."], ["Retention and security", "Requests are retained as needed for processing and regulatory review, with access restricted to authorized specialists. The institutional retention period remains under governance review. Correction or deletion may be requested unless a legal duty requires retention."], ["Your rights", "You may request access, correction, deletion, or object to processing by referring to your request reference."]]},
+    ar: {
+      eyebrow: "حماية البيانات",
+      title: "سياسة الخصوصية",
+      intro:
+        "توضح هذه السياسة البيانات التي تجمعها المنصة عند طلب التقييم وكيفية استخدامها وحمايتها.",
+      sections: [
+        [
+          "البيانات والغرض",
+          "نجمع الاسم وبيانات التواصل والجهة ووصف النشاط لتنفيذ طلب التقييم والتواصل بشأنه فقط. لا تُدخل سجلات مرضى أو بيانات صحية أو مالية شخصية أو أسرارًا غير لازمة.",
+        ],
+        [
+          "الذكاء الاصطناعي",
+          "قد تُرسل أوصاف الأنشطة التي يختار المستخدم تحليلها إلى Lovable AI لإنتاج شرح استرشادي. لا تُستخدم هذه المخرجات كفتوى أو اعتماد نهائي.",
+        ],
+        [
+          "الاحتفاظ والأمان",
+          "تُحفظ الطلبات للمدة اللازمة للمعالجة والمراجعة النظامية، مع تقييد الوصول على المختصين. تُراجع مدة الاحتفاظ مؤسسيًا، ويمكن طلب التصحيح أو الحذف ما لم يمنع التزام نظامي ذلك.",
+        ],
+        [
+          "حقوقك",
+          "يمكنك طلب نسخة من بياناتك أو تصحيحها أو حذفها أو الاعتراض على المعالجة عبر طلب يحمل رقمك المرجعي.",
+        ],
+      ],
+    },
+    en: {
+      eyebrow: "Data protection",
+      title: "Privacy policy",
+      intro:
+        "This policy explains what data is collected for an assessment request and how it is used and protected.",
+      sections: [
+        [
+          "Data and purpose",
+          "We collect identity, contact, organization, and activity information only to process and communicate about an assessment request. Do not submit patient records, health data, personal financial data, or unnecessary secrets.",
+        ],
+        [
+          "Artificial intelligence",
+          "Activity descriptions submitted for analysis may be processed by Lovable AI to produce indicative explanations. Outputs are neither a fatwa nor final accreditation.",
+        ],
+        [
+          "Retention and security",
+          "Requests are retained as needed for processing and regulatory review, with access restricted to authorized specialists. The institutional retention period remains under governance review. Correction or deletion may be requested unless a legal duty requires retention.",
+        ],
+        [
+          "Your rights",
+          "You may request access, correction, deletion, or object to processing by referring to your request reference.",
+        ],
+      ],
+    },
   },
   terms: {
-    ar: { eyebrow: "نطاق الاستخدام", title: "شروط الاستخدام", intro: "باستخدام المنصة، تقر بأن المحتوى والنتائج أدوات استرشادية قيد الاعتماد.", sections: [["ليست فتوى أو اعتمادًا", "لا تمثل النتيجة فتوى أو شهادة امتثال أو توصية استثمارية، ولا تحل محل مراجعة هيئة شرعية ومختص مالي وقانوني."], ["جودة المدخلات", "يتحمل المستخدم مسؤولية صحة واكتمال المدخلات والأدلة. النتيجة تتغير بتغير البيانات ونسخة المنهجية."], ["حدود الذكاء الاصطناعي", "يُستخدم الذكاء الاصطناعي للشرح واقتراح قراءة أولية. الحسابات الحتمية وبوابة الأهلية هي المرجع البرمجي، ويجب مراجعة التبريرات البشرية قبل الاعتماد."], ["الإصدار والاعتراض", `تُعرض النتائج وفق نسخة المنهجية ${methodologyVersion}. يحق للمستخدم الاعتراض وطلب مراجعة بشرية باستخدام الرقم المرجعي.`]]},
-    en: { eyebrow: "Scope of use", title: "Terms of use", intro: "By using this platform, you acknowledge that its content and results are indicative tools pending formal approval.", sections: [["No fatwa or accreditation", "A result is not a fatwa, compliance certificate, or investment recommendation, and does not replace review by a qualified Shariah board and financial and legal specialists."], ["Input quality", "The user is responsible for accurate, complete inputs and evidence. Results change with the data and methodology version."], ["AI limitations", "AI supports explanation and preliminary reading. Deterministic calculations and the eligibility gate are the software reference, and human review is required before reliance."], ["Version and objection", `Results use methodology version ${methodologyVersion}. Users may object and request human review using the reference number.`]]},
+    ar: {
+      eyebrow: "نطاق الاستخدام",
+      title: "شروط الاستخدام",
+      intro: "باستخدام المنصة، تقر بأن المحتوى والنتائج أدوات استرشادية قيد الاعتماد.",
+      sections: [
+        [
+          "ليست فتوى أو اعتمادًا",
+          "لا تمثل النتيجة فتوى أو شهادة امتثال أو توصية استثمارية، ولا تحل محل مراجعة هيئة شرعية ومختص مالي وقانوني.",
+        ],
+        [
+          "جودة المدخلات",
+          "يتحمل المستخدم مسؤولية صحة واكتمال المدخلات والأدلة. النتيجة تتغير بتغير البيانات ونسخة المنهجية.",
+        ],
+        [
+          "حدود الذكاء الاصطناعي",
+          "يُستخدم الذكاء الاصطناعي للشرح واقتراح قراءة أولية. الحسابات الحتمية وبوابة الأهلية هي المرجع البرمجي، ويجب مراجعة التبريرات البشرية قبل الاعتماد.",
+        ],
+        [
+          "الإصدار والاعتراض",
+          `تُعرض النتائج وفق نسخة المنهجية ${methodologyVersion}. يحق للمستخدم الاعتراض وطلب مراجعة بشرية باستخدام الرقم المرجعي.`,
+        ],
+      ],
+    },
+    en: {
+      eyebrow: "Scope of use",
+      title: "Terms of use",
+      intro:
+        "By using this platform, you acknowledge that its content and results are indicative tools pending formal approval.",
+      sections: [
+        [
+          "No fatwa or accreditation",
+          "A result is not a fatwa, compliance certificate, or investment recommendation, and does not replace review by a qualified Shariah board and financial and legal specialists.",
+        ],
+        [
+          "Input quality",
+          "The user is responsible for accurate, complete inputs and evidence. Results change with the data and methodology version.",
+        ],
+        [
+          "AI limitations",
+          "AI supports explanation and preliminary reading. Deterministic calculations and the eligibility gate are the software reference, and human review is required before reliance.",
+        ],
+        [
+          "Version and objection",
+          `Results use methodology version ${methodologyVersion}. Users may object and request human review using the reference number.`,
+        ],
+      ],
+    },
   },
 } as const;
 
 export function LegalPage({ lang, kind }: { lang: Lang; kind: keyof typeof content }) {
   const t = content[kind][lang];
-  return <SiteShell lang={lang} eyebrow={t.eyebrow} title={t.title}><section className="mx-auto max-w-4xl px-5 py-12"><p className="text-lg leading-8 text-muted-foreground">{t.intro}</p><div className="mt-8 divide-y border-y">{t.sections.map(([title, body]) => <article key={title} className="py-7"><h2 className="font-display-ar text-xl font-semibold text-brand-navy">{title}</h2><p className="mt-3 leading-8 text-muted-foreground">{body}</p></article>)}</div><p className="mt-8 text-sm text-muted-foreground">{lang === "ar" ? `نسخة السياسة: 23 سبتمبر 2026 · نسخة المنهجية: ${methodologyVersion}` : `Policy version: 23 September 2026 · Methodology: ${methodologyVersion}`}</p></section></SiteShell>;
+  return (
+    <SiteShell lang={lang} eyebrow={t.eyebrow} title={t.title}>
+      <section className="mx-auto max-w-4xl px-5 py-12">
+        <p className="text-lg leading-8 text-muted-foreground">{t.intro}</p>
+        <div className="mt-8 divide-y border-y">
+          {t.sections.map(([title, body]) => (
+            <article key={title} className="py-7">
+              <h2 className="font-display-ar text-xl font-semibold text-brand-navy">{title}</h2>
+              <p className="mt-3 leading-8 text-muted-foreground">{body}</p>
+            </article>
+          ))}
+        </div>
+        <p className="mt-8 text-sm text-muted-foreground">
+          {lang === "ar"
+            ? `نسخة السياسة: 23 سبتمبر 2026 · نسخة المنهجية: ${methodologyVersion}`
+            : `Policy version: 23 September 2026 · Methodology: ${methodologyVersion}`}
+        </p>
+      </section>
+    </SiteShell>
+  );
 }

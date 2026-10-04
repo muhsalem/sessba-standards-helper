@@ -13,6 +13,7 @@ import {
   Send,
   ShieldCheck,
   HandHeart,
+  ListTree,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -45,12 +46,21 @@ export function SiteShell({
     { to: en ? "/en/assistant" : "/assistant", label: t.assistant, icon: MessagesSquare },
     { to: en ? "/en/six" : "/six", label: t.six, icon: Scale },
     { to: en ? "/en/standards" : "/standards", label: t.sectorStandards, icon: Layers },
+    {
+      to: en ? "/en/classification-standards" : "/classification-standards",
+      label: t.tieredStandards,
+      icon: ListTree,
+    },
     { to: "/explorer", label: t.explorer, icon: Search },
     { to: en ? "/en/map" : "/map", label: en ? "Evolution map" : "خريطة التطور", icon: Layers },
     { to: en ? "/en/waqf" : "/waqf", label: t.waqf, icon: HandHeart },
   ];
-  const renderNav = (label: string) => (
-    <nav aria-label={label} className="grid gap-1 lg:flex lg:items-center lg:gap-1">
+  // في الشريط العلوي تُعرض الروابط في صف واحد بلا التفاف؛ وفي القائمة الجانبية عمودًا.
+  const renderNav = (label: string, inline = false) => (
+    <nav
+      aria-label={label}
+      className={inline ? "flex flex-wrap items-center gap-0.5" : "grid gap-1"}
+    >
       {links.map(({ to, label: linkLabel, icon: Icon }) => {
         const active = pathname === to;
         return (
@@ -58,9 +68,9 @@ export function SiteShell({
             key={to}
             to={to}
             aria-current={active ? "page" : undefined}
-            className={`flex min-h-11 items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold ${active ? "bg-brand-gold text-brand-navy" : "text-brand-paper/80 hover:bg-brand-paper/10 hover:text-brand-paper"}`}
+            className={`flex min-h-11 items-center gap-2 rounded-md py-2 text-sm transition-colors ${inline ? "whitespace-nowrap px-2.5" : "px-3"} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold ${active ? "bg-brand-gold text-brand-navy" : "text-brand-paper/80 hover:bg-brand-paper/10 hover:text-brand-paper"}`}
           >
-            <Icon className="size-4" />
+            {!inline && <Icon className="size-4" />}
             {linkLabel}
           </Link>
         );
@@ -98,9 +108,6 @@ export function SiteShell({
               </small>
             </span>
           </Link>
-          <div className="hidden lg:block">
-            {renderNav(en ? "Primary navigation" : "التنقل الرئيسي")}
-          </div>
           <div className="flex items-center gap-2">
             <AccountLink en={en} />
             <Button
@@ -123,7 +130,7 @@ export function SiteShell({
                 <Button
                   variant="outline"
                   size="icon"
-                  className="min-h-11 min-w-11 border-brand-gold/60 bg-transparent text-brand-paper hover:bg-brand-gold hover:text-brand-navy lg:hidden"
+                  className="min-h-11 min-w-11 border-brand-gold/60 bg-transparent text-brand-paper hover:bg-brand-gold hover:text-brand-navy xl:hidden"
                   aria-label={en ? "Open menu" : "فتح القائمة"}
                 >
                   <Menu />
@@ -143,6 +150,12 @@ export function SiteShell({
                 </div>
               </SheetContent>
             </Sheet>
+          </div>
+        </div>
+        {/* الروابط في صف ثانٍ على الشاشات العريضة، فتتسع بالإنجليزية والعربية دون تمرير أفقي. */}
+        <div className="hidden border-t border-brand-gold/20 xl:block">
+          <div className="mx-auto max-w-7xl px-5 py-1">
+            {renderNav(en ? "Primary navigation" : "التنقل الرئيسي", true)}
           </div>
         </div>
       </header>
@@ -174,7 +187,9 @@ export function SiteShell({
               {copy[lang].advisory}
             </p>
             <p className="mt-2 max-w-2xl text-xs leading-6 text-brand-paper/75">
-              {en ? "A knowledge endowment for the Muslim ummah; no registered legal waqf deed is claimed." : "وقف معرفي لخدمة الأمة الإسلامية؛ لا يُدّعى به إنشاء صك وقف قانوني مسجل."}
+              {en
+                ? "A knowledge endowment for the Muslim ummah; no registered legal waqf deed is claimed."
+                : "وقف معرفي لخدمة الأمة الإسلامية؛ لا يُدّعى به إنشاء صك وقف قانوني مسجل."}
             </p>
             <div className="mt-3 flex flex-wrap gap-4 text-xs text-brand-gold-soft">
               <Link to={en ? "/en/waqf" : "/waqf"}>{t.waqf}</Link>
