@@ -81,7 +81,7 @@ export function RequestPage({ lang }: { lang: Lang }) {
       }
     >
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:grid-cols-[.8fr_1.2fr]">
-        <aside className="lg:sticky lg:top-28 lg:self-start">
+        <aside className="lg:sticky lg:top-28 lg:self-start xl:top-36">
           <h2 className="font-display-ar text-2xl font-semibold">
             {en ? "Choose the review that fits your case" : "اختر مسار التقييم المناسب لحالتك"}
           </h2>

@@ -58,7 +58,7 @@ export function StandardContentPage({ lang }: { lang: Lang }) {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:grid-cols-[220px_minmax(0,1fr)]">
         <nav
           aria-label={en ? "Sections" : "فهرس الأقسام"}
-          className="hidden lg:sticky lg:top-24 lg:block lg:self-start"
+          className="hidden lg:sticky lg:top-24 lg:block lg:self-start xl:top-36"
         >
           <p className="mb-3 text-xs font-semibold tracking-wide text-brand-gold">
             {en ? "Contents" : "الفهرس"}
@@ -91,7 +91,7 @@ export function StandardContentPage({ lang }: { lang: Lang }) {
               <article
                 key={s.id}
                 id={`section-${s.id}`}
-                className="relative scroll-mt-28 pb-12 ps-9"
+                className="relative scroll-mt-28 pb-12 ps-9 xl:scroll-mt-40"
               >
                 <span className="absolute -start-4 grid size-8 place-items-center rounded-full border border-brand-gold bg-background font-mono text-xs font-bold text-brand-navy">
                   {String(i + 1).padStart(2, "0")}

@@ -277,7 +277,7 @@ export function MethodologyMapPage({ lang }: { lang: Lang }) {
                   >
                     <Icon className="size-6 shrink-0 text-brand-emerald" aria-hidden="true" />
                     <div>
-                      <span className="font-mono text-xs font-semibold text-brand-gold">
+                      <span className="font-mono text-xs font-semibold text-[#7a5a17]">
                         {en ? `STAGE ${stage.number}` : `المرحلة ${stage.number}`}
                       </span>
                       <h3 className="mt-1 text-xl font-semibold text-brand-navy md:text-2xl">

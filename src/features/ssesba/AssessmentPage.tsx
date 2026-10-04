@@ -583,7 +583,7 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
             </div>
           </section>
 
-          <aside className="lg:sticky lg:top-5 lg:self-start">
+          <aside className="lg:sticky lg:top-24 lg:self-start xl:top-36">
             <div
               aria-live="polite"
               aria-atomic="true"
