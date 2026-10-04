@@ -92,7 +92,7 @@ export const getClassificationStandardsForEditor = createServerFn({ method: "GET
 
 const saveSchema = standardContentSchema.extend({
   id: z.string().uuid().optional(),
-  level: z.enum(["sector", "industry", "activity"]),
+  level: z.enum(["general", "sector", "industry", "activity"]),
   nodeKey: z.string().trim().min(1).max(200),
   note: z.string().trim().max(1000).optional(),
 });

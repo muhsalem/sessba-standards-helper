@@ -3,8 +3,9 @@ import taxonomyData from "@/content/ssesba/taxonomy.json";
 import type { Lang } from "@/lib/ssesba-data";
 
 /**
- * معايير التصنيف المتدرّجة: معيار القطاع يسري على صناعاته، ومعيار الصناعة يسري على أنشطتها،
- * ومعيار النشاط يضيف أحكامه الخاصة. وتبقى بوابة الأهلية والفرز المالي حاكمة على الجميع.
+ * معايير التصنيف المتدرّجة: المعيار العام يسري على كل القطاعات، ومعيار القطاع يسري على صناعاته،
+ * ومعيار الصناعة يسري على أنشطتها، ومعيار النشاط يضيف أحكامه الخاصة.
+ * وتبقى بوابة الأهلية والفرز المالي حاكمة على الجميع.
  */
 
 export type Taxonomy = {
@@ -27,11 +28,39 @@ export type Taxonomy = {
 export const taxonomy = taxonomyData as Taxonomy;
 
 export const standardLevels = [
+  { id: "general", ar: "عام", en: "General" },
   { id: "sector", ar: "قطاع", en: "Sector" },
   { id: "industry", ar: "صناعة", en: "Industry" },
   { id: "activity", ar: "نشاط", en: "Activity" },
 ] as const;
 export type StandardLevel = (typeof standardLevels)[number]["id"];
+
+/** موضوعات المعيار العام: مبادئ منهجية تسري على كل القطاعات، لا ترتبط بعقدة في شجرة التصنيف. */
+export const generalTopics = [
+  {
+    id: "sources",
+    ar: "تراتبية المصادر وقوة الاستدلال",
+    en: "Hierarchy of sources and evidence strength",
+  },
+  {
+    id: "mixed",
+    ar: "الشركات المختلطة وما لا يُدرك كله",
+    en: "Mixed companies and tolerance of minor impurity",
+  },
+  { id: "purification", ar: "التطهير", en: "Purification" },
+  { id: "remediation", ar: "مهل التصحيح", en: "Remediation periods" },
+  {
+    id: "effective",
+    ar: "النفاذ والأحكام الانتقالية والمراجعة الدورية",
+    en: "Effective dates, transition and periodic review",
+  },
+  {
+    id: "disclosure",
+    ar: "التصنيف والفتوى وبيان النتيجة",
+    en: "Classification versus fatwa, and the result statement",
+  },
+  { id: "weights", ar: "أوزان المحاور حسب القطاع", en: "Axis weights by sector" },
+] as const;
 
 export const standardStatuses = [
   { id: "draft", ar: "مسودة", en: "Draft" },
@@ -49,6 +78,15 @@ export const requirementKinds = [
 ] as const;
 export type RequirementKind = (typeof requirementKinds)[number]["id"];
 
+/** قوة الاستدلال لكل بند، ليعرف القارئ ما يجوز فيه الاجتهاد وما لا يجوز. */
+export const evidenceStrengths = [
+  { id: "nass", ar: "نص قطعي", en: "Definitive text" },
+  { id: "ijma", ar: "إجماع أو قرار مجمعي", en: "Consensus or academy resolution" },
+  { id: "ijtihad", ar: "اجتهاد معتمد", en: "Approved ijtihad" },
+  { id: "khilaf", ar: "محل خلاف", en: "Contested" },
+] as const;
+export type EvidenceStrength = (typeof evidenceStrengths)[number]["id"];
+
 const text = (max: number) => z.string().trim().max(max);
 
 export const requirementSchema = z.object({
@@ -56,6 +94,7 @@ export const requirementSchema = z.object({
   ar: text(1200).min(5),
   en: text(1200).optional(),
   ref: text(400).optional(),
+  strength: z.enum(["nass", "ijma", "ijtihad", "khilaf"]).optional(),
 });
 export type Requirement = z.infer<typeof requirementSchema>;
 
@@ -87,12 +126,17 @@ export function findActivity(key: string) {
 }
 
 export function nodeExists({ level, key }: StandardNode) {
+  if (level === "general") return generalTopics.some((topic) => topic.id === key);
   if (level === "sector") return taxonomy.sectors.some((sector) => sector.id === key);
   if (level === "industry") return Boolean(findIndustry(key));
   return Boolean(findActivity(key));
 }
 
 export function nodeLabel({ level, key }: StandardNode, lang: Lang) {
+  if (level === "general") {
+    const topic = generalTopics.find((item) => item.id === key);
+    return topic ? topic[lang] : key;
+  }
   if (level === "sector") {
     const sector = taxonomy.sectors.find((item) => item.id === key);
     return sector ? sector[lang] : key;
@@ -109,7 +153,8 @@ export function nodeLabel({ level, key }: StandardNode, lang: Lang) {
  * والصناعة ترث قطاعاتها (قد تمتد الصناعة على أكثر من قطاع).
  */
 export function inheritanceChain(node: StandardNode): StandardNode[] {
-  if (node.level === "sector") return [node];
+  // المعيار العام يُعرض مستقلًا في المكتبة لأنه يسري على كل العقد.
+  if (node.level === "general" || node.level === "sector") return [node];
   if (node.level === "industry") {
     const industry = findIndustry(node.key);
     return [

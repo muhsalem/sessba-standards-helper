@@ -4,9 +4,9 @@
 import fs from "node:fs";
 
 const [level, input, output] = process.argv.slice(2);
-if (!["sector", "industry", "activity"].includes(level) || !input || !output) {
+if (!["general", "sector", "industry", "activity"].includes(level) || !input || !output) {
   console.error(
-    "usage: node scripts/generate-draft-migration.mjs <sector|industry|activity> <drafts.json> <out.sql>",
+    "usage: node scripts/generate-draft-migration.mjs <general|sector|industry|activity> <drafts.json> <out.sql>",
   );
   process.exit(1);
 }

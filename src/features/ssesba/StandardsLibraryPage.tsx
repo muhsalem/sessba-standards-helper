@@ -3,9 +3,12 @@ import { useServerFn } from "@tanstack/react-start";
 import { BookMarked, FileClock, Layers } from "lucide-react";
 import { SiteShell } from "./SiteShell";
 import {
+  evidenceStrengths,
   findIndustry,
+  generalTopics,
   industriesForSector,
   inheritanceChain,
+  label,
   nodeLabel,
   requirementKinds,
   standardLevels,
@@ -24,7 +27,10 @@ const l10n = {
     eyebrow: "المعايير المتدرّجة",
     title: "معايير القطاعات والصناعات والأنشطة",
     intro:
-      "تتدرّج المعايير الشرعية على شجرة التصنيف: معيار القطاع يسري على كل صناعاته، ومعيار الصناعة يسري على أنشطتها، ومعيار النشاط يضيف أحكامه الخاصة. وعند التعارض يُقدَّم الأخص. وتبقى بوابة الأهلية وحدود الفرز المالي والمحاور الستة حاكمةً على جميع المستويات.",
+      "تتدرّج المعايير الشرعية على شجرة التصنيف: المعيار العام يسري على كل القطاعات، ومعيار القطاع يسري على كل صناعاته، ومعيار الصناعة يسري على أنشطتها، ومعيار النشاط يضيف أحكامه الخاصة. وعند التعارض يُقدَّم الأخص. وتبقى بوابة الأهلية وحدود الفرز المالي والمحاور الستة حاكمةً على جميع المستويات.",
+    general: "المعيار العام: يسري على كل القطاعات",
+    generalDrafting: "موضوعات قيد الصياغة أو المراجعة:",
+    generalNone: "لم يُعتمد بعد أي موضوع من المعيار العام.",
     sector: "القطاع",
     industry: "الصناعة",
     activity: "النشاط",
@@ -46,7 +52,10 @@ const l10n = {
     eyebrow: "Tiered standards",
     title: "Sector, industry and activity standards",
     intro:
-      "Shariah standards are tiered along the classification tree: a sector standard applies to all its industries, an industry standard to its activities, and an activity standard adds its own rulings. Where they differ, the more specific one prevails. The eligibility gate, financial screens and six axes govern every level.",
+      "Shariah standards are tiered along the classification tree: the general standard applies to every sector, a sector standard applies to all its industries, an industry standard to its activities, and an activity standard adds its own rulings. Where they differ, the more specific one prevails. The eligibility gate, financial screens and six axes govern every level.",
+    general: "General standard: applies to every sector",
+    generalDrafting: "Topics in drafting or review:",
+    generalNone: "No general-standard topic has been approved yet.",
     sector: "Sector",
     industry: "Industry",
     activity: "Activity",
@@ -106,6 +115,11 @@ function StandardCard({
                       key={index}
                       className="rounded-md border-s-4 border-brand-gold/70 bg-brand-parchment/40 px-3 py-2"
                     >
+                      {item.strength && (
+                        <span className="me-2 inline-block rounded-full border border-brand-gold/60 bg-background px-2 text-xs font-semibold text-brand-navy">
+                          {label(evidenceStrengths, item.strength, lang)}
+                        </span>
+                      )}
                       {pick(item.ar, item.en)}
                       {item.ref && (
                         <span className="mt-1 block text-xs text-muted-foreground">{item.ref}</span>
@@ -176,6 +190,12 @@ export function StandardsLibraryPage({ lang }: { lang: Lang }) {
     Boolean(
       library?.inProgress.some((row) => row.level === item.level && row.nodeKey === item.key),
     );
+  const generalNodes: StandardNode[] = generalTopics.map((topic) => ({
+    level: "general",
+    key: topic.id,
+  }));
+  const generalPublished = generalNodes.filter((item) => find(item));
+  const generalDrafting = generalNodes.filter((item) => !find(item) && drafting(item));
   const count = (level: StandardLevel) =>
     library?.published.filter((row) => row.level === level).length ?? 0;
   const field = "mt-2 w-full rounded-md border border-border bg-background px-3 py-2 text-sm";
@@ -287,6 +307,33 @@ export function StandardsLibraryPage({ lang }: { lang: Lang }) {
               lang={lang}
             />
           ))}
+        </div>
+        <h2 className="mt-10 flex items-center gap-2 text-xl font-semibold text-brand-navy">
+          <BookMarked className="size-5 text-brand-gold" />
+          {t.general}
+        </h2>
+        <div className="mt-4 grid gap-4" aria-live="polite">
+          {generalPublished.map((item) => (
+            <StandardCard
+              key={`general:${item.key}`}
+              node={item}
+              published={find(item)}
+              drafting={false}
+              lang={lang}
+            />
+          ))}
+          {library && generalPublished.length === 0 && (
+            <p className="text-sm text-muted-foreground">{t.generalNone}</p>
+          )}
+          {generalDrafting.length > 0 && (
+            <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-brand-navy">
+              <FileClock className="size-4 text-brand-gold" />
+              {t.generalDrafting}{" "}
+              {generalDrafting
+                .map((item) => nodeLabel(item, lang))
+                .join(lang === "ar" ? "، " : ", ")}
+            </p>
+          )}
         </div>
         <p className="mt-8 border-t pt-4 text-xs leading-6 text-muted-foreground">
           {copy[lang].advisory}

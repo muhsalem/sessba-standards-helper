@@ -9,12 +9,15 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import {
+  evidenceStrengths,
   findActivity,
+  generalTopics,
   nodeLabel,
   requirementKinds,
   standardLevels,
   standardStatuses,
   taxonomy,
+  type EvidenceStrength,
   type Requirement,
   type RequirementKind,
   type StandardLevel,
@@ -158,11 +161,13 @@ function NodePicker({
           onChange={(e) => {
             const level = e.target.value as StandardLevel;
             const nodeKey =
-              level === "sector"
-                ? taxonomy.sectors[0]!.id
-                : level === "industry"
-                  ? taxonomy.industries[0]!.key
-                  : taxonomy.industries[0]!.subsectors[0]!.activities[0]!.key;
+              level === "general"
+                ? generalTopics[0].id
+                : level === "sector"
+                  ? taxonomy.sectors[0]!.id
+                  : level === "industry"
+                    ? taxonomy.industries[0]!.key
+                    : taxonomy.industries[0]!.subsectors[0]!.activities[0]!.key;
             onChange({ level, nodeKey });
           }}
         >
@@ -173,6 +178,24 @@ function NodePicker({
           ))}
         </select>
       </div>
+      {draft.level === "general" && (
+        <div className="md:col-span-2">
+          <Label htmlFor="editor-node">الموضوع</Label>
+          <select
+            id="editor-node"
+            className={field}
+            disabled={locked}
+            value={draft.nodeKey}
+            onChange={(e) => onChange({ nodeKey: e.target.value })}
+          >
+            {generalTopics.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.ar}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       {draft.level === "sector" && (
         <div className="md:col-span-2">
           <Label htmlFor="editor-node">القطاع</Label>
@@ -349,6 +372,7 @@ export function StandardsEditorPage() {
               ar: item.ar,
               en: item.en || undefined,
               ref: item.ref || undefined,
+              strength: item.strength || undefined,
             })),
           sources: draft.sources
             .split("\n")
@@ -553,6 +577,28 @@ export function StandardsEditorPage() {
                           {requirementKinds.map((kind) => (
                             <option key={kind.id} value={kind.id}>
                               {kind.ar}
+                            </option>
+                          ))}
+                        </select>
+                        <Label htmlFor={`req-strength-${index}`} className="sr-only">
+                          قوة الاستدلال للبند {index + 1}
+                        </Label>
+                        <select
+                          id={`req-strength-${index}`}
+                          className="rounded-md border border-border bg-background px-2 py-1 text-sm"
+                          value={item.strength ?? ""}
+                          disabled={locked}
+                          onChange={(e) =>
+                            patchRequirement(index, {
+                              strength: (e.target.value || undefined) as
+                                EvidenceStrength | undefined,
+                            })
+                          }
+                        >
+                          <option value="">قوة الاستدلال: غير محددة</option>
+                          {evidenceStrengths.map((strength) => (
+                            <option key={strength.id} value={strength.id}>
+                              {strength.ar}
                             </option>
                           ))}
                         </select>

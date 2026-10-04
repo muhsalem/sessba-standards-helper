@@ -5,8 +5,10 @@ import assert from "node:assert/strict";
 import drafts from "../../scripts/sector-standard-drafts.json";
 import industryDrafts from "../../scripts/industry-standard-drafts.json";
 import activityDrafts from "../../scripts/activity-standard-drafts.json";
+import generalDrafts from "../../scripts/general-standard-drafts.json";
 import {
   findActivity,
+  generalTopics,
   industriesForSector,
   inheritanceChain,
   nodeExists,
@@ -111,5 +113,24 @@ for (const draft of activityDrafts) {
     `بنود مسودة ${draft.key} مترجمة وموثّقة`,
   );
 }
+
+// مسودات المعيار العام: مسودة لكل موضوع، وكل بند مترجم وموثّق ومصنّف بقوة استدلاله.
+assert.deepEqual(
+  generalDrafts.map((draft) => draft.key).sort(),
+  generalTopics.map((topic) => topic.id).sort(),
+  "مسودة لكل موضوع عام",
+);
+for (const draft of generalDrafts) {
+  assert.ok(nodeExists({ level: "general", key: draft.key }), `موضوع ${draft.key} موجود`);
+  standardContentSchema.parse(draft);
+  assert.ok(
+    draft.requirements.every((item) => item.en && item.ref && item.strength),
+    `بنود ${draft.key} مترجمة وموثّقة ومصنّفة`,
+  );
+}
+assert.deepEqual(inheritanceChain({ level: "general", key: "purification" }), [
+  { level: "general", key: "purification" },
+]);
+assert.equal(nodeExists({ level: "general", key: "unknown" }), false);
 
 console.log("جميع فحوصات معايير التصنيف ناجحة");
