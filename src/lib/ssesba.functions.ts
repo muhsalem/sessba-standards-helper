@@ -22,8 +22,10 @@ import {
   calculateAssessment,
   calculatePurification,
   complianceLevelForScore,
+  ineligibleLabels,
   methodologyVersion,
   privacyConsentVersion,
+  screenLabel,
   weightedScore,
   type Lang,
 } from "@/lib/ssesba-data";
@@ -39,12 +41,20 @@ const gateSchema = z.object({
   gharar: z.boolean(),
 });
 const figuresSchema = z.object({
+  marketCap: amount.optional(),
   totalAssets: amount.optional(),
+  cashAndReceivables: amount.optional(),
   interestBearingDebt: amount.optional(),
   interestBearingDeposits: amount.optional(),
   totalRevenue: amount.optional(),
   nonCompliantRevenue: amount.optional(),
 });
+const basisSchema = z.enum(["marketCap", "totalAssets"]).default("marketCap");
+const deadlineSchema = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/)
+  .nullable()
+  .optional();
 const axisScore = z.number().int().min(0).max(100);
 const axisScoresSchema = z.object({
   contracts: axisScore,
@@ -98,6 +108,9 @@ const sixScaleSchema = z
     lang: langSchema,
     gate: gateSchema,
     figures: figuresSchema,
+    basis: basisSchema,
+    // مهلة تصحيح اختيارية: لا أثر لها إلا عند تجاوز حدود الفرز وحدها دون إخفاق في بوابة النشاط.
+    remediationDeadline: deadlineSchema,
     distributedReturn: amount,
     // manual: يُدخل المراجع درجات المحاور بنفسه ويعمل المقياس دون الذكاء الاصطناعي.
     method: z.enum(["ai", "manual"]).default("ai"),
@@ -111,8 +124,10 @@ const saveResultSchema = z.object({
   scores: axisScoresSchema,
   gate: gateSchema,
   risk: z.enum(["S1", "S2", "S3", "S4"]),
-  specialState: z.enum(["under_study", "out_of_scope"]).nullable(),
+  specialState: z.enum(["under_study", "out_of_scope", "under_remediation"]).nullable(),
   figures: figuresSchema,
+  basis: basisSchema,
+  remediationDeadline: deadlineSchema,
   mode: z.enum(["expert", "self", "ai_review"]),
   exampleId: z.string().uuid().optional(),
 });
@@ -316,7 +331,9 @@ export const saveAssessmentResult = createServerFn({ method: "POST" })
     await assertWithinLimit("result_ip", clientIdentifier(), 20, 3600);
     const result = calculateAssessment(data.scores, data.gate, data.risk, {
       figures: data.figures,
+      basis: data.basis,
       specialState: data.specialState,
+      remediationDeadline: data.remediationDeadline,
     });
     const supabaseAdmin = await adminClient();
     const { data: row, error } = await supabaseAdmin
@@ -329,7 +346,10 @@ export const saveAssessmentResult = createServerFn({ method: "POST" })
           gate: data.gate,
           risk: data.risk,
           specialState: data.specialState,
+          remediation: result.remediation,
           figures: data.figures,
+          basis: data.basis,
+          tradingAtParOnly: result.tradingAtParOnly,
           mode: data.mode,
           exampleId: data.exampleId ?? null,
         } as Json,
@@ -453,7 +473,12 @@ export const evaluateCompanySixScale = createServerFn({ method: "POST" })
       data.distributedReturn,
     );
     // بوابة الأهلية وحدود الفرز المالي تُطبَّق حتميًا قبل أي استدعاء للذكاء الاصطناعي؛ الإخفاق يعني صفرًا ولا تعوّضه الدرجات.
-    const eligibility = calculateAssessment({}, data.gate, "S2", { figures: data.figures });
+    const eligibility = calculateAssessment({}, data.gate, "S2", {
+      figures: data.figures,
+      basis: data.basis,
+      specialState: data.remediationDeadline ? "under_remediation" : null,
+      remediationDeadline: data.remediationDeadline,
+    });
     if (eligibility.ineligible) {
       const justification = [
         ...eligibility.failedGates.map(
@@ -462,17 +487,20 @@ export const evaluateCompanySixScale = createServerFn({ method: "POST" })
         ),
         ...eligibility.failedScreens.map(
           (item) =>
-            `${arabic ? "تجاوز حد الفرز المالي" : "Financial screen exceeded"}: ${item.screen[data.lang]} ${item.ratio}% > ${item.screen.max}%`,
+            `${arabic ? "تجاوز حد الفرز المالي" : "Financial screen exceeded"}: ${screenLabel(item.screen, eligibility.basis, data.lang)} ${item.ratio}% > ${item.screen.max}%`,
         ),
       ];
       return {
         score: 0,
-        level: complianceLevelForScore(0)[data.lang],
+        level: ineligibleLabels[eligibility.ineligibleReason ?? "gate"][data.lang],
         ineligible: true,
         axisScores: null,
         justification,
         plan: [] as string[],
         screens: eligibility.screens,
+        basis: eligibility.basis,
+        tradingAtParOnly: eligibility.tradingAtParOnly,
+        remediation: eligibility.remediation,
         purification,
         appliedRules: [] as AppliedSectorRule[],
         referenceCode: null,
@@ -500,12 +528,15 @@ export const evaluateCompanySixScale = createServerFn({ method: "POST" })
             sector: data.sector,
             gate: data.gate,
             figures: data.figures,
+            basis: data.basis,
+            remediation: eligibility.remediation,
+            tradingAtParOnly: eligibility.tradingAtParOnly,
             axisScores: evaluation.axisScores,
             appliedRules: evaluation.appliedRules,
           } as Json,
           score,
           level: level.id,
-          verdict: null,
+          verdict: eligibility.remediation ? "under_remediation" : null,
           ineligible: false,
         })
         .select("reference_code")
@@ -523,6 +554,9 @@ export const evaluateCompanySixScale = createServerFn({ method: "POST" })
       justification: evaluation.justification,
       plan: evaluation.plan,
       screens: eligibility.screens,
+      basis: eligibility.basis,
+      tradingAtParOnly: eligibility.tradingAtParOnly,
+      remediation: eligibility.remediation,
       purification,
       appliedRules: evaluation.appliedRules,
       referenceCode,
@@ -608,7 +642,10 @@ async function aiSixScale(
   }[data.sector];
   const screenFacts = screens
     .filter((item) => item.ratio !== null)
-    .map((item) => `${item.screen.en}: ${item.ratio}% (limit ${item.screen.max}%)`)
+    .map(
+      (item) =>
+        `${screenLabel(item.screen, data.basis, "en")}: ${item.ratio}% (limit ${item.screen.max}%)`,
+    )
     .join("; ");
   const rules = await approvedSectorRules(data.sector);
   const rulesBlock = rules.length

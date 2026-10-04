@@ -30,10 +30,14 @@ import {
   calculateAssessment,
   complianceLevels,
   copy,
+  defaultScreenBasis,
   financialScreens,
   gateChecks,
+  ineligibleLabels,
   methodologyVersion,
   riskTiers,
+  screenBases,
+  screenLabel,
   specialStates,
   structuralFailureThreshold,
   type AssessmentMode,
@@ -41,6 +45,7 @@ import {
   type GateState,
   type Lang,
   type RiskTier,
+  type ScreenBasis,
   type SpecialStateId,
 } from "@/lib/ssesba-data";
 import {
@@ -91,7 +96,17 @@ const labels = {
     not_applicable: "غير منطبق / خارج النطاق",
     screens: "الفرز المالي الكمي (اختياري)",
     screensNote:
-      "حدود على نهج معيار أيوفي الشرعي رقم 21. تجاوز أي حد يُسقط الأهلية كبقية اختبارات البوابة. لا يُقيَّم الحد إذا لم يُدخل مقامه.",
+      "حدود على نهج معيار أيوفي الشرعي رقم 21. تجاوز حدود الديون والودائع والدخل يُسقط الأهلية كبقية اختبارات البوابة، أما حد السيولة فيقيّد التداول ولا يُسقط الأهلية. لا يُقيَّم الحد إذا لم يُدخل مقامه.",
+    basis: "مقام نسبتي الديون والودائع",
+    basisNote: "يُسجَّل المقام المختار مع النتيجة. تعتمد الهيئة الشرعية المقام المطبّق.",
+    marketCap: "القيمة السوقية",
+    cashAndReceivables: "النقد والذمم المدينة",
+    tradingAtPar:
+      "شرط تداول: غلبت النقود والديون على الموجودات، فلا يُتداول السهم إلا بالقيمة الاسمية وفق أحكام الصرف وبيع الدين. الحد (70%) مقترح ينتظر اعتماد الهيئة.",
+    remediationDeadline: "تاريخ انتهاء مهلة التصحيح",
+    remediationInvalid:
+      "لا أثر لمهلة التصحيح هنا: تُتاح فقط عند تجاوز حدود الفرز المالي دون إخفاق في بوابة النشاط، وبتاريخ مستقبلي لا يتجاوز المهلة القصوى.",
+    under_remediation: "تحت التصحيح",
     totalAssets: "إجمالي الأصول",
     interestBearingDebt: "الديون الربوية",
     interestBearingDeposits: "الودائع والاستثمارات الربوية",
@@ -146,7 +161,18 @@ const labels = {
     not_applicable: "Not applicable / out of scope",
     screens: "Quantitative financial screens (optional)",
     screensNote:
-      "Limits follow AAOIFI Shariah Standard No. 21. Exceeding any limit removes eligibility like the other gate tests. A screen is not evaluated when its denominator is empty.",
+      "Limits follow AAOIFI Shariah Standard No. 21. Exceeding the debt, deposit or income limit removes eligibility like the other gate tests; the liquidity limit restricts trading without removing eligibility. A screen is not evaluated when its denominator is empty.",
+    basis: "Denominator for the debt and deposit ratios",
+    basisNote:
+      "The chosen denominator is recorded with the result. The Shariah board approves which one applies.",
+    marketCap: "Market capitalization",
+    cashAndReceivables: "Cash and receivables",
+    tradingAtPar:
+      "Trading condition: cash and debts dominate the assets, so the share may only trade at par value under the rules of currency exchange and debt sale. The 70% limit is proposed and awaits board approval.",
+    remediationDeadline: "Remediation deadline",
+    remediationInvalid:
+      "The remediation period has no effect here: it applies only when financial screen limits are exceeded without an activity-gate failure, with a future date within the maximum period.",
+    under_remediation: "Under remediation",
     totalAssets: "Total assets",
     interestBearingDebt: "Interest-bearing debt",
     interestBearingDeposits: "Interest-bearing deposits and investments",
@@ -188,6 +214,8 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
   const [aiNote, setAiNote] = useState("");
   const [figures, setFigures] = useState<FinancialFigures>({});
   const [specialState, setSpecialState] = useState<SpecialStateId | null>(null);
+  const [basis, setBasis] = useState<ScreenBasis>(defaultScreenBasis);
+  const [remediationDeadline, setRemediationDeadline] = useState("");
   const [saving, setSaving] = useState(false);
   const [savedRef, setSavedRef] = useState("");
   const [busy, setBusy] = useState(false);
@@ -198,13 +226,19 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
   const save = useServerFn(saveAssessmentResult);
   const loadExamples = useServerFn(getAssessmentExamples);
   const result = useMemo(
-    () => calculateAssessment(scores, gate, risk, { figures, specialState }),
-    [scores, gate, risk, figures, specialState],
+    () =>
+      calculateAssessment(scores, gate, risk, {
+        figures,
+        basis,
+        specialState,
+        remediationDeadline: specialState === "under_remediation" ? remediationDeadline : null,
+      }),
+    [scores, gate, risk, figures, basis, specialState, remediationDeadline],
   );
   // أي تعديل في المدخلات يُبطل الرقم المرجعي السابق حتى لا يُنسب إلى نتيجة مختلفة.
   useEffect(() => {
     setSavedRef("");
-  }, [scores, gate, risk, figures, specialState]);
+  }, [scores, gate, risk, figures, basis, specialState, remediationDeadline]);
   const failed = gateChecks.filter((c) => gate[c.id] !== true);
   const current = examples.find((e) => e.id === exampleId);
 
@@ -277,6 +311,11 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
           risk,
           specialState,
           figures,
+          basis,
+          remediationDeadline:
+            specialState === "under_remediation" && remediationDeadline
+              ? remediationDeadline
+              : null,
           mode,
           exampleId: exampleId || undefined,
         },
@@ -402,10 +441,30 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
                 {t.screens}
               </h2>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">{t.screensNote}</p>
+              <div className="mt-4">
+                <Label htmlFor="screen-basis">{t.basis}</Label>
+                <Select value={basis} onValueChange={(v) => setBasis(v as ScreenBasis)}>
+                  <SelectTrigger id="screen-basis" className="mt-2" aria-describedby="basis-note">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {screenBases.map((item) => (
+                      <SelectItem key={item.id} value={item.id}>
+                        {item[lang]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p id="basis-note" className="mt-2 text-xs text-muted-foreground">
+                  {t.basisNote}
+                </p>
+              </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {(
                   [
+                    "marketCap",
                     "totalAssets",
+                    "cashAndReceivables",
                     "interestBearingDebt",
                     "interestBearingDeposits",
                     "totalRevenue",
@@ -431,10 +490,10 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
                 {result.screens.map((item) => (
                   <li
                     key={item.screen.id}
-                    className={`flex items-center justify-between gap-3 rounded-md border px-3 py-2 ${item.passed === false ? "border-destructive/50 bg-destructive/10 text-destructive" : ""}`}
+                    className={`flex items-center justify-between gap-3 rounded-md border px-3 py-2 ${item.passed === false ? (item.screen.kind === "trading" ? "border-brand-gold/60 bg-brand-parchment text-brand-navy" : "border-destructive/50 bg-destructive/10 text-destructive") : ""}`}
                   >
                     <span>
-                      {item.screen[lang]} (≤ {item.screen.max}%)
+                      {screenLabel(item.screen, result.basis, lang)} (≤ {item.screen.max}%)
                     </span>
                     <span className="font-mono">
                       {item.ratio === null ? "—" : `${item.ratio}%`}
@@ -446,8 +505,13 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
                 <p role="alert" className="mt-3 text-sm font-semibold text-destructive">
                   {t.screenFailed}{" "}
                   {result.failedScreens
-                    .map((item) => item.screen[lang])
+                    .map((item) => screenLabel(item.screen, result.basis, lang))
                     .join(lang === "ar" ? "، " : ", ")}
+                </p>
+              )}
+              {result.tradingAtParOnly && (
+                <p className="mt-3 rounded-md border border-brand-gold/60 bg-brand-parchment p-3 text-sm text-brand-navy">
+                  {t.tradingAtPar}
                 </p>
               )}
             </div>
@@ -536,7 +600,9 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
                 <div>
                   <p className="text-xs text-muted-foreground">{t.level}</p>
                   <p className="mt-1 text-xl font-semibold">
-                    {result.ineligible ? t.ineligible : result.level[lang]}
+                    {result.ineligible && result.ineligibleReason
+                      ? ineligibleLabels[result.ineligibleReason][lang]
+                      : result.level[lang]}
                   </p>
                   {result.structuralFailure && (
                     <p className="mt-1 text-sm text-destructive">{t.structural}</p>
@@ -614,6 +680,24 @@ export function AssessmentPage({ lang }: { lang: Lang }) {
                     <p id="special-guidance" className="mt-2 text-xs text-muted-foreground">
                       {result.special[lang === "ar" ? "arHelp" : "enHelp"]}
                     </p>
+                  )}
+                  {specialState === "under_remediation" && (
+                    <div className="mt-3">
+                      <Label htmlFor="remediation-deadline">{t.remediationDeadline}</Label>
+                      <Input
+                        id="remediation-deadline"
+                        type="date"
+                        className="mt-2"
+                        value={remediationDeadline}
+                        onChange={(e) => setRemediationDeadline(e.target.value)}
+                        aria-describedby={!result.remediation ? "remediation-invalid" : undefined}
+                      />
+                      {!result.remediation && (
+                        <p id="remediation-invalid" className="mt-2 text-xs text-destructive">
+                          {t.remediationInvalid}
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
                 <div

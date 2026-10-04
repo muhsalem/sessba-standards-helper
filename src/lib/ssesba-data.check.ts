@@ -51,8 +51,8 @@ const levels: Array<[number, string]> = [
   [60, "structural_remediation"],
   [59, "non_compliant"],
   [45, "non_compliant"],
-  [44, "prohibited"],
-  [0, "prohibited"],
+  [44, "high_risk"],
+  [0, "high_risk"],
 ];
 for (const [score, level] of levels)
   assert.equal(complianceLevelForScore(score).id, level, `المستوى السداسي عند ${score}`);
@@ -62,7 +62,7 @@ const decimals: Array<[number, string]> = [
   [84.5, "conditional"],
   [74.9, "structural_remediation"],
   [59.5, "non_compliant"],
-  [44.9, "prohibited"],
+  [44.9, "high_risk"],
 ];
 for (const [score, level] of decimals)
   assert.equal(complianceLevelForScore(score).id, level, `المستوى السداسي للدرجة العشرية ${score}`);
@@ -87,7 +87,8 @@ for (const check of gateChecks) {
   assert.equal(result.ineligible, true, `تخلّف ${check.id} يُسقط الأهلية`);
   assert.equal(result.verdict, "rejected");
   assert.equal(result.score, 0);
-  assert.equal(result.level.id, "prohibited");
+  assert.equal(result.level.id, "high_risk");
+  assert.equal(result.ineligibleReason, "gate", "إخفاق البوابة وحده يوصف بالتحريم");
 }
 
 assert.equal(calculateAssessment(flat(40), openGate, "S1").structuralFailure, true);
@@ -110,13 +111,16 @@ assert.equal(
 );
 const leveraged = calculateAssessment(strong, openGate, "S1", {
   figures: { totalAssets: 1000, interestBearingDebt: 450 },
+  basis: "totalAssets",
 });
 assert.equal(leveraged.ineligible, true, "دين ربوي 45% من الأصول يُسقط الأهلية");
 assert.equal(leveraged.verdict, "rejected");
 assert.equal(leveraged.failedScreens[0]?.screen.id, "debt");
+assert.equal(leveraged.ineligibleReason, "screens", "تجاوز الفرز عدم أهلية لا تحريم");
 assert.equal(
   calculateAssessment(strong, openGate, "S1", {
     figures: { totalAssets: 1000, interestBearingDebt: 300 },
+    basis: "totalAssets",
   }).ineligible,
   false,
   "30% بالضبط ضمن الحد",
@@ -137,14 +141,101 @@ assert.equal(
 );
 assert.deepEqual(
   evaluateFinancialScreens({}).map((item) => item.passed),
-  [null, null, null],
+  [null, null, null, null],
   "لا تقييم دون مقام",
 );
 assert.equal(
-  evaluateFinancialScreens({ totalAssets: 0, interestBearingDebt: 100 })[0]?.passed,
+  evaluateFinancialScreens({ totalAssets: 0, interestBearingDebt: 100 }, "totalAssets")[0]?.passed,
   null,
   "مقام صفري لا يُقيَّم",
 );
+
+// مقام نسبتي الديون والودائع: القيمة السوقية افتراضًا، وإجمالي الأصول اختيارًا.
+const mixedFigures = { marketCap: 2000, totalAssets: 1000, interestBearingDebt: 450 };
+assert.equal(
+  calculateAssessment(strong, openGate, "S1", { figures: mixedFigures }).ineligible,
+  false,
+  "دين 450 من قيمة سوقية 2000 = 22.5% ضمن الحد",
+);
+assert.equal(
+  calculateAssessment(strong, openGate, "S1", { figures: mixedFigures, basis: "totalAssets" })
+    .ineligible,
+  true,
+  "الدين نفسه 45% من إجمالي الأصول يتجاوز الحد",
+);
+assert.equal(
+  evaluateFinancialScreens({ totalAssets: 1000, interestBearingDebt: 450 })[0]?.passed,
+  null,
+  "بلا قيمة سوقية لا يُقيَّم الدين على المقام الافتراضي",
+);
+
+// حد السيولة شرط تداول لا يُسقط الأهلية.
+const liquid = calculateAssessment(flat(90), openGate, "S1", {
+  figures: { totalAssets: 1000, cashAndReceivables: 800 },
+});
+assert.equal(liquid.ineligible, false, "غلبة النقود والديون لا تُسقط الأهلية");
+assert.equal(liquid.tradingAtParOnly, true, "لكنها تقيّد التداول بالقيمة الاسمية");
+assert.equal(liquid.failedScreens.length, 0);
+assert.equal(
+  calculateAssessment(flat(90), openGate, "S1", {
+    figures: { totalAssets: 1000, cashAndReceivables: 700 },
+  }).tradingAtParOnly,
+  false,
+  "70% بالضبط ضمن الحد",
+);
+
+// مهلة التصحيح: لتجاوز الفرز وحده، بتاريخ مستقبلي في حدود المهلة القصوى.
+const now = new Date("2026-10-01T00:00:00Z");
+const overDebt = {
+  figures: { totalAssets: 1000, interestBearingDebt: 350 },
+  basis: "totalAssets" as const,
+  now,
+};
+const remediated = calculateAssessment(flat(90), openGate, "S1", {
+  ...overDebt,
+  specialState: "under_remediation",
+  remediationDeadline: "2027-03-31",
+});
+assert.equal(remediated.ineligible, false, "المهلة تُبقي الشركة في التصنيف");
+assert.equal(remediated.verdict, "under_remediation");
+assert.equal(remediated.remediation?.deadline, "2027-03-31");
+assert.equal(remediated.score, 90);
+assert.equal(
+  calculateAssessment(flat(90), openGate, "S1", {
+    ...overDebt,
+    specialState: "under_remediation",
+    remediationDeadline: "2026-09-30",
+  }).ineligible,
+  true,
+  "تاريخ منتهٍ لا يمنح مهلة",
+);
+assert.equal(
+  calculateAssessment(flat(90), openGate, "S1", {
+    ...overDebt,
+    specialState: "under_remediation",
+    remediationDeadline: "2027-10-02",
+  }).ineligible,
+  true,
+  "مهلة تتجاوز 12 شهرًا مرفوضة",
+);
+const gateAndScreens = calculateAssessment(flat(90), { ...openGate, riba: false }, "S1", {
+  ...overDebt,
+  specialState: "under_remediation",
+  remediationDeadline: "2027-03-31",
+});
+assert.equal(gateAndScreens.verdict, "rejected", "لا مهلة مع إخفاق بوابة النشاط");
+assert.equal(gateAndScreens.ineligibleReason, "gate");
+const noBreach = calculateAssessment(flat(90), openGate, "S1", {
+  now,
+  specialState: "under_remediation",
+  remediationDeadline: "2027-03-31",
+});
+assert.equal(noBreach.special, null, "لا حالة تصحيح بلا تجاوز");
+assert.equal(noBreach.verdict, "approved");
+
+// المستوى الأدنى وصفٌ لمخاطر عالية لا حكمٌ بالتحريم.
+assert.equal(complianceLevelForScore(30).id, "high_risk");
+assert.equal(complianceLevelForScore(30).ar.includes("محظور"), false);
 
 // الحالتان الخاصتان مستقلتان عن نطاقات الدرجات.
 assert.equal(

@@ -2,12 +2,7 @@ export type Lang = "ar" | "en";
 export type AssessmentMode = "expert" | "self" | "ai_review";
 export type RiskTier = "S1" | "S2" | "S3" | "S4";
 export type ComplianceLevelId =
-  | "full"
-  | "substantial"
-  | "conditional"
-  | "structural_remediation"
-  | "non_compliant"
-  | "prohibited";
+  "full" | "substantial" | "conditional" | "structural_remediation" | "non_compliant" | "high_risk";
 
 export const brand = {
   ar: {
@@ -31,7 +26,7 @@ export const axes = [
   { id: "disclosure", ar: "الإفصاح", en: "Disclosure", weight: 5, sampleScore: 78 },
 ] as const;
 
-export const methodologyVersion = "SSESBA-IND-1.1.0";
+export const methodologyVersion = "SSESBA-IND-1.2.0";
 
 export const riskTiers = [
   {
@@ -104,7 +99,14 @@ export const complianceLevels = [
     en: "Requires structural remediation",
   },
   { id: "non_compliant", min: 45, max: 59, ar: "غير متوافق", en: "Non-compliant" },
-  { id: "prohibited", min: 0, max: 44, ar: "محظور شرعًا", en: "Prohibited" },
+  // الدرجة تقيس جودة الامتثال ولا تُنشئ حكمًا بالتحريم؛ وصف «محظور» مقصور على الإخفاق في بوابة الأهلية.
+  {
+    id: "high_risk",
+    min: 0,
+    max: 44,
+    ar: "غير متوافق — مخاطر شرعية عالية",
+    en: "Non-compliant — high Shariah risk",
+  },
 ] as const satisfies ReadonlyArray<{
   id: ComplianceLevelId;
   min: number;
@@ -125,6 +127,22 @@ export const verdictMatrix = {
   remediation: { S1: "remediation", S2: "remediation", S3: "remediation", S4: "rejected" },
   non_compliant: { S1: "rejected", S2: "rejected", S3: "rejected", S4: "rejected" },
 } as const;
+
+/**
+ * وصف النتيجة عند عدم الأهلية: التحريم مصدره بوابة النشاط وحدها،
+ * أما تجاوز حدود الفرز المالي فعدم أهلية لا حكم بالتحريم.
+ */
+export const ineligibleLabels = {
+  gate: {
+    ar: "محظور شرعًا — إخفاق في بوابة الأهلية",
+    en: "Prohibited — failed the eligibility gate",
+  },
+  screens: {
+    ar: "غير مؤهل — تجاوز حدود الفرز المالي",
+    en: "Ineligible — financial screen limits exceeded",
+  },
+} as const;
+export type IneligibleReason = keyof typeof ineligibleLabels;
 
 export function gatePassed(gate: GateState) {
   return gateChecks.every((check) => gate[check.id] === true);
@@ -160,12 +178,30 @@ export const specialStates = [
     arHelp: "نشاط خارج نطاق المعيار؛ لا تُصدر له نتيجة امتثال.",
     enHelp: "An activity outside the standard's scope; no compliance result is issued.",
   },
+  {
+    id: "under_remediation",
+    verdict: "under_remediation",
+    ar: "تحت التصحيح (مهلة محددة)",
+    en: "Under remediation (fixed deadline)",
+    arHelp:
+      "لمن تجاوز حدود الفرز المالي دون إخفاق في بوابة النشاط: يبقى في التصنيف تحت المراقبة حتى تاريخ انتهاء المهلة، ثم يُعاد فرزه.",
+    enHelp:
+      "For a company that exceeds financial screen limits without failing the activity gate: it stays classified under monitoring until the deadline, then is re-screened.",
+  },
 ] as const;
 export type SpecialStateId = (typeof specialStates)[number]["id"];
 
+/**
+ * أقصى مهلة تصحيح بالأشهر. قيمة مقترحة تحتاج اعتماد الهيئة الشرعية.
+ * لا تُتاح المهلة إلا حين يكون الإخفاق في حدود الفرز المالي وحدها، لا في بوابة النشاط.
+ */
+export const maxRemediationMonths = 12;
+
 /** الأرقام المالية المستخدمة في الفرز الكمي وحساب التطهير. الحقول غير المُدخلة لا تُقيَّم. */
 export type FinancialFigures = {
+  marketCap?: number | undefined;
   totalAssets?: number | undefined;
+  cashAndReceivables?: number | undefined;
   interestBearingDebt?: number | undefined;
   interestBearingDeposits?: number | undefined;
   totalRevenue?: number | undefined;
@@ -173,39 +209,77 @@ export type FinancialFigures = {
 };
 
 /**
+ * مقام نسبتي الديون والودائع الربوية. معيار أيوفي الشرعي رقم 21 ينسبهما إلى القيمة السوقية،
+ * وتعتمد مؤشرات أخرى إجمالي الأصول. تختار الهيئة المقام المعتمد، ويُسجَّل مع كل نتيجة.
+ */
+export const screenBases = [
+  {
+    id: "marketCap",
+    ar: "القيمة السوقية (للشركات المدرجة)",
+    en: "Market capitalization (listed companies)",
+    arShort: "القيمة السوقية",
+    enShort: "market capitalization",
+  },
+  {
+    id: "totalAssets",
+    ar: "إجمالي الأصول (لغير المدرجة)",
+    en: "Total assets (unlisted companies)",
+    arShort: "إجمالي الأصول",
+    enShort: "total assets",
+  },
+] as const;
+export type ScreenBasis = (typeof screenBases)[number]["id"];
+export const defaultScreenBasis: ScreenBasis = "marketCap";
+
+/**
  * حدود الفرز المالي الكمي على نهج معيار أيوفي الشرعي رقم 21 (الأوراق المالية).
- * تُعدّ جزءًا من بوابة الأهلية: تجاوز أي حد يُسقط الأهلية ولا تعوّضه درجات المحاور،
- * فلا يُعوَّض ربا التمويل بارتفاع بقية المحاور. الحدود قابلة للضبط وفق الولاية القضائية.
+ * - حدود «gate» جزء من بوابة الأهلية: تجاوزها يُسقط الأهلية ولا تعوّضه درجات المحاور.
+ * - حد «trading» شرطٌ على التداول لا على الأهلية: إذا غلبت النقود والديون على الموجودات
+ *   دخل تداول السهم في أحكام الصرف وبيع الدين، فلا يجوز إلا بالقيمة الاسمية بشروطه.
+ * الحدود قابلة للضبط وفق ما تعتمده الهيئة الشرعية؛ وحد السيولة (70%) مقترح ينتظر اعتمادها.
  */
 export const financialScreens = [
   {
     id: "debt",
+    kind: "gate",
     numerator: "interestBearingDebt",
-    denominator: "totalAssets",
+    denominator: "basis",
     max: 30,
-    ar: "الديون الربوية إلى إجمالي الأصول",
-    en: "Interest-bearing debt to total assets",
+    ar: "الديون الربوية",
+    en: "Interest-bearing debt",
   },
   {
     id: "deposits",
+    kind: "gate",
     numerator: "interestBearingDeposits",
-    denominator: "totalAssets",
+    denominator: "basis",
     max: 30,
-    ar: "الودائع والاستثمارات الربوية إلى إجمالي الأصول",
-    en: "Interest-bearing deposits and investments to total assets",
+    ar: "الودائع والاستثمارات الربوية",
+    en: "Interest-bearing deposits and investments",
   },
   {
     id: "income",
+    kind: "gate",
     numerator: "nonCompliantRevenue",
     denominator: "totalRevenue",
     max: 5,
     ar: "الدخل غير المباح إلى إجمالي الإيرادات",
     en: "Non-permissible income to total revenue",
   },
+  {
+    id: "liquidity",
+    kind: "trading",
+    numerator: "cashAndReceivables",
+    denominator: "totalAssets",
+    max: 70,
+    ar: "النقد والذمم المدينة إلى إجمالي الأصول",
+    en: "Cash and receivables to total assets",
+  },
 ] as const satisfies ReadonlyArray<{
   id: string;
+  kind: "gate" | "trading";
   numerator: keyof FinancialFigures;
-  denominator: keyof FinancialFigures;
+  denominator: keyof FinancialFigures | "basis";
   max: number;
   ar: string;
   en: string;
@@ -215,13 +289,38 @@ function positive(value: number | undefined) {
   return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : 0;
 }
 
-export function evaluateFinancialScreens(figures: FinancialFigures = {}) {
+/** اسم الفحص مع مقامه الفعلي، لعرضه في النتيجة والتقرير. */
+export function screenLabel(
+  screen: (typeof financialScreens)[number],
+  basis: ScreenBasis,
+  lang: Lang,
+) {
+  if (screen.denominator !== "basis") return screen[lang];
+  const base = screenBases.find((item) => item.id === basis) ?? screenBases[0];
+  return lang === "ar" ? `${screen.ar} إلى ${base.arShort}` : `${screen.en} to ${base.enShort}`;
+}
+
+export function evaluateFinancialScreens(
+  figures: FinancialFigures = {},
+  basis: ScreenBasis = defaultScreenBasis,
+) {
   return financialScreens.map((screen) => {
-    const denominator = positive(figures[screen.denominator]);
+    const key = screen.denominator === "basis" ? basis : screen.denominator;
+    const denominator = positive(figures[key]);
     if (denominator === 0) return { screen, ratio: null, passed: null };
     const ratio = Math.round((positive(figures[screen.numerator]) / denominator) * 10000) / 100;
     return { screen, ratio, passed: ratio <= screen.max };
   });
+}
+
+/** هل تاريخ نهاية المهلة صالح: بعد اليوم، وفي حدود أقصى مهلة معتمدة. */
+export function validRemediationDeadline(deadline: string | null | undefined, now = new Date()) {
+  if (!deadline || !/^\d{4}-\d{2}-\d{2}$/.test(deadline)) return false;
+  const end = new Date(`${deadline}T23:59:59Z`);
+  if (Number.isNaN(end.getTime()) || end <= now) return false;
+  const limit = new Date(now);
+  limit.setUTCMonth(limit.getUTCMonth() + maxRemediationMonths);
+  return end <= limit;
 }
 
 /** المتوسط المرجّح للمحاور الستة مقرّبًا إلى منزلة عشرية واحدة. */
@@ -235,7 +334,10 @@ export function weightedScore(scores: Record<string, number>) {
 
 export type AssessmentOptions = {
   figures?: FinancialFigures | undefined;
+  basis?: ScreenBasis | undefined;
   specialState?: SpecialStateId | null | undefined;
+  remediationDeadline?: string | null | undefined;
+  now?: Date | undefined;
 };
 
 export function calculateAssessment(
@@ -244,25 +346,49 @@ export function calculateAssessment(
   risk: RiskTier,
   options: AssessmentOptions = {},
 ) {
+  const basis = options.basis ?? defaultScreenBasis;
   const failedGates = failedGateChecks(gate);
-  const screens = evaluateFinancialScreens(options.figures);
-  const failedScreens = screens.filter((item) => item.passed === false);
-  const special = specialStates.find((state) => state.id === options.specialState) ?? null;
+  const screens = evaluateFinancialScreens(options.figures, basis);
+  const failedScreens = screens.filter(
+    (item) => item.screen.kind === "gate" && item.passed === false,
+  );
+  // شرط التداول بالقيمة الاسمية لا يُسقط الأهلية، ويُعرض شرطًا على النتيجة.
+  const tradingAtParOnly = screens.some(
+    (item) => item.screen.kind === "trading" && item.passed === false,
+  );
+  const requested = specialStates.find((state) => state.id === options.specialState) ?? null;
+  // مهلة التصحيح لا تُعالج إلا تجاوز حدود الفرز؛ ولا أثر لها مع إخفاق البوابة أو بلا تجاوز.
+  const remediation =
+    requested?.id === "under_remediation" &&
+    failedGates.length === 0 &&
+    failedScreens.length > 0 &&
+    validRemediationDeadline(options.remediationDeadline, options.now)
+      ? { deadline: options.remediationDeadline as string }
+      : null;
+  const special =
+    requested?.id === "under_remediation" ? (remediation ? requested : null) : requested;
   const flagged = flaggedAxes(scores);
-  // الإخفاق في البوابة أو الفرز حكمٌ قاطع يتقدّم على الحالات الخاصة.
-  if (failedGates.length > 0 || failedScreens.length > 0) {
+  const common = {
+    basis,
+    flagged,
+    failedGates,
+    screens,
+    failedScreens,
+    tradingAtParOnly,
+    remediation,
+  };
+  // الإخفاق في البوابة أو الفرز حكمٌ قاطع يتقدّم على الحالات الخاصة، إلا مهلة التصحيح المعتمدة للفرز.
+  if (failedGates.length > 0 || (failedScreens.length > 0 && !remediation)) {
     return {
       score: 0,
       level: complianceLevelForScore(0),
       band: "non_compliant" as Band,
       verdict: "rejected" as Verdict,
       ineligible: true,
+      ineligibleReason: (failedGates.length > 0 ? "gate" : "screens") as IneligibleReason,
       structuralFailure: true,
-      flagged,
-      failedGates,
-      screens,
-      failedScreens,
       special,
+      ...common,
     };
   }
   const score = weightedScore(scores);
@@ -280,12 +406,10 @@ export function calculateAssessment(
     band,
     verdict: (special?.verdict ?? verdictMatrix[band][risk]) as Verdict,
     ineligible: false,
+    ineligibleReason: null as IneligibleReason | null,
     structuralFailure: score < structuralFailureThreshold,
-    flagged,
-    failedGates,
-    screens,
-    failedScreens,
     special,
+    ...common,
   };
 }
 

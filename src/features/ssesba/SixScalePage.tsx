@@ -17,9 +17,13 @@ import {
   complianceLevelForScore,
   complianceLevels,
   gateChecks,
+  defaultScreenBasis,
   methodologyVersion,
+  screenBases,
+  screenLabel,
   type FinancialFigures,
   type Lang,
+  type ScreenBasis,
 } from "@/lib/ssesba-data";
 import { evaluateCompanySixScale } from "@/lib/ssesba.functions";
 
@@ -36,10 +40,19 @@ const l10n = {
     notes: "ملاحظات استثنائية (سياسات، عقود، بيئة عمل) — اختياري",
     gate: "بوابة الأهلية الملزمة",
     gateNote:
-      "يؤدي فشل أي بند إلى نتيجة صفر ومحظور شرعًا، ولا تعوضه بقية المحاور، ولا يُستدعى الذكاء الاصطناعي.",
+      "يؤدي فشل أي بند إلى نتيجة صفر وحكم «محظور شرعًا»، ولا تعوضه بقية المحاور، ولا يُستدعى الذكاء الاصطناعي.",
     evidence: "الأرقام المالية (اختياري)",
     evidenceNote:
-      "حدود الفرز على نهج معيار أيوفي الشرعي رقم 21. لا يُقيَّم الحد إذا لم يُدخل مقامه.",
+      "حدود الفرز على نهج معيار أيوفي الشرعي رقم 21. تجاوز حدود الديون والودائع والدخل يُسقط الأهلية، وحد السيولة يقيّد التداول فقط. لا يُقيَّم الحد إذا لم يُدخل مقامه.",
+    basis: "مقام نسبتي الديون والودائع",
+    marketCap: "القيمة السوقية",
+    cashAndReceivables: "النقد والذمم المدينة",
+    remediationDeadline: "مهلة تصحيح (اختياري)",
+    remediationHelp:
+      "لمن تجاوز حدود الفرز دون إخفاق في بوابة النشاط: يبقى تحت التصحيح حتى هذا التاريخ، وبحد أقصى 12 شهرًا.",
+    underRemediation: "تحت التصحيح حتى",
+    tradingAtPar:
+      "شرط تداول: غلبت النقود والديون على الموجودات، فلا يُتداول السهم إلا بالقيمة الاسمية. الحد (70%) مقترح ينتظر اعتماد الهيئة.",
     totalAssets: "إجمالي الأصول",
     interestBearingDebt: "الديون الربوية",
     interestBearingDeposits: "الودائع والاستثمارات الربوية",
@@ -100,7 +113,16 @@ const l10n = {
       "Failing any item produces a zero score and prohibited status; axis scores cannot offset it, and no AI call is made.",
     evidence: "Financial figures (optional)",
     evidenceNote:
-      "Screen limits follow AAOIFI Shariah Standard No. 21. A screen is not evaluated when its denominator is empty.",
+      "Screen limits follow AAOIFI Shariah Standard No. 21. Exceeding the debt, deposit or income limit removes eligibility; the liquidity limit only restricts trading. A screen is not evaluated when its denominator is empty.",
+    basis: "Denominator for the debt and deposit ratios",
+    marketCap: "Market capitalization",
+    cashAndReceivables: "Cash and receivables",
+    remediationDeadline: "Remediation deadline (optional)",
+    remediationHelp:
+      "For a company that exceeds screen limits without failing the activity gate: it stays under remediation until this date, at most 12 months away.",
+    underRemediation: "Under remediation until",
+    tradingAtPar:
+      "Trading condition: cash and debts dominate the assets, so the share may only trade at par value. The 70% limit is proposed and awaits board approval.",
     totalAssets: "Total assets",
     interestBearingDebt: "Interest-bearing debt",
     interestBearingDeposits: "Interest-bearing deposits and investments",
@@ -153,7 +175,9 @@ const l10n = {
 type Sector = keyof (typeof l10n)["ar"]["sectors"];
 type SixResult = Awaited<ReturnType<typeof evaluateCompanySixScale>>;
 const figureKeys = [
+  "marketCap",
   "totalAssets",
+  "cashAndReceivables",
   "interestBearingDebt",
   "interestBearingDeposits",
   "totalRevenue",
@@ -183,6 +207,8 @@ export function SixScalePage({ lang }: { lang: Lang }) {
   const [notes, setNotes] = useState("");
   const [gate, setGate] = useState({ riba: true, maysir: true, prohibited: true, gharar: true });
   const [figures, setFigures] = useState<FinancialFigures>({});
+  const [basis, setBasis] = useState<ScreenBasis>(defaultScreenBasis);
+  const [remediationDeadline, setRemediationDeadline] = useState("");
   const [distributedReturn, setDistributedReturn] = useState<number | undefined>(undefined);
   const [method, setMethod] = useState<"ai" | "manual">("ai");
   const [axisScores, setAxisScores] = useState<Record<(typeof axes)[number]["id"], number>>(
@@ -211,6 +237,8 @@ export function SixScalePage({ lang }: { lang: Lang }) {
           lang,
           gate,
           figures,
+          basis,
+          remediationDeadline: remediationDeadline || null,
           distributedReturn: distributedReturn ?? 0,
           method,
           axisScores: method === "manual" ? axisScores : undefined,
@@ -249,8 +277,10 @@ export function SixScalePage({ lang }: { lang: Lang }) {
       `${t.screens}:`,
       ...result.screens.map(
         (item) =>
-          `- ${item.screen[lang]} (≤ ${item.screen.max}%): ${item.ratio === null ? "—" : `${item.ratio}%`}`,
+          `- ${screenLabel(item.screen, result.basis, lang)} (≤ ${item.screen.max}%): ${item.ratio === null ? "—" : `${item.ratio}%`}`,
       ),
+      ...(result.tradingAtParOnly ? [t.tradingAtPar] : []),
+      ...(result.remediation ? [`${t.underRemediation} ${result.remediation.deadline}`] : []),
       "",
       `${t.purification}:`,
       `- ${t.ratio}: ${result.purification.ratio}%`,
@@ -407,6 +437,23 @@ export function SixScalePage({ lang }: { lang: Lang }) {
               <p className="text-xs leading-5 text-muted-foreground md:col-span-2">
                 {t.evidenceNote}
               </p>
+              <div className="md:col-span-2">
+                <label className={label} htmlFor="six-basis">
+                  {t.basis}
+                </label>
+                <select
+                  id="six-basis"
+                  className={field}
+                  value={basis}
+                  onChange={(e) => setBasis(e.target.value as ScreenBasis)}
+                >
+                  {screenBases.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item[lang]}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {figureKeys.map((key) => (
                 <div key={key}>
                   <label className={label} htmlFor={`six-${key}`}>
@@ -438,6 +485,22 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                   value={distributedReturn ?? ""}
                   onChange={(e) => setDistributedReturn(parseAmount(e.target.value))}
                 />
+              </div>
+              <div>
+                <label className={label} htmlFor="six-remediation">
+                  {t.remediationDeadline}
+                </label>
+                <input
+                  id="six-remediation"
+                  className={field}
+                  type="date"
+                  value={remediationDeadline}
+                  onChange={(e) => setRemediationDeadline(e.target.value)}
+                  aria-describedby="six-remediation-help"
+                />
+                <p id="six-remediation-help" className="mt-1 text-xs text-muted-foreground">
+                  {t.remediationHelp}
+                </p>
               </div>
             </fieldset>
             <fieldset className="rounded-md border p-4">
@@ -553,6 +616,11 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                   {result.ineligible && (
                     <div className="mt-2 text-xs opacity-80">{t.ineligible}</div>
                   )}
+                  {result.remediation && (
+                    <div className="mt-2 text-sm font-semibold">
+                      {t.underRemediation} {result.remediation.deadline}
+                    </div>
+                  )}
                   {result.referenceCode && (
                     <div className="mt-3 text-xs">
                       {t.reference}: <b className="font-mono text-sm">{result.referenceCode}</b> ·{" "}
@@ -649,10 +717,10 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                     {result.screens.map((item) => (
                       <li
                         key={item.screen.id}
-                        className={`flex justify-between gap-3 rounded-md border px-3 py-2 ${item.passed === false ? "border-destructive/50 bg-destructive/10 text-destructive" : ""}`}
+                        className={`flex justify-between gap-3 rounded-md border px-3 py-2 ${item.passed === false ? (item.screen.kind === "trading" ? "border-brand-gold/60 bg-brand-parchment text-brand-navy" : "border-destructive/50 bg-destructive/10 text-destructive") : ""}`}
                       >
                         <span>
-                          {item.screen[lang]} (≤ {item.screen.max}%)
+                          {screenLabel(item.screen, result.basis, lang)} (≤ {item.screen.max}%)
                         </span>
                         <span className="font-mono">
                           {item.ratio === null ? "—" : `${item.ratio}%`}
@@ -660,6 +728,11 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                       </li>
                     ))}
                   </ul>
+                  {result.tradingAtParOnly && (
+                    <p className="mt-3 rounded-md border border-brand-gold/60 bg-brand-parchment p-3 text-sm text-brand-navy">
+                      {t.tradingAtPar}
+                    </p>
+                  )}
                   <h2 className="mt-5 text-sm font-semibold text-brand-navy">{t.purification}</h2>
                   <dl className="mt-3 grid grid-cols-2 gap-4 text-sm">
                     <div>
