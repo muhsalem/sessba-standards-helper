@@ -133,12 +133,4 @@ assert.deepEqual(inheritanceChain({ level: "general", key: "purification" }), [
 ]);
 assert.equal(nodeExists({ level: "general", key: "unknown" }), false);
 
-// كل بند في كل مسودة مصنّف بقوة استدلاله.
-for (const draft of [...drafts, ...industryDrafts, ...activityDrafts]) {
-  assert.ok(
-    draft.requirements.every((item) => "strength" in item && item.strength),
-    `بنود ${draft.key} مصنّفة بقوة الاستدلال`,
-  );
-}
-
 console.log("جميع فحوصات معايير التصنيف ناجحة");

@@ -149,48 +149,6 @@ export type Database = {
         }
         Relationships: []
       }
-      assessment_result_snapshots: {
-        Row: {
-          created_at: string
-          id: string
-          ineligible: boolean
-          inputs: Json
-          level: string
-          methodology_version: string
-          reference_code: string
-          run_id: string | null
-          score: number
-          source: string
-          verdict: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          ineligible?: boolean
-          inputs: Json
-          level: string
-          methodology_version: string
-          reference_code?: string
-          run_id?: string | null
-          score: number
-          source: string
-          verdict?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          ineligible?: boolean
-          inputs?: Json
-          level?: string
-          methodology_version?: string
-          reference_code?: string
-          run_id?: string | null
-          score?: number
-          source?: string
-          verdict?: string | null
-        }
-        Relationships: []
-      }
       assessment_objections: {
         Row: {
           created_at: string
@@ -284,6 +242,48 @@ export type Database = {
           sector?: string
           status?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      assessment_result_snapshots: {
+        Row: {
+          created_at: string
+          id: string
+          ineligible: boolean
+          inputs: Json
+          level: string
+          methodology_version: string
+          reference_code: string
+          run_id: string | null
+          score: number
+          source: string
+          verdict: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ineligible?: boolean
+          inputs: Json
+          level: string
+          methodology_version: string
+          reference_code?: string
+          run_id?: string | null
+          score: number
+          source: string
+          verdict?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ineligible?: boolean
+          inputs?: Json
+          level?: string
+          methodology_version?: string
+          reference_code?: string
+          run_id?: string | null
+          score?: number
+          source?: string
+          verdict?: string | null
         }
         Relationships: []
       }
@@ -402,7 +402,15 @@ export type Database = {
           snapshot?: Json
           standard_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "classification_standard_revisions_standard_id_fkey"
+            columns: ["standard_id"]
+            isOneToOne: false
+            referencedRelation: "classification_standards"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       classification_standards: {
         Row: {

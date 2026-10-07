@@ -92,13 +92,6 @@
       "when": 1791020988040,
       "tag": "0012_general_standard_drafts",
       "breakpoints": true
-    },
-    {
-      "idx": 13,
-      "version": "7",
-      "when": 1791021088040,
-      "tag": "0013_requirement_evidence_strength",
-      "breakpoints": true
     }
   ]
 }
