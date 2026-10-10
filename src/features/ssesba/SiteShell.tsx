@@ -95,15 +95,15 @@ export function SiteShell({
             className="flex min-w-0 items-center gap-3"
             title={`${brand[lang].short} — ${brand[lang].full}`}
           >
-            <span className="relative grid size-11 shrink-0 place-items-center rounded-md border border-brand-gold text-brand-gold">
-              <span className="font-display-ar text-xl font-bold">{en ? "S" : "م"}</span>
+            <span className="relative grid size-12 shrink-0 place-items-center rounded-md border border-brand-gold text-brand-gold">
+              <span className="font-display-ar text-2xl font-bold">{en ? "S" : "م"}</span>
               <span className="absolute inset-1 rounded-sm border border-brand-gold/25" />
             </span>
             <span className="min-w-0">
               <b className="block truncate font-display-ar text-xl leading-none">
                 {brand[lang].short}
               </b>
-              <small className="mt-1 block text-[10px] text-brand-gold-soft">
+              <small className="mt-1 block text-xs text-brand-gold-soft">
                 {lang === "en" ? "Shariah classification standards" : brand.ar.acronym}
               </small>
             </span>
@@ -167,7 +167,7 @@ export function SiteShell({
               <span className="h-px w-8 bg-brand-gold" />
               {eyebrow}
             </div>
-            <h1 className="max-w-4xl font-display-ar text-4xl font-semibold leading-tight md:text-6xl">
+            <h1 className="max-w-4xl text-balance font-display-ar text-3xl sm:text-4xl font-semibold leading-tight md:text-6xl">
               {title}
             </h1>
           </div>
@@ -183,15 +183,15 @@ export function SiteShell({
                 ? brand[lang].short
                 : `${brand[lang].short} · ${brand[lang].acronym}`}
             </div>
-            <p className="mt-2 max-w-2xl text-xs leading-6 text-brand-paper/75">
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-brand-paper/80">
               {copy[lang].advisory}
             </p>
-            <p className="mt-2 max-w-2xl text-xs leading-6 text-brand-paper/75">
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-brand-paper/80">
               {en
                 ? "A knowledge endowment for the Muslim ummah; no registered legal waqf deed is claimed."
                 : "وقف معرفي لخدمة الأمة الإسلامية؛ لا يُدّعى به إنشاء صك وقف قانوني مسجل."}
             </p>
-            <div className="mt-3 flex flex-wrap gap-4 text-xs text-brand-gold-soft">
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-brand-gold-soft [&_a]:underline-offset-4 [&_a:hover]:underline">
               <Link to={en ? "/en/waqf" : "/waqf"}>{t.waqf}</Link>
               <Link to={en ? "/en/privacy" : "/privacy"}>{en ? "Privacy" : "الخصوصية"}</Link>
               <Link to={en ? "/en/terms" : "/terms"}>{en ? "Terms" : "الشروط"}</Link>
