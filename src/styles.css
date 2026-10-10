@@ -179,3 +179,9 @@
   background-image: linear-gradient(color-mix(in oklab, var(--brand-navy) 3%, transparent) 1px, transparent 1px);
   background-size: 100% 2.75rem;
 }
+
+@layer base {
+  html { scroll-padding-top: 8rem; }
+  :focus-visible { outline: 2px solid var(--brand-gold); outline-offset: 2px; }
+  p, li { text-wrap: pretty; }
+}
