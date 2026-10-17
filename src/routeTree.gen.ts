@@ -40,6 +40,7 @@ import { Route as EnSixRouteImport } from './routes/en.six'
 import { Route as EnStandardsRouteImport } from './routes/en.standards'
 import { Route as EnTermsRouteImport } from './routes/en.terms'
 import { Route as EnWaqfRouteImport } from './routes/en.waqf'
+import { Route as AuthenticatedEnReviewRouteImport } from './routes/_authenticated/en.review'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -196,6 +197,11 @@ const EnWaqfRoute = EnWaqfRouteImport.update({
   path: '/waqf',
   getParentRoute: () => EnRoute,
 } as any)
+const AuthenticatedEnReviewRoute = AuthenticatedEnReviewRouteImport.update({
+  id: '/en/review',
+  path: '/en/review',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -228,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -260,6 +267,7 @@ export interface FileRoutesByTo {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -294,6 +302,7 @@ export interface FileRoutesById {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/_authenticated/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -328,6 +337,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/en/review'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -360,6 +370,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/en/review'
   id:
     | '__root__'
     | '/'
@@ -393,6 +404,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/_authenticated/en/review'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -634,17 +646,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnWaqfRouteImport
       parentRoute: typeof EnRoute
     }
+    '/_authenticated/en/review': {
+      id: '/_authenticated/en/review'
+      path: '/en/review'
+      fullPath: '/en/review'
+      preLoaderRoute: typeof AuthenticatedEnReviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedGitSyncRoute: typeof AuthenticatedGitSyncRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
+  AuthenticatedEnReviewRoute: typeof AuthenticatedEnReviewRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGitSyncRoute: AuthenticatedGitSyncRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,
+  AuthenticatedEnReviewRoute: AuthenticatedEnReviewRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
