@@ -30,6 +30,7 @@ import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated
 import { Route as AdminStandardsRouteImport } from './routes/admin.standards'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
 import { Route as EnAssistantRouteImport } from './routes/en.assistant'
+import { Route as EnAuthRouteImport } from './routes/en.auth'
 import { Route as EnClassificationStandardsRouteImport } from './routes/en.classification-standards'
 import { Route as EnMapRouteImport } from './routes/en.map'
 import { Route as EnObjectionRouteImport } from './routes/en.objection'
@@ -144,6 +145,11 @@ const EnAssistantRoute = EnAssistantRouteImport.update({
   path: '/assistant',
   getParentRoute: () => EnRoute,
 } as any)
+const EnAuthRoute = EnAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => EnRoute,
+} as any)
 const EnClassificationStandardsRoute =
   EnClassificationStandardsRouteImport.update({
     id: '/classification-standards',
@@ -212,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/auth': typeof EnAuthRoute
   '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
@@ -243,6 +250,7 @@ export interface FileRoutesByTo {
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/auth': typeof EnAuthRoute
   '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
@@ -276,6 +284,7 @@ export interface FileRoutesById {
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/auth': typeof EnAuthRoute
   '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
@@ -309,6 +318,7 @@ export interface FileRouteTypes {
     | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/auth'
     | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
@@ -340,6 +350,7 @@ export interface FileRouteTypes {
     | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/auth'
     | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
@@ -372,6 +383,7 @@ export interface FileRouteTypes {
     | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/auth'
     | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
@@ -552,6 +564,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnAssistantRouteImport
       parentRoute: typeof EnRoute
     }
+    '/en/auth': {
+      id: '/en/auth'
+      path: '/auth'
+      fullPath: '/en/auth'
+      preLoaderRoute: typeof EnAuthRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/en/classification-standards': {
       id: '/en/classification-standards'
       path: '/classification-standards'
@@ -634,6 +653,7 @@ const AuthenticatedRouteRouteWithChildren =
 interface EnRouteChildren {
   EnAssessmentRoute: typeof EnAssessmentRoute
   EnAssistantRoute: typeof EnAssistantRoute
+  EnAuthRoute: typeof EnAuthRoute
   EnClassificationStandardsRoute: typeof EnClassificationStandardsRoute
   EnMapRoute: typeof EnMapRoute
   EnObjectionRoute: typeof EnObjectionRoute
@@ -648,6 +668,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAssessmentRoute: EnAssessmentRoute,
   EnAssistantRoute: EnAssistantRoute,
+  EnAuthRoute: EnAuthRoute,
   EnClassificationStandardsRoute: EnClassificationStandardsRoute,
   EnMapRoute: EnMapRoute,
   EnObjectionRoute: EnObjectionRoute,
