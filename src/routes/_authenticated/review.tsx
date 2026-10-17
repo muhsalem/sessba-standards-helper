@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -85,6 +85,11 @@ function ReviewPage() {
             تسجيل الخروج
           </Button>
         </div>
+        {roles.data?.includes("admin") && (
+          <Link to="/git-sync" className="mt-5 inline-block text-sm underline">
+            أداة تشخيص مزامنة GitHub ←
+          </Link>
+        )}
         {roles.data?.includes("admin") && <GrantRole />}
         {!roles.isLoading && !canReview && (
           <p className="mt-10 border-s-2 border-brand-gold ps-4 leading-8">

@@ -25,6 +25,7 @@ import { Route as SixRouteImport } from './routes/six'
 import { Route as StandardsRouteImport } from './routes/standards'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WaqfRouteImport } from './routes/waqf'
+import { Route as AuthenticatedGitSyncRouteImport } from './routes/_authenticated/git-sync'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as AdminStandardsRouteImport } from './routes/admin.standards'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
@@ -118,6 +119,11 @@ const WaqfRoute = WaqfRouteImport.update({
   path: '/waqf',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedGitSyncRoute = AuthenticatedGitSyncRouteImport.update({
+  id: '/git-sync',
+  path: '/git-sync',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
   id: '/review',
   path: '/review',
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/git-sync': typeof AuthenticatedGitSyncRoute
   '/review': typeof AuthenticatedReviewRoute
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
@@ -231,6 +238,7 @@ export interface FileRoutesByTo {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/git-sync': typeof AuthenticatedGitSyncRoute
   '/review': typeof AuthenticatedReviewRoute
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
@@ -263,6 +271,7 @@ export interface FileRoutesById {
   '/standards': typeof StandardsRoute
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
+  '/_authenticated/git-sync': typeof AuthenticatedGitSyncRoute
   '/_authenticated/review': typeof AuthenticatedReviewRoute
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
@@ -295,6 +304,7 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/git-sync'
     | '/review'
     | '/admin/standards'
     | '/en/assessment'
@@ -325,6 +335,7 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/git-sync'
     | '/review'
     | '/admin/standards'
     | '/en/assessment'
@@ -356,6 +367,7 @@ export interface FileRouteTypes {
     | '/standards'
     | '/terms'
     | '/waqf'
+    | '/_authenticated/git-sync'
     | '/_authenticated/review'
     | '/admin/standards'
     | '/en/assessment'
@@ -505,6 +517,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WaqfRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/git-sync': {
+      id: '/_authenticated/git-sync'
+      path: '/git-sync'
+      fullPath: '/git-sync'
+      preLoaderRoute: typeof AuthenticatedGitSyncRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/review': {
       id: '/_authenticated/review'
       path: '/review'
@@ -600,10 +619,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedGitSyncRoute: typeof AuthenticatedGitSyncRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedGitSyncRoute: AuthenticatedGitSyncRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,
 }
 
