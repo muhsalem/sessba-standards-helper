@@ -30,6 +30,7 @@ import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated
 import { Route as AdminStandardsRouteImport } from './routes/admin.standards'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
 import { Route as EnAssistantRouteImport } from './routes/en.assistant'
+import { Route as EnAuthRouteImport } from './routes/en.auth'
 import { Route as EnClassificationStandardsRouteImport } from './routes/en.classification-standards'
 import { Route as EnMapRouteImport } from './routes/en.map'
 import { Route as EnObjectionRouteImport } from './routes/en.objection'
@@ -39,6 +40,7 @@ import { Route as EnSixRouteImport } from './routes/en.six'
 import { Route as EnStandardsRouteImport } from './routes/en.standards'
 import { Route as EnTermsRouteImport } from './routes/en.terms'
 import { Route as EnWaqfRouteImport } from './routes/en.waqf'
+import { Route as AuthenticatedEnReviewRouteImport } from './routes/_authenticated/en.review'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -144,6 +146,11 @@ const EnAssistantRoute = EnAssistantRouteImport.update({
   path: '/assistant',
   getParentRoute: () => EnRoute,
 } as any)
+const EnAuthRoute = EnAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => EnRoute,
+} as any)
 const EnClassificationStandardsRoute =
   EnClassificationStandardsRouteImport.update({
     id: '/classification-standards',
@@ -190,6 +197,11 @@ const EnWaqfRoute = EnWaqfRouteImport.update({
   path: '/waqf',
   getParentRoute: () => EnRoute,
 } as any)
+const AuthenticatedEnReviewRoute = AuthenticatedEnReviewRouteImport.update({
+  id: '/en/review',
+  path: '/en/review',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -212,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/auth': typeof EnAuthRoute
   '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
@@ -221,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -243,6 +257,7 @@ export interface FileRoutesByTo {
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/auth': typeof EnAuthRoute
   '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
@@ -252,6 +267,7 @@ export interface FileRoutesByTo {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -276,6 +292,7 @@ export interface FileRoutesById {
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
   '/en/assistant': typeof EnAssistantRoute
+  '/en/auth': typeof EnAuthRoute
   '/en/classification-standards': typeof EnClassificationStandardsRoute
   '/en/map': typeof EnMapRoute
   '/en/objection': typeof EnObjectionRoute
@@ -285,6 +302,7 @@ export interface FileRoutesById {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/_authenticated/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -309,6 +327,7 @@ export interface FileRouteTypes {
     | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/auth'
     | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
@@ -318,6 +337,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/en/review'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -340,6 +360,7 @@ export interface FileRouteTypes {
     | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/auth'
     | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
@@ -349,6 +370,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/en/review'
   id:
     | '__root__'
     | '/'
@@ -372,6 +394,7 @@ export interface FileRouteTypes {
     | '/admin/standards'
     | '/en/assessment'
     | '/en/assistant'
+    | '/en/auth'
     | '/en/classification-standards'
     | '/en/map'
     | '/en/objection'
@@ -381,6 +404,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/_authenticated/en/review'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -552,6 +576,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnAssistantRouteImport
       parentRoute: typeof EnRoute
     }
+    '/en/auth': {
+      id: '/en/auth'
+      path: '/auth'
+      fullPath: '/en/auth'
+      preLoaderRoute: typeof EnAuthRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/en/classification-standards': {
       id: '/en/classification-standards'
       path: '/classification-standards'
@@ -615,17 +646,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnWaqfRouteImport
       parentRoute: typeof EnRoute
     }
+    '/_authenticated/en/review': {
+      id: '/_authenticated/en/review'
+      path: '/en/review'
+      fullPath: '/en/review'
+      preLoaderRoute: typeof AuthenticatedEnReviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedGitSyncRoute: typeof AuthenticatedGitSyncRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
+  AuthenticatedEnReviewRoute: typeof AuthenticatedEnReviewRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGitSyncRoute: AuthenticatedGitSyncRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,
+  AuthenticatedEnReviewRoute: AuthenticatedEnReviewRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -634,6 +674,7 @@ const AuthenticatedRouteRouteWithChildren =
 interface EnRouteChildren {
   EnAssessmentRoute: typeof EnAssessmentRoute
   EnAssistantRoute: typeof EnAssistantRoute
+  EnAuthRoute: typeof EnAuthRoute
   EnClassificationStandardsRoute: typeof EnClassificationStandardsRoute
   EnMapRoute: typeof EnMapRoute
   EnObjectionRoute: typeof EnObjectionRoute
@@ -648,6 +689,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAssessmentRoute: EnAssessmentRoute,
   EnAssistantRoute: EnAssistantRoute,
+  EnAuthRoute: EnAuthRoute,
   EnClassificationStandardsRoute: EnClassificationStandardsRoute,
   EnMapRoute: EnMapRoute,
   EnObjectionRoute: EnObjectionRoute,
