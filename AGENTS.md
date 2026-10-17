@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Store public expert participation proposals in `waqf_expert_contributions` through a rate-limited server function; only verified administrators may read or update them, because contributor identities and proposals are private.
+- Git sync diagnostics only analyze user-supplied text through an administrator-authorized, rate-limited server function; never execute Git commands or claim access to Lovable sync status.
