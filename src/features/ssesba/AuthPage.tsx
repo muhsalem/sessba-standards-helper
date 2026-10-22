@@ -71,7 +71,7 @@ export function AuthPage({ lang }: { lang: Lang }) {
   return (
     <SiteShell
       lang={lang}
-      eyebrow=text("حسابات المراجعين والخبراء", "Reviewer and expert accounts")
+      eyebrow={text("حسابات المراجعين والخبراء", "Reviewer and expert accounts")}
       title={mode === "in" ? text("تسجيل الدخول", "Sign in") : text("إنشاء حساب", "Create an account")}
     >
       <section className="mx-auto max-w-md px-5 py-12">
