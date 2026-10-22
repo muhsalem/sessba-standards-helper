@@ -105,7 +105,6 @@ export function ReviewPage({ lang }: { lang: Lang }) {
         )}
         {canReview && (
           <SectorRulesPanel
-            lang={lang}
             canApprove={roles.data?.some((r) => r === "admin" || r === "reviewer") ?? false}
           />
         )}
