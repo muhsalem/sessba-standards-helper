@@ -13,7 +13,7 @@ export function AccountLink({ en }: { en: boolean }) {
   }, []);
   return (
     <Link
-      to={signedIn ? "/review" : "/auth"}
+      to={signedIn ? (en ? "/en/review" : "/review") : (en ? "/en/auth" : "/auth")}
       className="hidden min-h-11 items-center gap-2 rounded-md px-3 text-sm text-brand-paper/85 hover:bg-brand-paper/10 sm:flex"
     >
       <UserRound className="size-4" />
