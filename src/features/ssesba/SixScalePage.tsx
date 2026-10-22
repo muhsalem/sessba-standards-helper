@@ -628,7 +628,7 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                       </div>
                       <h2 className="mt-2 text-xl font-bold text-brand-navy">{companyName}</h2>
                       <div className="mt-3 text-sm">
-                        {t.score}: <b>{result.score} / 100</b>
+                        {t.score}: <b dir="ltr" className="inline-block">{result.score} / 100</b>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2 print:hidden">
@@ -698,7 +698,7 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                                   ({axis.weight}%)
                                 </span>
                               </span>
-                              <span className="font-mono font-bold text-brand-navy">
+                              <span dir="ltr" className="font-mono font-bold text-brand-navy">
                                 {value ?? "—"}
                                 <span className="text-xs font-normal text-muted-foreground">
                                   {" "}
