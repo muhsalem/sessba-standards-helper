@@ -244,7 +244,7 @@ function GrantRole({ lang }: { lang: Lang }) {
         />
       </div>
       <select
-        aria-label=text("الدور", "Role")
+        aria-label={text("الدور", "Role")}
         value={role}
         onChange={(e) => setRole(e.target.value as "reviewer" | "expert")}
         className="h-11 rounded-md border bg-background px-3"

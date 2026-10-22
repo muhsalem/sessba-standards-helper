@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
-  ClipboardCheck,
   Download,
   Loader2,
   Printer,
@@ -74,7 +73,17 @@ const l10n = {
     loading: "يجري التدقيق…",
     result: "نتيجة التقييم",
     score: "الدرجة المرجّحة",
-    level: "المستوى",
+    level: "مستوى الامتثال العددي",
+    levelNote: "يصف الدرجة المرجّحة على المقياس السداسي، ولا يمثّل وحده حكمًا شرعيًا نهائيًا.",
+    noLevel: "لا يُمنح مستوى عند عدم الأهلية",
+    verdict: "الحكم النهائي",
+    pendingVerdict: "بانتظار المراجعة الشرعية وتحديد المخاطر",
+    verdictNote: "يتطلب الحكم الجمع بين مستوى الامتثال ومرتبة المخاطر S1–S4 واعتماد المراجع؛ لا يحدد هذا النموذج مرتبة المخاطر.",
+    rejectedVerdict: "مرفوض — غير مؤهل",
+    rejectedNote: "إخفاق بوابة النشاط أو تجاوز حدود الفرز المالي يمنع قبول النتيجة، مهما كانت درجات المحاور.",
+    remediationVerdict: "تحت التصحيح — مهلة محددة",
+    remediationVerdictNote: "حالة خاصة لتجاوز حدود الفرز المالي؛ ليست اعتمادًا نهائيًا ويُعاد الفرز عند انتهاء المهلة.",
+    loadingNote: "تُراجع بيانات الأهلية والأرقام المالية ودرجات المحاور.",
     axes: "درجات المحاور المقترحة",
     justification: "التبرير الشرعي والمالي",
     plan: "خطة المعالجة والتطهير",
@@ -144,7 +153,17 @@ const l10n = {
     loading: "Auditing…",
     result: "Assessment result",
     score: "Weighted score",
-    level: "Level",
+    level: "Numerical compliance level",
+    levelNote: "Describes the weighted score on the six-level scale; it is not, on its own, a final Shariah verdict.",
+    noLevel: "No level assigned when ineligible",
+    verdict: "Final verdict",
+    pendingVerdict: "Awaiting Shariah review and risk classification",
+    verdictNote: "A verdict combines the compliance level with risk tier S1–S4 and reviewer approval. This form does not determine a risk tier.",
+    rejectedVerdict: "Rejected — ineligible",
+    rejectedNote: "A failed activity gate or exceeded financial screen prevents acceptance, regardless of axis scores.",
+    remediationVerdict: "Under remediation — fixed deadline",
+    remediationVerdictNote: "A special status for exceeded financial screens, not final approval. Re-screening is required when the deadline expires.",
+    loadingNote: "Reviewing eligibility data, financial figures, and axis scores.",
     axes: "Proposed axis scores",
     justification: "Shariah and financial justification",
     plan: "Remediation and purification plan",
@@ -221,6 +240,27 @@ export function SixScalePage({ lang }: { lang: Lang }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<SixResult | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!result) return;
+    resultRef.current?.focus({ preventScroll: true });
+    resultRef.current?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+      block: "start",
+    });
+  }, [result]);
+
+  const finalVerdict = result?.ineligible
+    ? t.rejectedVerdict
+    : result?.remediation
+      ? t.remediationVerdict
+      : t.pendingVerdict;
+  const verdictNote = result?.ineligible
+    ? t.rejectedNote
+    : result?.remediation
+      ? t.remediationVerdictNote
+      : t.verdictNote;
 
   const submit = async () => {
     setBusy(true);
@@ -260,7 +300,10 @@ export function SixScalePage({ lang }: { lang: Lang }) {
       `${t.company}: ${companyName}`,
       `${t.sector}: ${t.sectors[sector]}`,
       `${t.score}: ${result.score} / 100`,
-      `${t.level}: ${result.level}`,
+      `${t.level}: ${result.ineligible ? t.noLevel : result.level}`,
+      t.levelNote,
+      `${t.verdict}: ${finalVerdict}`,
+      verdictNote,
       ...(result.ineligible ? [t.ineligible] : []),
       ...(result.referenceCode ? [`${t.reference}: ${result.referenceCode}`] : []),
       `${t.version}: ${methodologyVersion}`,
@@ -336,7 +379,7 @@ export function SixScalePage({ lang }: { lang: Lang }) {
           ))}
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr]">
+        <div className={`mt-8 grid items-start gap-6 ${result ? "lg:grid-cols-2" : "mx-auto max-w-4xl"}`}>
           <form
             className="grid gap-4 rounded-lg border border-brand-gold/30 bg-card p-6 shadow-sm"
             onSubmit={(e) => {
@@ -564,18 +607,16 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                 {error}
               </p>
             )}
-          </form>
-
-          <div aria-live="polite" aria-atomic="true">
-            {!result && !busy && (
-              <div className="grid h-full min-h-64 place-items-center rounded-lg border border-dashed border-brand-gold/40 bg-brand-parchment/40 p-8 text-center text-sm text-muted-foreground">
-                <div>
-                  <ClipboardCheck className="mx-auto mb-3 size-8 text-brand-gold" />
-                  {t.intro}
-                </div>
+            {busy && (
+              <div role="status" className="flex items-center gap-3 border-s-2 border-brand-gold px-4 py-2 text-sm text-muted-foreground">
+                <Loader2 className="size-5 shrink-0 animate-spin motion-reduce:animate-none text-brand-gold" aria-hidden="true" />
+                <div><strong className="block text-brand-navy">{t.loading}</strong>{t.loadingNote}</div>
               </div>
             )}
-            {result && (
+          </form>
+
+          {result && (
+          <div ref={resultRef} tabIndex={-1} aria-label={t.result} className="scroll-mt-32 focus:outline-none">
               <div className="grid gap-4">
                 <div
                   className={`rounded-lg border-2 p-6 ${levelTone(result.score, result.ineligible)}`}
@@ -585,8 +626,8 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                       <div className="text-xs font-semibold uppercase tracking-wide opacity-80">
                         {t.result}
                       </div>
-                      <div className="mt-2 font-display-ar text-3xl font-bold">{result.level}</div>
-                      <div className="mt-1 text-sm">
+                      <h2 className="mt-2 text-xl font-bold text-brand-navy">{companyName}</h2>
+                      <div className="mt-3 text-sm">
                         {t.score}: <b>{result.score} / 100</b>
                       </div>
                     </div>
@@ -613,6 +654,11 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                       </Button>
                     </div>
                   </div>
+                  <div className="mt-5 border-t border-current/20 pt-4">
+                    <h3 className="text-sm font-semibold">{t.level}</h3>
+                    <p className="mt-1 text-2xl font-bold leading-snug">{result.ineligible ? t.noLevel : result.level}</p>
+                    <p className="mt-2 text-sm leading-6 text-foreground">{result.ineligible ? result.level : t.levelNote}</p>
+                  </div>
                   {result.ineligible && (
                     <div className="mt-2 text-xs opacity-80">{t.ineligible}</div>
                   )}
@@ -628,6 +674,12 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                     </div>
                   )}
                 </div>
+                <section className={`border-s-4 p-5 ${result.ineligible ? "border-destructive bg-destructive/10" : "border-brand-gold bg-brand-parchment"}`} aria-label={t.verdict}>
+                  <h3 className="flex items-center gap-2 text-sm font-semibold text-brand-navy"><ShieldAlert className="size-5 shrink-0" aria-hidden="true" />{t.verdict}</h3>
+                  <p className="mt-2 text-xl font-bold leading-snug text-brand-navy">{finalVerdict}</p>
+                  <p className="mt-2 text-sm leading-7 text-foreground">{verdictNote}</p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{t.advisory}</p>
+                </section>
                 {result.axisScores && (
                   <div className="rounded-lg border border-border bg-card p-5">
                     <h2 className="text-sm font-semibold text-brand-navy">{t.axes}</h2>
@@ -763,8 +815,8 @@ export function SixScalePage({ lang }: { lang: Lang }) {
                 )}
                 <p className="text-xs leading-6 text-muted-foreground">{t.advisory}</p>
               </div>
-            )}
           </div>
+          )}
         </div>
       </section>
     </SiteShell>
