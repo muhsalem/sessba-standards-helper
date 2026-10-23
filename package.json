@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
-    "test": "bun run src/lib/ssesba-data.check.ts && bun run src/lib/classification-standards.check.ts && bun run src/lib/git-sync-data.check.ts"
+    "test": "bun run src/lib/ssesba-data.check.ts && bun run src/lib/classification-standards.check.ts && bun run src/lib/git-sync-data.check.ts && bun run src/lib/reviewer-models.check.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"

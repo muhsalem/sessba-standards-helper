@@ -26,6 +26,7 @@ import { Route as StandardsRouteImport } from './routes/standards'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WaqfRouteImport } from './routes/waqf'
 import { Route as AuthenticatedGitSyncRouteImport } from './routes/_authenticated/git-sync'
+import { Route as AuthenticatedModelsRouteImport } from './routes/_authenticated/models'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as AdminStandardsRouteImport } from './routes/admin.standards'
 import { Route as EnAssessmentRouteImport } from './routes/en.assessment'
@@ -40,6 +41,7 @@ import { Route as EnSixRouteImport } from './routes/en.six'
 import { Route as EnStandardsRouteImport } from './routes/en.standards'
 import { Route as EnTermsRouteImport } from './routes/en.terms'
 import { Route as EnWaqfRouteImport } from './routes/en.waqf'
+import { Route as AuthenticatedEnModelsRouteImport } from './routes/_authenticated/en.models'
 import { Route as AuthenticatedEnReviewRouteImport } from './routes/_authenticated/en.review'
 
 const IndexRoute = IndexRouteImport.update({
@@ -126,6 +128,11 @@ const AuthenticatedGitSyncRoute = AuthenticatedGitSyncRouteImport.update({
   path: '/git-sync',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedModelsRoute = AuthenticatedModelsRouteImport.update({
+  id: '/models',
+  path: '/models',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
   id: '/review',
   path: '/review',
@@ -197,6 +204,11 @@ const EnWaqfRoute = EnWaqfRouteImport.update({
   path: '/waqf',
   getParentRoute: () => EnRoute,
 } as any)
+const AuthenticatedEnModelsRoute = AuthenticatedEnModelsRouteImport.update({
+  id: '/en/models',
+  path: '/en/models',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedEnReviewRoute = AuthenticatedEnReviewRouteImport.update({
   id: '/en/review',
   path: '/en/review',
@@ -220,6 +232,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
   '/git-sync': typeof AuthenticatedGitSyncRoute
+  '/models': typeof AuthenticatedModelsRoute
   '/review': typeof AuthenticatedReviewRoute
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
@@ -234,6 +247,7 @@ export interface FileRoutesByFullPath {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/en/models': typeof AuthenticatedEnModelsRoute
   '/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRoutesByTo {
@@ -253,6 +267,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
   '/git-sync': typeof AuthenticatedGitSyncRoute
+  '/models': typeof AuthenticatedModelsRoute
   '/review': typeof AuthenticatedReviewRoute
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
@@ -267,6 +282,7 @@ export interface FileRoutesByTo {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/en/models': typeof AuthenticatedEnModelsRoute
   '/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRoutesById {
@@ -288,6 +304,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/waqf': typeof WaqfRoute
   '/_authenticated/git-sync': typeof AuthenticatedGitSyncRoute
+  '/_authenticated/models': typeof AuthenticatedModelsRoute
   '/_authenticated/review': typeof AuthenticatedReviewRoute
   '/admin/standards': typeof AdminStandardsRoute
   '/en/assessment': typeof EnAssessmentRoute
@@ -302,6 +319,7 @@ export interface FileRoutesById {
   '/en/standards': typeof EnStandardsRoute
   '/en/terms': typeof EnTermsRoute
   '/en/waqf': typeof EnWaqfRoute
+  '/_authenticated/en/models': typeof AuthenticatedEnModelsRoute
   '/_authenticated/en/review': typeof AuthenticatedEnReviewRoute
 }
 export interface FileRouteTypes {
@@ -323,6 +341,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/waqf'
     | '/git-sync'
+    | '/models'
     | '/review'
     | '/admin/standards'
     | '/en/assessment'
@@ -337,6 +356,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/en/models'
     | '/en/review'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -356,6 +376,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/waqf'
     | '/git-sync'
+    | '/models'
     | '/review'
     | '/admin/standards'
     | '/en/assessment'
@@ -370,6 +391,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/en/models'
     | '/en/review'
   id:
     | '__root__'
@@ -390,6 +412,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/waqf'
     | '/_authenticated/git-sync'
+    | '/_authenticated/models'
     | '/_authenticated/review'
     | '/admin/standards'
     | '/en/assessment'
@@ -404,6 +427,7 @@ export interface FileRouteTypes {
     | '/en/standards'
     | '/en/terms'
     | '/en/waqf'
+    | '/_authenticated/en/models'
     | '/_authenticated/en/review'
   fileRoutesById: FileRoutesById
 }
@@ -548,6 +572,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedGitSyncRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/models': {
+      id: '/_authenticated/models'
+      path: '/models'
+      fullPath: '/models'
+      preLoaderRoute: typeof AuthenticatedModelsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/review': {
       id: '/_authenticated/review'
       path: '/review'
@@ -646,6 +677,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnWaqfRouteImport
       parentRoute: typeof EnRoute
     }
+    '/_authenticated/en/models': {
+      id: '/_authenticated/en/models'
+      path: '/en/models'
+      fullPath: '/en/models'
+      preLoaderRoute: typeof AuthenticatedEnModelsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/en/review': {
       id: '/_authenticated/en/review'
       path: '/en/review'
@@ -658,13 +696,17 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedGitSyncRoute: typeof AuthenticatedGitSyncRoute
+  AuthenticatedModelsRoute: typeof AuthenticatedModelsRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
+  AuthenticatedEnModelsRoute: typeof AuthenticatedEnModelsRoute
   AuthenticatedEnReviewRoute: typeof AuthenticatedEnReviewRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGitSyncRoute: AuthenticatedGitSyncRoute,
+  AuthenticatedModelsRoute: AuthenticatedModelsRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,
+  AuthenticatedEnModelsRoute: AuthenticatedEnModelsRoute,
   AuthenticatedEnReviewRoute: AuthenticatedEnReviewRoute,
 }
 
