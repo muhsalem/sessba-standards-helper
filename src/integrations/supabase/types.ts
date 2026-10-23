@@ -597,6 +597,48 @@ export type Database = {
         }
         Relationships: []
       }
+      reviewer_assessment_files: {
+        Row: {
+          created_at: string
+          id: string
+          language: string
+          methodology_version: string
+          owner_user_id: string
+          payload: Json
+          result: Json | null
+          template_key: string
+          title: string
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language?: string
+          methodology_version: string
+          owner_user_id?: string
+          payload?: Json
+          result?: Json | null
+          template_key: string
+          title: string
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language?: string
+          methodology_version?: string
+          owner_user_id?: string
+          payload?: Json
+          result?: Json | null
+          template_key?: string
+          title?: string
+          updated_at?: string
+          version?: number
+        }
+        Relationships: []
+      }
       sector_rules: {
         Row: {
           approved_at: string | null
