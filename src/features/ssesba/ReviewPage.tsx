@@ -73,6 +73,7 @@ export function ReviewPage({ lang }: { lang: Lang }) {
           </Button>
         </div>
         <nav aria-label={text("التقييمات", "Assessments")} className="mt-5 flex flex-wrap gap-4 text-sm underline">
+          <Link to={en ? "/en/models" : "/models"}>{text("نماذج التقييم ووثائقها", "Assessment models and documents")}</Link>
           <Link to={en ? "/en/six" : "/six"}>{text("تقييم الشركة السداسي", "Six-level company assessment")}</Link>
           <Link to={en ? "/en/assessment" : "/assessment"}>{text("التقييم المرجّح", "Weighted assessment")}</Link>
         </nav>

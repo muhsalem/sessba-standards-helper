@@ -5,6 +5,7 @@ export const siteUrl = "https://ssesba.lovable.app";
 const arToEn: Record<string, string> = {
   "/": "/en",
   "/assessment": "/en/assessment",
+  "/models": "/en/models",
   "/six": "/en/six",
   "/assistant": "/en/assistant",
   "/request": "/en/request",

@@ -11,3 +11,4 @@
 
 - Store public expert participation proposals in `waqf_expert_contributions` through a rate-limited server function; only verified administrators may read or update them, because contributor identities and proposals are private.
 - Git sync diagnostics only analyze user-supplied text through an administrator-authorized, rate-limited server function; never execute Git commands or claim access to Lovable sync status.
+- Reviewer assessment files use authenticated server functions and owner-scoped RLS; keep templates and validation in a shared browser-safe module so saved documents and deterministic calculations stay consistent. Save edits with optimistic version checks and recompute results server-side; drafts must never retain a stale calculated result.
